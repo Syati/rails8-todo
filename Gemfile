@@ -19,9 +19,9 @@ gem "bootsnap", require: false
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", ">= 2.1"
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
+gem "solid_cable"
 gem "solid_cache"
 gem "solid_queue"
-gem "solid_cable"
 
 # Frontend assets
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
@@ -53,9 +53,9 @@ group :development, :test do
   gem "brakeman", require: false
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
-  gem "rubocop-rails-omakase", require: false
-  gem "rubocop-rails", require: false
   gem "rubocop-factory_bot", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rails-omakase", require: false
   gem "rubocop-rbs_inline", require: false
   gem "rubocop-rspec", require: false
 
