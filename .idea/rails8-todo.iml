@@ -117,7 +117,7 @@
     <orderEntry type="library" scope="PROVIDED" name="rdoc (v6.15.1, mise: 3.4.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="regexp_parser (v2.11.3, mise: 3.4.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="reline (v0.6.2, mise: 3.4.7) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="responders (v3.1.1, mise: 3.4.7) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="responders (v3.2.0, mise: 3.4.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rexml (v3.4.4, mise: 3.4.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop (v1.81.7, mise: 3.4.7) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rubocop-ast (v1.47.1, mise: 3.4.7) [gem]" level="application" />

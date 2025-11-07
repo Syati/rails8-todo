@@ -1,8 +1,59 @@
 # Omakase Ruby styling for Rails
 inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 
-# Overwrite or add rules to create your own house style
-#
-# # Use `[a, [b, c]]` not `[ a, [ b, c ] ]`
-# Layout/SpaceInsideArrayLiteralBrackets:
-#   Enabled: false
+plugins:
+  - rubocop-rspec
+  - rubocop-factory_bot
+  - rubocop-rbs_inline
+
+AllCops:
+  NewCops: enable
+
+#################### Bundler ###########################
+Bundler:
+  Enabled: true
+#################### LINT ###########################
+Lint:
+  Enabled: true
+#################### RAILS ###########################
+Rails:
+  Enabled: true
+Rails/ApplicationRecord:
+  Enabled: false
+#################### SECURITY ###########################
+Security:
+  Enabled: true
+#################### RSPEC ###########################
+RSpec:
+  Enabled: true
+RSpec/NestedGroups:
+  Max: 4
+RSpec/MultipleExpectations:
+  Max: 5
+RSpec/ExampleLength:
+  Max: 10
+
+#################### RBS_INLINE ###########################
+Layout/LeadingCommentSpace:
+  AllowRBSInlineAnnotation: true
+
+Layout/CaseIndentation:
+  EnforcedStyle: case
+
+Layout/EndAlignment:
+  EnforcedStyleAlignWith: keyword
+
+Style/RbsInline/InvalidComment:
+  Enabled: true
+
+Style/RbsInline/InvalidTypes:
+  Enabled: true
+
+Style/RbsInline/KeywordSeparator:
+  Enabled: true
+
+Style/RbsInline/ParametersSeparator:
+  Enabled: true
+
+Style/RbsInline/UnmatchedAnnotations:
+  Enabled: true
