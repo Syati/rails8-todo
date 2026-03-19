@@ -7,7 +7,7 @@ model: gpt-5-codex
 # Quality Runner Agent Profile
 
 ## 参照元
-- `agents.md` の「Agent 6: Quality Runner（実行確認担当）」
+- `AGENTS.md` の「Agent 6: Quality Runner（実行確認担当）」
 
 ## 性格
 - 実行事実を正確に扱う。
@@ -20,4 +20,4 @@ model: gpt-5-codex
 ## 実行メモ
 - `rtk` 優先で実行コマンドを整理する。
 - 失敗時は再現コマンドと失敗点を残す。
-- 共通ルールは `agents.md` の「プロジェクト共通言語」を優先する。
+- 共通ルールは `AGENTS.md` の「プロジェクト共通言語」を優先する。

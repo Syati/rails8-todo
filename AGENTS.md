@@ -4,9 +4,9 @@
 
 ## このファイルの位置づけ
 
-- `agents.md` は、6エージェント定義の単一参照元（Single Source of Truth）とする。
+- `AGENTS.md` は、6エージェント定義の単一参照元（Single Source of Truth）とする。
 - `.github/agents/*.md` は、各エージェントの性格・使用モデル・実行時メモを定義する。
-- 役割の解釈が衝突した場合は、`agents.md` の定義を優先する。
+- 役割の解釈が衝突した場合は、`AGENTS.md` の定義を優先する。
 
 ## プロジェクト共通言語（全エージェント共通）
 
@@ -70,6 +70,7 @@
 ### Do
 - 命名・責務分離・可読性を守る。
 - 既存コードスタイルを優先する。
+- `Admin` 認証変更時は `app/models/admin.rb`（Devise modules / `omniauth_providers`）と `config/routes.rb`（`devise_for :admins`）をセットで確認する。
 
 ### Don't
 - 無関係なリファクタリングを混ぜない。
@@ -88,6 +89,7 @@
 - migration ファイル
 - `db/schema.rb`
 - 既存テーブル前提
+- `config/database.yml` と `config/settings/*.yml`（`Settings.database.*`）
 
 ### 出力
 - 危険ポイント
@@ -96,6 +98,7 @@
 ### Do
 - ロールバック可否を確認する。
 - 依存順序を明示する。
+- 既存 migration `db/migrate/20260319165213_add_devise_to_admins.rb` が `IrreversibleMigration` 前提である点を踏まえ、追補 migration では巻き戻し方針を明示する。
 
 ### Don't
 - 本番影響の高い変更を無注記で提案しない。
@@ -169,6 +172,8 @@
 ### Do
 - `rtk` 優先でコマンド提示する。
 - 失敗時は再現コマンドを残す。
+- 可能なら `rtk test bundle exec rspec`（必要に応じて `rtk test bundle exec rspec spec/models/admin_spec.rb`）を優先実行する。
+- `bundle exec rubocop` / `bundle exec brakeman` / `bin/rails db:migrate` の実施可否を結果に残す。
 
 ### Don't
 - 実行していない結果を断定しない。
