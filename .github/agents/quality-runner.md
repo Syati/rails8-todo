@@ -1,3 +1,9 @@
+---
+name: quality-runner
+description: コマンド実行と品質チェック結果整理の担当
+model: gpt-5-codex
+---
+
 # Quality Runner Agent Profile
 
 ## 参照元

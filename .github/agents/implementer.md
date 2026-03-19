@@ -1,3 +1,9 @@
+---
+name: implementer
+description: Rails 8 実装担当（最小差分・既存設計尊重）
+model: claude-sonnet-4.6
+---
+
 # Rails Implementer Agent Profile
 
 ## 参照元

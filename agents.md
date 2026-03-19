@@ -197,7 +197,7 @@
 ## 個別エージェントファイル対応
 
 - Agent 1: `.github/agents/planner.md`
-- Agent 2: `.github/agents/rails-implementer.md`
+- Agent 2: `.github/agents/implementer.md`
 - Agent 3: `.github/agents/migration-guardian.md`
 - Agent 4: `.github/agents/test-writer.md`
 - Agent 5: `.github/agents/security-reviewer.md`

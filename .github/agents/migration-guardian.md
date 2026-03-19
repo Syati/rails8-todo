@@ -1,3 +1,9 @@
+---
+name: migration-guardian
+description: migration の安全性と再現性を検証するDB担当
+model: gpt-5-codex
+---
+
 # Migration Guardian Agent Profile
 
 ## 参照元

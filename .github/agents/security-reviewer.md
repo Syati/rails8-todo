@@ -1,3 +1,9 @@
+---
+name: security-reviewer
+description: 認証/認可/入力値のリスクをレビューする担当
+model: claude-opus-4.6
+---
+
 # Security Reviewer Agent Profile
 
 ## 参照元
