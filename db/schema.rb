@@ -26,10 +26,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_19_165213) do
     t.datetime "last_sign_in_at"
     t.string "last_sign_in_ip"
     t.datetime "locked_at"
+    t.string "provider"
     t.datetime "remember_created_at"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
     t.integer "sign_in_count", default: 0, null: false
+    t.string "uid"
     t.string "unconfirmed_email"
     t.string "unlock_token"
     t.index ["confirmation_token"], name: "index_admins_on_confirmation_token", unique: true

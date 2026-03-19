@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :admins
+  devise_for :admins, controllers: {
+    sessions: "admins/sessions",
+    omniauth_callbacks: 'admins/omniauth_callbacks' # コールバック用
+  }, omniauth_providers: [:developer]
+
+  get 'auth/:provider/callback', to: 'sessions#create'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
