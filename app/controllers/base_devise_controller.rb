@@ -1,3 +1,3 @@
 class BaseDeviseController < ApplicationController
-  layout "admin_auth"
+  layout "auth"
 end
