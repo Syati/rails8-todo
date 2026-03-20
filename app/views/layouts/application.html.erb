@@ -17,12 +17,17 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag "adminlte.min", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="layout-fixed sidebar-expand-lg bg-body-tertiary sidebar-mini">
+    <div class="app-wrapper">
+      <%= render "layouts/application/header" %>
+      <%= render "layouts/application/sidebar" %>
+      <%= render "layouts/application/main", content: capture { yield } %>
+      <%= render "layouts/application/footer" %>
+    </div>
   </body>
 </html>

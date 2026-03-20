@@ -1,0 +1,17 @@
+<main class="app-main">
+  <div class="app-content-header">
+    <div class="container-fluid">
+      <% flash.each do |key, message| %>
+        <div class="alert alert-<%= key == "notice" ? "success" : "danger" %> mb-2" role="alert">
+          <%= message %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="app-content">
+    <div class="container-fluid py-2">
+      <%= content %>
+    </div>
+  </div>
+</main>
