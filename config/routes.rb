@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :admins, controllers: {
-    sessions: "admins/sessions",
-    omniauth_callbacks: 'admins/omniauth_callbacks' # コールバック用
+  devise_for :admins, path: 'auth', controllers: {
+    omniauth_callbacks: 'omniauth_callbacks' # コールバック用
   }, omniauth_providers: [:developer]
 
   get 'auth/:provider/callback', to: 'sessions#create'

@@ -1,4 +1,4 @@
-class Admins::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def developer
     # You need to implement the method below in your model (e.g. app/models/user.rb)
     @user = Admin.from_omniauth(request.env["omniauth.auth"])
