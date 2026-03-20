@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letter_opener"
   devise_for :admins, path: 'auth', controllers: {
     omniauth_callbacks: 'omniauth_callbacks' # コールバック用
   }, omniauth_providers: [:developer]

@@ -55,6 +55,7 @@ group :development, :test do
   gem "brakeman", require: false
 
   gem "annotaterb", require: false
+  gem 'letter_opener_web'
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop", require: false
