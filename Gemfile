@@ -23,6 +23,15 @@ gem "solid_cable"
 gem "solid_cache"
 gem "solid_queue"
 
+# Authentication
+gem "devise"
+gem 'devise-i18n'
+gem "omniauth"
+gem 'omniauth-rails_csrf_protection'
+
+# Form
+gem "simple_form"
+
 # Frontend assets
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
@@ -35,16 +44,14 @@ gem "stimulus-rails"
 # scss
 gem "dartsass-rails", "~> 0.5.1"
 
-# Application assets
-gem "devise"
-gem "omniauth"
-gem 'omniauth-rails_csrf_protection'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
+
+
 
 
 
