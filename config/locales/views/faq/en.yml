@@ -1,0 +1,20 @@
+en:
+  faq:
+    index:
+      title: "FAQ"
+      confirmation:
+        question: "I didn't receive a confirmation email"
+        answer: "Please check your spam folder. If you still can't find it, you can resend the confirmation email using the button below."
+        resend_link: "Resend confirmation email"
+      unlock:
+        question: "My account is locked"
+        answer: "Your account is locked due to multiple failed login attempts for security reasons. You can request an unlock email using the button below."
+        unlock_link: "Send unlock email"
+      password:
+        question: "I forgot my password"
+        answer: "We'll send you a password reset email. You can set a new password using the link in the email."
+        reset_link: "Reset password"
+      support:
+        question: "Other inquiries"
+        answer_html: "If the above doesn't solve your issue, please contact our <a href='mailto:support@example.com'>support team</a>."
+      back_to_login: "Back to login"
