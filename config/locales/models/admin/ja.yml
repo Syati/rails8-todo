@@ -1,0 +1,5 @@
+ja:
+  activerecord:
+    models:
+      admin: スタッフ
+    attributes:
