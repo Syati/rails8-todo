@@ -1,35 +1,60 @@
-<h2><%= t(".title", resource: devise_i18n_fix_model_name_case(resource.model_name.human, i18n_key: "registrations.edit.title")) %></h2>
+<% content_for :title, t(".title", resource: devise_i18n_fix_model_name_case(resource.model_name.human, i18n_key: "registrations.edit.title")) %>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
-
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p><%= t(".currently_waiting_confirmation_for_email", email: resource.unconfirmed_email) %></p>
-    <% end %>
-
-    <%= f.input :password,
-                hint: t(".leave_blank_if_you_don_t_want_to_change_it"),
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                required: false,
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :current_password,
-                hint: t(".we_need_your_current_password_to_confirm_your_changes"),
-                required: true,
-                input_html: { autocomplete: "current-password" } %>
+<div class="card card-primary">
+  <div class="card-header">
+    <h3 class="card-title"><%= t(".title", resource: devise_i18n_fix_model_name_case(resource.model_name.human, i18n_key: "registrations.edit.title")) %></h3>
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, t(".update") %>
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="card-body">
+      <%= f.input :email,
+                 required: true,
+                 autofocus: true,
+                 input_html: { class: "form-control" } %>
+
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <div class="alert alert-info">
+          <%= t(".currently_waiting_confirmation_for_email", email: resource.unconfirmed_email) %>
+        </div>
+      <% end %>
+
+      <%= f.input :password,
+                 hint: t(".leave_blank_if_you_don_t_want_to_change_it"),
+                 required: false,
+                 input_html: { autocomplete: "new-password", class: "form-control" } %>
+
+      <%= f.input :password_confirmation,
+                 required: false,
+                 input_html: { autocomplete: "new-password", class: "form-control" } %>
+
+      <%= f.input :current_password,
+                 hint: t(".we_need_your_current_password_to_confirm_your_changes"),
+                 required: true,
+                 input_html: { autocomplete: "current-password", class: "form-control" } %>
+    </div>
+
+    <div class="card-footer">
+      <%= f.button :submit, t(".update"), class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="card card-danger mt-3">
+  <div class="card-header">
+    <h3 class="card-title"><%= t(".cancel_my_account") %></h3>
   </div>
-<% end %>
+  <div class="card-body">
+    <p><%= t(".unhappy") %></p>
+    <%= button_to t(".cancel_my_account"),
+                 registration_path(resource_name),
+                 data: { confirm: t(".are_you_sure"), turbo_confirm: t(".are_you_sure") },
+                 method: :delete,
+                 class: "btn btn-danger" %>
+  </div>
+</div>
 
-<h3><%= t(".cancel_my_account") %></h3>
-
-<div><%= t(".unhappy") %> <%= button_to t(".cancel_my_account"), registration_path(resource_name), data: { confirm: t(".are_you_sure"), turbo_confirm: t(".are_you_sure") }, method: :delete %></div>
-
-<%= link_to t("devise.shared.links.back"), :back %>
+<div class="mt-3">
+  <%= link_to t("devise.shared.links.back"), :back, class: "btn btn-secondary" %>
+</div>
