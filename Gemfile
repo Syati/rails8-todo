@@ -43,6 +43,8 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # scss
 gem "dartsass-rails", "~> 0.5.1"
+# Bootstrap
+gem "bootstrap", "~> 5.3"
 
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
