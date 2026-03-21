@@ -217,3 +217,6 @@ build-iPhoneSimulator/
 # intelij
 
 .idea
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
