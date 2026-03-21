@@ -17,4 +17,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   root "dashboard#index"
+
+  # Silently handle Chrome DevTools discovery requests
+  get ".well-known/appspecific/*path", to: proc { [204, {}, []] }
 end
