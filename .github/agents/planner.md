@@ -20,5 +20,7 @@ model: claude-opus-4.6
 ## 実行メモ
 - 出力はチェックリスト中心。
 - 出力方法は gherkin 手法で記述し、feature ごとに `.md` を作成して `docs/requirements` に配置する。
+- Gherkin の予約語（`Feature` / `Background` / `Scenario` / `Given` / `When` / `Then` / `And`）は英語で記述する。
+- Gherkin の予約語以外の本文（機能名・シナリオ名・説明文）は日本語で記述する。
 - 実装コードは原則書かず、段取りとリスクに集中する。
 - 共通ルールは `AGENTS.md` の「プロジェクト共通言語」を優先する。
