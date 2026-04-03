@@ -23,6 +23,7 @@
 - 基本例: `rtk git status`, `rtk ls`, `rtk grep "keyword" .`, `rtk test bundle exec rspec`
 - `rtk grep` 構文: `rtk grep [OPTIONS] <PATTERN> [PATH] [EXTRA_ARGS]...`
 - `rg` 由来オプションは `--` の後ろに置く（例: `rtk grep "admin" . -- -i -A 3`）
+- ツール実行時は `~/.local/share/mise/shims` 経由のコマンドを優先して利用する。
 - `make` コマンドを使う場合も、実行内容と前提条件（依存サービス起動の要否）を明示する。
 - 少なくとも DB を利用するコマンド（`db:migrate` / test 等）実行前は `docker compose` で DB コンテナを起動しておく。
 
