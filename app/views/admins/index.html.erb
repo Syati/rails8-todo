@@ -1,0 +1,47 @@
+<div class="card">
+  <div class="card-header">
+    <h1 class="card-title mb-0">管理者一覧</h1>
+  </div>
+
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-striped mb-0">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Email</th>
+            <th>状態</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @admins.each do |admin| %>
+            <tr>
+              <td><%= admin.id %></td>
+              <td><%= admin.email %></td>
+              <td>
+                <% if admin.locked_at.present? %>
+                  <span class="badge text-bg-danger">ロック中</span>
+                <% else %>
+                  <span class="badge text-bg-success">有効</span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card-footer d-flex justify-content-between">
+    <div>
+      <% if @page > 1 %>
+        <%= link_to "前へ", admins_path(page: @page - 1), class: "btn btn-outline-secondary btn-sm" %>
+      <% end %>
+    </div>
+    <div>
+      <% if @has_next_page %>
+        <%= link_to "次へ", admins_path(page: @page + 1), class: "btn btn-outline-secondary btn-sm" %>
+      <% end %>
+    </div>
+  </div>
+</div>
