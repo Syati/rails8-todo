@@ -23,163 +23,47 @@
 - 基本例: `rtk git status`, `rtk ls`, `rtk grep "keyword" .`, `rtk test bundle exec rspec`
 - `rtk grep` 構文: `rtk grep [OPTIONS] <PATTERN> [PATH] [EXTRA_ARGS]...`
 - `rg` 由来オプションは `--` の後ろに置く（例: `rtk grep "admin" . -- -i -A 3`）
+- `make` コマンドを使う場合も、実行内容と前提条件（依存サービス起動の要否）を明示する。
+- 少なくとも DB を利用するコマンド（`db:migrate` / test 等）実行前は `docker compose` で DB コンテナを起動しておく。
 
-## Agent 1: Planner（計画担当）
+### make 運用ルール
 
-### 役割
-- 要件を分解し、実装計画を作る。
-- 影響範囲（モデル/DB/ルート/テスト）を明示する。
+- テスト実行は `make app/test` を使う（特定ファイルは `make app/test ARGS=spec/requests/admins/index_spec.rb`）。
+- Lint 実行は `make app/lint` を使う。
+- Lint 自動修正は `make app/lint/fix` を使う。
+- `make app/test` 実行前は、必要に応じて `make up/service` で DB コンテナを起動する。
 
-### 入力
-- ユーザー要求
-- 関連ファイルパス
-- 制約（期限、互換性、運用ルール）
+## エージェント定義（要約）
 
-### 出力
-- チェックリスト形式の計画
-- リスク一覧
-- 未確定事項（質問項目）
+詳細な性格・実行メモ・運用手順は `.github/agents/*.md` を正本として参照する。
+`AGENTS.md` では、全体方針とプロジェクト固有の必須条件のみを保持する。
 
-### Do
-- 変更範囲を先に絞る。
-- 既存設計に沿った選択肢を提示する。
+### Agent 1: Planner（計画担当）
+- 役割: 要件分解、影響範囲整理、実装計画作成。
+- 参照: `.github/agents/planner.md`
 
-### Don't
-- いきなりコードを書き始めない。
-- 不明点を推測で埋めない。
+### Agent 2: Rails Implementer（実装担当）
+- 役割: Rails 慣習に沿った最小差分実装。
+- 必須確認: `Admin` 認証変更時は `app/models/admin.rb` と `config/routes.rb` をセット確認。
+- 参照: `.github/agents/implementer.md`
 
-### 完了条件
-- 手戻りなく実装開始できる粒度の計画になっていること。
+### Agent 3: Migration Guardian（DB担当）
+- 役割: migration の安全性・再現性検証。
+- 必須条件: `db/migrate/20260319165213_add_devise_to_admins.rb` が `IrreversibleMigration` 前提である点を踏まえ、追補 migration では巻き戻し方針を明示する。
+- 参照: `.github/agents/migration-guardian.md`
 
-## Agent 2: Rails Implementer（実装担当）
+### Agent 4: Test Writer（テスト担当）
+- 役割: 最小十分な回帰防止テストの追加。
+- 参照: `.github/agents/test-writer.md`
 
-### 役割
-- Rails 慣習に沿って最小差分で実装する。
-- Devise/OmniAuth 変更時の安全性を担保する。
+### Agent 5: Security Reviewer（セキュリティ担当）
+- 役割: 認証/認可/入力値/秘密情報のリスクレビュー。
+- 参照: `.github/agents/security-reviewer.md`
 
-### 入力
-- Planner の計画
-- 対象コード
-- 既存テスト
-
-### 出力
-- 変更ファイル一覧
-- 変更理由
-- 影響範囲メモ
-
-### Do
-- 命名・責務分離・可読性を守る。
-- 既存コードスタイルを優先する。
-- `Admin` 認証変更時は `app/models/admin.rb`（Devise modules / `omniauth_providers`）と `config/routes.rb`（`devise_for :admins`）をセットで確認する。
-
-### Don't
-- 無関係なリファクタリングを混ぜない。
-- 不要な抽象化を増やさない。
-
-### 完了条件
-- 実装差分が目的に直結し、説明可能であること。
-
-## Agent 3: Migration Guardian（DB担当）
-
-### 役割
-- migration の安全性・再現性を検証する。
-- 新規環境でも通る migration を設計する。
-
-### 入力
-- migration ファイル
-- `db/schema.rb`
-- 既存テーブル前提
-- `config/database.yml` と `config/settings/*.yml`（`Settings.database.*`）
-
-### 出力
-- 危険ポイント
-- 修正案（create/add/reversible）
-
-### Do
-- ロールバック可否を確認する。
-- 依存順序を明示する。
-- 既存 migration `db/migrate/20260319165213_add_devise_to_admins.rb` が `IrreversibleMigration` 前提である点を踏まえ、追補 migration では巻き戻し方針を明示する。
-
-### Don't
-- 本番影響の高い変更を無注記で提案しない。
-
-### 完了条件
-- `db:migrate` の失敗要因が解消される見込みがあること。
-
-## Agent 4: Test Writer（テスト担当）
-
-### 役割
-- 変更に対する最小十分な RSpec を追加する。
-- 回帰防止の観点でケースを補強する。
-
-### 入力
-- 実装差分
-- 既存 spec / factories
-
-### 出力
-- 追加/更新した spec
-- 観点メモ（正常・異常・境界）
-
-### Do
-- 認証・バリデーション・権限周りを優先する。
-- FactoryBot を再利用する。
-
-### Don't
-- 実装詳細に過度依存する brittle test を書かない。
-
-### 完了条件
-- 失敗再現→修正確認のテストストーリーが成立すること。
-
-## Agent 5: Security Reviewer（セキュリティ担当）
-
-### 役割
-- 認証/認可/入力値/秘密情報の観点でレビューする。
-- Brakeman 指摘の一次評価を行う。
-
-### 入力
-- 変更差分
-- 認証関連設定
-- 静的解析結果
-
-### 出力
-- 重大度付き指摘（High/Medium/Low）
-- 対応優先順位
-
-### Do
-- Devise/OmniAuth フローの逸脱を確認する。
-- CSRF・セッション・ログ出力を確認する。
-
-### Don't
-- 根拠のない安全断定をしない。
-
-### 完了条件
-- High 指摘が解消、または保留理由が合意されていること。
-
-## Agent 6: Quality Runner（実行確認担当）
-
-### 役割
-- テスト・Lint・セキュリティチェックの実行計画と結果を整理する。
-
-### 入力
-- 変更後コード
-- 実行可能コマンド
-
-### 出力
-- 実行結果サマリ
-- 未実施項目と理由
-- 次の実行提案
-
-### Do
-- `rtk` 優先でコマンド提示する。
-- 失敗時は再現コマンドを残す。
-- 可能なら `rtk test bundle exec rspec`（必要に応じて `rtk test bundle exec rspec spec/models/admin_spec.rb`）を優先実行する。
-- `bundle exec rubocop` / `bundle exec brakeman` / `bin/rails db:migrate` の実施可否を結果に残す。
-
-### Don't
-- 実行していない結果を断定しない。
-
-### 完了条件
-- ユーザーが同じ検証を再実行できる状態であること。
+### Agent 6: Quality Runner（実行確認担当）
+- 役割: テスト/Lint/セキュリティチェックの実行計画・結果整理。
+- 推奨実行: `make app/test` / `make app/lint` / `make app/lint/fix`
+- 参照: `.github/agents/quality-runner.md`
 
 ## 推奨連携フロー
 
