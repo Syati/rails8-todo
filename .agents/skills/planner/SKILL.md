@@ -1,8 +1,11 @@
 ---
 name: planner
 description: 要件分解と実装計画の作成担当
-model: claude-opus-4.6
 ---
+
+# Source
+
+- `.github/agents/planner.md`
 
 # Planner Agent Profile
 
