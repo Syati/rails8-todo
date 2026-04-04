@@ -3,9 +3,9 @@ agent: 'planner'
 description: '要件ドキュメントのスコープから GitHub Issue を自動生成する'
 ---
 
-# 要件ドキュメントから Issue を自動生成
+# 要件ドキュメントから Issue を同期（作成/更新）
 
-要件ドキュメント（Markdown）のスコープ項目から、GitHub Issue を自動生成します。
+要件ドキュメント（Markdown）のスコープ項目から、GitHub Issue を作成/更新で同期します。
 
 ## 入力
 
@@ -114,34 +114,34 @@ gh issue create \
   --label "feature,read,search"
 ```
 
-### 方法 2: Ruby スクリプト（自動一括作成）✨ 推奨
-全スコープから一度に Issue を自動生成します。
+### 方法 2: Rake タスク（自動一括同期）✨ 推奨
+全スコープから一度に Issue を作成/更新します。
 
 **前提:**
 - `gh` CLI がインストール済み・認証済み
 
 **ドライラン（確認）:**
 ```bash
-ruby script/create_issues_from_doc.rb --dry-run
+rtk rake "issues:sync_from_doc[,true]"
 ```
 
-**実行（Issue 作成）:**
+**実行（Issue 同期）:**
 ```bash
-ruby script/create_issues_from_doc.rb --doc docs/requirements/admin-crud.md
+rtk rake "issues:sync_from_doc[docs/requirements/admin-crud.md,false]"
 ```
 
 **オプション:**
 ```bash
 # 他の要件ドキュメントから Issue を作成
-ruby script/create_issues_from_doc.rb --doc docs/requirements/faq-crud.md
+rtk rake "issues:sync_from_doc[docs/requirements/faq-crud.md,false]"
 ```
 
 **処理内容:**
 1. Markdown ドキュメントをパース
 2. スコープリスト（`## スコープ`）から全アイテムを抽出
 3. 親スコープ（1, 2, 3 等）を先に作成
-4. その後、サブスコープ（1-1, 1-2 等）を順序に従って作成
-5. 各スコープに対して Issue 本文を生成
+4. その後、サブスコープ（1-1, 1-2 等）を順序に従って同期
+5. タイトルの scope ID（例: `[1-2]`）で既存Issueを検索し、存在すれば更新・なければ作成
 
 **実行結果例:**
 ```

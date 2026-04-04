@@ -1,16 +1,15 @@
-#!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require 'optparse'
+require 'json'
 
-# スコープから Issue を自動生成するスクリプト
+# スコープから Issue を自動同期する
 class IssueGenerator
-  attr_reader :doc_path, :dry_run, :parent_issue_number
+  attr_reader :doc_path, :dry_run, :project_name
 
-  def initialize(doc_path:, dry_run: false, parent_issue: nil)
+  def initialize(doc_path:, dry_run: false, project_name: nil)
     @doc_path = doc_path
     @dry_run = dry_run
-    @parent_issue_number = parent_issue
+    @project_name = project_name
   end
 
   def run
@@ -19,20 +18,17 @@ class IssueGenerator
     scopes = extract_scopes
     puts "✅ 抽出されたスコープ: #{scopes.count} 件\n"
 
-    created_issues = {}
-
     # 親スコープ（1, 2, 3 等）を先に作成
     parent_scopes = scopes.select { |s| s[:id].match?(/^\d+$/) }
     parent_scopes.each do |scope|
-      issue_number = create_issue(scope)
-      created_issues[scope[:id]] = issue_number
+      sync_issue(scope)
       puts ""
     end
 
     # サブスコープ（1-1, 1-2 等）を作成
     sub_scopes = scopes.select { |s| s[:id].match?(/^\d+-\d+$/) }
     sub_scopes.each do |scope|
-      create_issue(scope, created_issues)
+      sync_issue(scope)
       puts ""
     end
 
@@ -54,13 +50,13 @@ class IssueGenerator
 
     lines.each do |line|
       # 親スコープ: `- [ ] 1. タイトル`
-      if match = line.match(/^- \[\s*\] (\d+)\.\s+(.+)$/)
+      if (match = line.match(/^- \[\s*\] (\d+)\.\s+(.+)$/))
         id = match[1]
         title = match[2].strip
         scopes << { id: id, title: title, parent: nil }
         current_parent = id
       # サブスコープ: `  - [ ] 1-1. タイトル`
-      elsif match = line.match(/^  - \[\s*x?\s*\] (\d+-\d+)\.\s+(.+)$/)
+      elsif (match = line.match(/^  - \[\s*x?\s*\] (\d+-\d+)\.\s+(.+)$/))
         id = match[1]
         title = match[2].strip
         scopes << { id: id, title: title, parent: current_parent }
@@ -70,33 +66,58 @@ class IssueGenerator
     scopes
   end
 
-  def create_issue(scope, created_issues = {})
+  def sync_issue(scope)
     title = "[#{scope[:id]}] #{scope[:title]}"
     body = build_body(scope)
+    issue_number = find_existing_issue_number(scope[:id])
 
-    command = build_command(title, body)
+    if issue_number
+      command = build_edit_command(issue_number, title, body)
+      puts "♻️ 更新中: ##{issue_number} #{title}"
+    else
+      command = build_create_command(title, body)
+      puts "🔨 作成中: #{title}"
+    end
 
-    puts "🔨 作成中: #{title}"
     puts "   Command: #{command}" if dry_run
 
-    return "DRY-RUN" if dry_run
+    return 'DRY-RUN' if dry_run
 
     output = `#{command} 2>&1`
 
     if $?.success?
-      # Issue 番号を抽出（出力から）
-      if match = output.match(/Opened.*#(\d+)/)
+      if issue_number
+        puts "✓ Issue ##{issue_number} 更新完了"
+        issue_number
+      elsif (match = output.match(/#(\d+)/))
         issue_number = match[1]
         puts "✓ Issue ##{issue_number} 作成完了"
-        return issue_number
+        issue_number
       else
-        puts "✓ Issue 作成完了"
-        return nil
+        puts '✓ Issue 作成完了'
+        nil
       end
     else
       puts "✗ エラー: #{output}"
-      return nil
+      nil
     end
+  end
+
+  def find_existing_issue_number(scope_id)
+    query = "[#{scope_id}] in:title"
+    command = "gh issue list --state all --limit 200 --search \"#{query}\" --json number,title"
+    output = `#{command} 2>&1`
+    return nil unless $?.success?
+
+    issues = JSON.parse(output)
+    matched = issues.select do |issue|
+      issue['title'].start_with?("[#{scope_id}] ")
+    end
+
+    warn "⚠️ scope_id=#{scope_id} に一致するIssueが複数あります。先頭を使用します。" if matched.size > 1
+    matched.first && matched.first['number']
+  rescue JSON::ParserError
+    nil
   end
 
   def build_body(scope)
@@ -112,58 +133,27 @@ class IssueGenerator
     body_parts << "\n## 参考\n"
     body_parts << "- [#{File.basename(doc_path)}](../../../#{doc_path})\n"
 
-    body_parts.join("")
+    body_parts.join('')
   end
 
-  def build_command(title, body)
-    escaped_body = body.gsub('"', '\"').gsub('$', '\$')
+  def build_create_command(title, body)
+    escaped_body = body.gsub('"', '\\"').gsub('$', '\\$')
 
     cmd = 'gh issue create'
     cmd += " --title \"#{title}\""
     cmd += " --body \"#{escaped_body}\""
-    cmd += " --project \"rails8-todo\""
+    cmd += " --project \"#{project_name}\"" if project_name.to_s.strip != ''
 
     cmd
   end
-end
 
-# メイン実行
-if __FILE__ == $PROGRAM_NAME
-  options = { dry_run: false }
+  def build_edit_command(issue_number, title, body)
+    escaped_body = body.gsub('"', '\\"').gsub('$', '\\$')
 
-  OptionParser.new do |opts|
-    opts.banner = "使用方法: script/create_issues_from_doc.rb [options]"
+    cmd = "gh issue edit #{issue_number}"
+    cmd += " --title \"#{title}\""
+    cmd += " --body \"#{escaped_body}\""
 
-    opts.on('--doc PATH', '要件ドキュメントパス (デフォルト: docs/requirements/admin-crud.md)') do |v|
-      options[:doc] = v
-    end
-
-    opts.on('--dry-run', 'ドライラン（実際には作成しない）') do |v|
-      options[:dry_run] = v
-    end
-
-    opts.on('--parent ISSUE_NUM', '親 Feature Issue 番号') do |v|
-      options[:parent_issue] = v
-    end
-
-    opts.on('-h', '--help', 'ヘルプを表示') do
-      puts opts
-      exit
-    end
-  end.parse!
-
-  doc_path = options[:doc] || 'docs/requirements/admin-crud.md'
-
-  unless File.exist?(doc_path)
-    puts "❌ ファイルが見つかりません: #{doc_path}"
-    exit 1
+    cmd
   end
-
-  generator = IssueGenerator.new(
-    doc_path: doc_path,
-    dry_run: options[:dry_run],
-    parent_issue: options[:parent_issue]
-  )
-
-  generator.run
 end
