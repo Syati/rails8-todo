@@ -49,16 +49,23 @@ class IssueGenerator
     current_parent = nil
 
     lines.each do |line|
-      # 親スコープ: `- [ ] 1. タイトル`
-      if (match = line.match(/^- \[\s*\] (\d+)\.\s+(.+)$/))
-        id = match[1]
-        title = match[2].strip
-        scopes << { id: id, title: title, parent: nil }
+      # 親スコープ: `- [ ] 1. タイトル` / `- [x] 1. タイトル`
+      if (match = line.match(/^- \[(\s|x|X)\] (\d+)\.\s+(.+)$/))
+        checked = match[1].to_s.downcase == 'x'
+        id = match[2]
+        title = match[3].strip
+        # 完了済みは同期対象から除外するが、子要素の親判定のため親IDは保持する
         current_parent = id
-      # サブスコープ: `  - [ ] 1-1. タイトル`
-      elsif (match = line.match(/^  - \[\s*x?\s*\] (\d+-\d+)\.\s+(.+)$/))
-        id = match[1]
-        title = match[2].strip
+        next if checked
+
+        scopes << { id: id, title: title, parent: nil }
+      # サブスコープ: `  - [ ] 1-1. タイトル` / `  - [x] 1-1. タイトル`
+      elsif (match = line.match(/^  - \[(\s|x|X)\] (\d+-\d+)\.\s+(.+)$/))
+        checked = match[1].to_s.downcase == 'x'
+        next if checked
+
+        id = match[2]
+        title = match[3].strip
         scopes << { id: id, title: title, parent: current_parent }
       end
     end
