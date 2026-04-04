@@ -4,7 +4,7 @@ namespace :issues do
     require Rails.root.join("lib/github/issues_sync_from_doc").to_s
 
     doc_path = args[:doc].presence
-    raise ArgumentError, "doc を渡してください（例: rtk rake \"issues:sync_from_doc[docs/requirements/admin-crud.md,true]\"）" if doc_path.blank?
+    raise ArgumentError, "doc を渡してください（例: bundle exec rake \"issues:sync_from_doc[docs/requirements/admin-crud.md,true]\"）" if doc_path.blank?
 
     dry_run = ActiveModel::Type::Boolean.new.cast(args[:dry_run] || false)
     project_name = args[:project].presence || "rails8-todo"

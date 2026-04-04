@@ -122,18 +122,18 @@ gh issue create \
 
 **ドライラン（確認）:**
 ```bash
-rtk rake "issues:sync_from_doc[,true]"
+bundle exec rake "issues:sync_from_doc[,true]"
 ```
 
 **実行（Issue 同期）:**
 ```bash
-rtk rake "issues:sync_from_doc[docs/requirements/admin-crud.md,false]"
+bundle exec rake "issues:sync_from_doc[docs/requirements/admin-crud.md,false]"
 ```
 
 **オプション:**
 ```bash
 # 他の要件ドキュメントから Issue を作成
-rtk rake "issues:sync_from_doc[docs/requirements/faq-crud.md,false]"
+bundle exec rake "issues:sync_from_doc[docs/requirements/faq-crud.md,false]"
 ```
 
 **処理内容:**

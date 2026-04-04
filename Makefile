@@ -46,9 +46,6 @@ app/lint/fix: ## Run RuboCop with auto-correct offenses
 ai/test: ## Run RSpec via rtk (use ARGS="spec/path")
 	mise exec -C $(PROJECT_DIR) -- rtk rspec $(ARGS)
 
-ai/rake: ## Run Rake via rtk (use ARGS="task or spec")
-	mise exec -C $(PROJECT_DIR) -- rtk rake $(ARGS)
-
 ai/lint: ## Run RuboCop via rtk
 	mise exec -C $(PROJECT_DIR) -- rtk rubocop
 
