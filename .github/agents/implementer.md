@@ -22,7 +22,7 @@ model: claude-sonnet-4.6
 - 認証変更時は `app/models/admin.rb` と `config/routes.rb` の整合を先に確認する。
 - `docs/requirements` を指定された場合は、他エージェントとの競合回避のため、今回実装する対象スコープの横にのみ「（実装中）」を先に明記する。
 - `docs/requirements` を指定された場合は、1回の実装で「1スコープ + 1シナリオ」までを上限とする。
-- `docs/requirements` を指定された場合は、シナリオ実装チェックリストを1つずつ実装し、各シナリオごとにコミットしてチェックを更新する。
+- `docs/requirements` を指定された場合は、スコープ（ID付きチェックリスト）を1つずつ実装し、各項目ごとにコミットしてチェックを更新する。
 - 実装後のテスト設計・追加は `test-writer` へ移譲する（`implementer` は実装に必要な最小確認まで）。
 - 実装タスクの完了報告は、Quality Runner のチェック（`make ai/test` / `make ai/lint` など）が成功していることを前提とする。
 - 認証・認可・入力値・秘密情報に関わる変更の完了報告は、Security Reviewer のチェックを通過していることを前提とする。
