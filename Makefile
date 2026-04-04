@@ -1,4 +1,5 @@
 .DEFAULT_GOAL := help
+PROJECT_DIR := $(CURDIR)
 
 # pass arguments to the target
 ARGS = $(shell echo $(MAKECMDGOALS) | sed -e 's/^[^ ]*$$//' | sed -e 's/^[^ ]* //g')
@@ -40,3 +41,16 @@ app/lint: ## Run RuboCop
 
 app/lint/fix: ## Run RuboCop with auto-correct offenses
 	bundle exec rubocop -A
+
+#### AI
+ai/test: ## Run RSpec via rtk (use ARGS="spec/path")
+	mise exec -C $(PROJECT_DIR) -- rtk rspec $(ARGS)
+
+ai/rake: ## Run Rake via rtk (use ARGS="task or spec")
+	mise exec -C $(PROJECT_DIR) -- rtk rake $(ARGS)
+
+ai/lint: ## Run RuboCop via rtk
+	mise exec -C $(PROJECT_DIR) -- rtk rubocop
+
+ai/lint/fix: ## Run RuboCop with auto-correct offenses via rtk
+	mise exec -C $(PROJECT_DIR) -- rtk rubocop -A
