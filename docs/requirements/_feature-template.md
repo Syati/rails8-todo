@@ -1,3 +1,9 @@
+---
+document_id: <feature-id>
+title: <機能名>
+issue_sync_key: document_id + scope_id
+---
+
 # Feature: <機能名>
 
 ## 目的
@@ -5,6 +11,8 @@
 - <目的2>
 
 ## スコープ（ID付きチェックリスト）
+- `1-2` のような項番を `scope_id` として扱う。
+- Issue 同期キーは `document_id + scope_id` を使用する。
 - [ ] 1. <スコープ名>
   - [ ] 1-1. <実装項目>（シナリオ1）
 - [ ] 2. <スコープ名>

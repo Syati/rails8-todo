@@ -1,3 +1,9 @@
+---
+document_id: admin-crud
+title: 管理者CRUD
+issue_sync_key: document_id + scope_id
+---
+
 # Feature: 管理者CRUD
 
 ## 目的
@@ -6,7 +12,7 @@
 
 ## スコープ（ID付きチェックリスト）
 - [ ] 1. 一覧（Read）
-  - [x] 1-1. 管理者一覧を表示できる（シナリオ1）
+  - [ ] 1-1. 管理者一覧を表示できる（シナリオ1）
   - [ ] 1-2. `id` / `email` で検索できる（シナリオ11）
   - [ ] 1-3. `id desc` / `id asc` ソートができる（シナリオ12）
   - [ ] 1-4. `pagy` 30件/ページで表示できる（シナリオ12）
