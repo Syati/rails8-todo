@@ -1,24 +1,37 @@
-# README
+# rails8-todo
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 開発環境
 
-Things you may want to cover:
+- Ruby / Rails 8
+- PostgreSQL
+- Docker Compose
 
-* Ruby version
+## ローカル起動
 
-* System dependencies
+DB のみ起動（Rails アプリはローカル実行する場合）:
 
-* Configuration
+```zsh
+make up/service
+```
 
-* Database creation
+全サービス起動（DB + アプリ）:
 
-* Database initialization
+```zsh
+make up
+```
 
-* How to run the test suite
+`docker-compose.yml` では `app.build.dockerfile: ./docker/app/Dockerfile` を参照しています。
 
-* Services (job queues, cache servers, search engines, etc.)
+## `RAILS_ENV=develop` でのビルド
 
-* Deployment instructions
+`docker/app/Dockerfile` は `RAILS_ENV=develop` を受け取り、内部で `development` 相当として扱えるようにしています。
 
-* ...
+```zsh
+docker build -f docker/app/Dockerfile --build-arg RAILS_ENV=develop -t rails8_todo:develop .
+```
+
+## DB準備（アプリコンテナ内）
+
+```zsh
+docker compose run --rm app bin/rails db:prepare
+```

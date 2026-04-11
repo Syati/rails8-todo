@@ -19,6 +19,9 @@ services:
     build:
       context: .
       dockerfile: ./docker/app/Dockerfile
+      args:
+        RAILS_ENV: development
+    command: ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]
     depends_on:
       - db
     ports:

@@ -29,7 +29,10 @@ help: ## Print help
 		$(MAKEFILE_LIST)
 
 #### General
-up/service: ## Start service
+up: ## Start all services
+	docker compose up
+
+up/service: ## Start service only db
 	docker compose up -d db
 
 #### App
