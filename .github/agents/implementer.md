@@ -20,4 +20,10 @@ model: claude-sonnet-4.6
 ## 実行メモ
 - 無関係リファクタリングを混ぜない。
 - 認証変更時は `app/models/admin.rb` と `config/routes.rb` の整合を先に確認する。
+- `docs/requirements` を指定された場合は、他エージェントとの競合回避のため、対応 Issue の status を GitHub Projects で「In Progress」に設定する。
+- `docs/requirements` を指定された場合は、1回の実装で「1スコープ + 1シナリオ」までを上限とする。
+- `docs/requirements` を指定された場合は、スコープ（ID付きチェックリスト）を1つずつ実装し、各項目ごとにコミットしてチェックを更新し、完了時に status を「Done」に更新する。
+- 実装後のテスト設計・追加は `test-writer` へ移譲する（`implementer` は実装に必要な最小確認まで）。
+- 実装タスクの完了報告は、Quality Runner のチェック（`make ai/test` / `make ai/lint` など）が成功していることを前提とする。
+- 認証・認可・入力値・秘密情報に関わる変更の完了報告は、Security Reviewer のチェックを通過していることを前提とする。
 - 共通ルールは `AGENTS.md` の「プロジェクト共通言語」を優先する。
