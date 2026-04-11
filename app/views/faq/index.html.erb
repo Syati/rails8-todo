@@ -1,0 +1,77 @@
+<div class="login-box" style="width: 600px;">
+  <div class="login-logo">
+    <b>Rails8</b> Todo
+  </div>
+
+  <div class="card card-outline card-primary">
+    <div class="card-header text-center">
+      <h2 class="mb-0"><%= t('.title') %></h2>
+    </div>
+    <div class="card-body">
+      <div class="accordion" id="faqAccordion">
+        <!-- Confirmation Email -->
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConfirmation" aria-expanded="false" aria-controls="collapseConfirmation">
+              <%= t('.confirmation.question') %>
+            </button>
+          </h3>
+          <div id="collapseConfirmation" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              <p><%= t('.confirmation.answer') %></p>
+              <%= link_to t('.confirmation.resend_link'), new_admin_confirmation_path, class: "btn btn-sm btn-primary" %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Account Unlock -->
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUnlock" aria-expanded="false" aria-controls="collapseUnlock">
+              <%= t('.unlock.question') %>
+            </button>
+          </h3>
+          <div id="collapseUnlock" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              <p><%= t('.unlock.answer') %></p>
+              <%= link_to t('.unlock.unlock_link'), new_admin_unlock_path, class: "btn btn-sm btn-primary" %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Password Reset -->
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePassword" aria-expanded="false" aria-controls="collapsePassword">
+              <%= t('.password.question') %>
+            </button>
+          </h3>
+          <div id="collapsePassword" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              <p><%= t('.password.answer') %></p>
+              <%= link_to t('.password.reset_link'), new_admin_password_path, class: "btn btn-sm btn-primary" %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Support -->
+        <div class="accordion-item">
+          <h3 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSupport" aria-expanded="false" aria-controls="collapseSupport">
+              <%= t('.support.question') %>
+            </button>
+          </h3>
+          <div id="collapseSupport" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body">
+              <%= t('.support.answer_html') %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 text-center">
+        <%= link_to t('.back_to_login'), new_admin_session_path, class: "btn btn-link" %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,20 @@
+ja:
+  faq:
+    index:
+      title: "よくある質問"
+      confirmation:
+        question: "確認メールが届きません"
+        answer: "迷惑メールフォルダを確認してください。それでも見つからない場合は、以下のボタンから再送信できます。"
+        resend_link: "確認メールを再送信"
+      unlock:
+        question: "アカウントがロックされました"
+        answer: "複数回ログインに失敗した場合、セキュリティ上の理由でアカウントがロックされます。以下のボタンからロック解除メールをリクエストできます。"
+        unlock_link: "ロック解除メールを送信"
+      password:
+        question: "パスワードを忘れました"
+        answer: "パスワードリセット用のメールをお送りします。メール内のリンクから新しいパスワードを設定できます。"
+        reset_link: "パスワードをリセット"
+      support:
+        question: "その他のお問い合わせ"
+        answer_html: "上記で解決しない場合は、<a href='mailto:support@example.com'>サポートチーム</a>までお問い合わせください。"
+      back_to_login: "ログインページに戻る"

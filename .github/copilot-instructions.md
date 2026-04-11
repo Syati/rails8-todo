@@ -1,0 +1,102 @@
+# Copilot Instructions (rails8-todo)
+
+このファイルは、本リポジトリで AI コーディング支援を使う際の共通ルールです。
+対象: Ruby / Rails 8 / PostgreSQL / RSpec / Devise / OmniAuth
+
+## 1. 基本方針
+
+- 回答・解説は日本語で行う。
+- 変更は最小差分を優先し、既存設計を尊重する。
+- 不明点は推測で実装せず、前提を明示して提案する。
+- 破壊的変更（DB削除、API仕様変更、認証フロー変更）は理由と影響範囲を書く。
+
+## 2. コマンド実行ルール（rtk優先）
+
+ローカル実行コマンドは可能な限り `rtk` プレフィックスを使う。
+
+- `rtk git status`
+- `rtk ls`
+- `rtk grep "keyword" .`
+- `rtk test bundle exec rspec`
+
+### 2.1 rtk grep の注意
+
+`rtk grep` の基本構造:
+
+`rtk grep [OPTIONS] <PATTERN> [PATH] [EXTRA_ARGS]...`
+
+- 行番号はデフォルトで有効（`-n` 不要）
+- `rg` 由来オプションは `--` の後ろに置く
+  - 例: `rtk grep "admin" . -- -i -A 3`
+
+## 3. Rails 実装規約
+
+### 3.1 変更方針
+
+- 先に既存コード（モデル、ルーティング、初期化設定、テスト）を確認する。
+- Rails の慣習（命名、責務分離、コールバック最小化）に従う。
+- Fat Controller を避け、業務ロジックはモデルまたはサービスに寄せる。
+
+### 3.2 マイグレーション
+
+- 既存テーブル前提の `change_table` を使う前に、テーブル存在前提を確認する。
+- 新規環境で落ちる migration を避ける。
+- 破壊的操作（`drop_table`, `remove_column`）はロールバック可否を明示する。
+
+### 3.3 認証（Devise / OmniAuth）
+
+- `Admin` 認証の変更時は `app/models/admin.rb` と `config/routes.rb` の整合を確認する。
+- セキュリティ関連設定の変更時は、影響（ログイン・登録・ロック・確認メール）を明記する。
+- CSRF、callback URL、provider 設定の取り扱いを明示する。
+
+## 4. テスト規約（RSpec）
+
+- 仕様追加・不具合修正時は、原則テストを追加または更新する。
+- `describe` / `context` / `it` など RSpec の記述ラベルは英語で記述してよい。
+- `FactoryBot` を使い、重複したデータ構築を避ける。
+- 境界値・バリデーション・認証系の失敗ケースを優先してテストする。
+
+実行例:
+
+- `rtk test bundle exec rspec`
+- `rtk test bundle exec rspec spec/models/admin_spec.rb`
+
+## 5. 品質チェック
+
+変更後は可能な範囲で次を実行する。
+
+- `rtk test bundle exec rspec`
+- `bundle exec rubocop`
+- `bundle exec brakeman`
+- `bin/rails db:migrate`
+
+実行できない場合は、未実施項目と理由を明記する。
+
+## 6. RuboCop 方針
+
+`.rubocop.yml` に従う。
+
+- `TargetRubyVersion: 4.0`
+- `rubocop-rspec`, `rubocop-factory_bot`, `rubocop-rbs_inline` を利用
+- RSpec の目安
+  - `RSpec/NestedGroups: Max 4`
+  - `RSpec/MultipleExpectations: Max 5`
+  - `RSpec/ExampleLength: Max 10`
+
+## 7. Annotate 運用
+
+- `.annotaterb.yml` の設定に従い、必要に応じて注釈を更新する。
+- 注釈のみの差分コミットは避け、関連機能変更とセットで扱う。
+
+## 8. 出力フォーマット（AIへの期待）
+
+- 先に「何を変更するか」を短く示す。
+- 変更ファイルごとに理由を明記する。
+- 最後に次アクション候補を 1〜3 個提示する。
+- 長いコード全文は避け、要点を示す。
+
+## 9. 禁止事項
+
+- 秘密情報（鍵、トークン、資格情報）を生成・コミットしない。
+- 根拠のない断定をしない。
+- ユーザーが作成した未関連差分を勝手に戻さない。
