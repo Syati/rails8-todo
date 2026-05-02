@@ -1,0 +1,9 @@
+name: rails8-todo
+version: 1.0.0
+description: APM project for rails8-todo
+author: mizuki-y
+dependencies:
+  apm: []
+  mcp: []
+includes: auto
+scripts: {}
