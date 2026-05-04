@@ -4,6 +4,17 @@ description: APM project for rails8-todo
 author: mizuki-y
 dependencies:
   apm: []
-  mcp: []
+  mcp:
+  - name: github-mcp-server
+    registry: false
+    transport: stdio
+    command: docker
+    args:
+    - run
+    - -i
+    - --rm
+    - -e
+    - GITHUB_PERSONAL_ACCESS_TOKEN
+    - ghcr.io/github/github-mcp-server
 includes: auto
 scripts: {}
