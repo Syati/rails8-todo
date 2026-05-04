@@ -1,11 +1,8 @@
 ---
 name: security-reviewer
 description: 認証/認可/入力値のリスクをレビューする担当
+model: claude-opus-4.6
 ---
-
-# Source
-
-- `.apm/agents/security-reviewer.agent.md`
 
 # Security Reviewer Agent Profile
 

@@ -5,7 +5,8 @@
 ## このファイルの位置づけ
 
 - `AGENTS.md` は、6エージェント定義の単一参照元（Single Source of Truth）とする。
-- `.github/agents/*.md` は、各エージェントの性格・使用モデル・実行時メモを定義する。
+- `.apm/agents/*.agent.md` は、各エージェントの性格・使用モデル・実行時メモの正本を定義する。
+- `.github/agents/*.md` は互換レイヤーとして残す（必要に応じて同期）。
 - 役割の解釈が衝突した場合は、`AGENTS.md` の定義を優先する。
 
 ## プロジェクト共通言語（全エージェント共通）
@@ -36,35 +37,35 @@
 
 ## エージェント定義（要約）
 
-詳細な性格・実行メモ・運用手順は `.github/agents/*.md` を正本として参照する。
+詳細な性格・実行メモ・運用手順は `.apm/agents/*.agent.md` を正本として参照する。
 `AGENTS.md` では、全体方針とプロジェクト固有の必須条件のみを保持する。
 
 ### Agent 1: Planner（計画担当）
 - 役割: 要件分解、影響範囲整理、実装計画作成。
-- 参照: `.github/agents/planner.md`
+- 参照: `.apm/agents/planner.agent.md`
 
 ### Agent 2: Rails Implementer（実装担当）
 - 役割: Rails 慣習に沿った最小差分実装。
 - 必須確認: `Admin` 認証変更時は `app/models/admin.rb` と `config/routes.rb` をセット確認。
-- 参照: `.github/agents/implementer.md`
+- 参照: `.apm/agents/implementer.agent.md`
 
 ### Agent 3: Migration Guardian（DB担当）
 - 役割: migration の安全性・再現性検証。
 - 必須条件: `db/migrate/20260319165213_add_devise_to_admins.rb` が `IrreversibleMigration` 前提である点を踏まえ、追補 migration では巻き戻し方針を明示する。
-- 参照: `.github/agents/migration-guardian.md`
+- 参照: `.apm/agents/migration-guardian.agent.md`
 
 ### Agent 4: Test Writer（テスト担当）
 - 役割: 最小十分な回帰防止テストの追加。
-- 参照: `.github/agents/test-writer.md`
+- 参照: `.apm/agents/test-writer.agent.md`
 
 ### Agent 5: Security Reviewer（セキュリティ担当）
 - 役割: 認証/認可/入力値/秘密情報のリスクレビュー。
-- 参照: `.github/agents/security-reviewer.md`
+- 参照: `.apm/agents/security-reviewer.agent.md`
 
 ### Agent 6: Quality Runner（実行確認担当）
 - 役割: テスト/Lint/セキュリティチェックの実行計画・結果整理。
 - 推奨実行: `make app/test` / `make app/lint` / `make app/lint/fix`
-- 参照: `.github/agents/quality-runner.md`
+- 参照: `.apm/agents/quality-runner.agent.md`
 
 ## 推奨連携フロー
 
@@ -86,12 +87,17 @@
 
 ## 個別エージェントファイル対応
 
-- Agent 1: `.github/agents/planner.md`
-- Agent 2: `.github/agents/implementer.md`
-- Agent 3: `.github/agents/migration-guardian.md`
-- Agent 4: `.github/agents/test-writer.md`
-- Agent 5: `.github/agents/security-reviewer.md`
-- Agent 6: `.github/agents/quality-runner.md`
+- Agent 1: `.apm/agents/planner.agent.md`
+- Agent 2: `.apm/agents/implementer.agent.md`
+- Agent 3: `.apm/agents/migration-guardian.agent.md`
+- Agent 4: `.apm/agents/test-writer.agent.md`
+- Agent 5: `.apm/agents/security-reviewer.agent.md`
+- Agent 6: `.apm/agents/quality-runner.agent.md`
+
+## 互換レイヤー
+
+- `.github/agents/*.md` は既存フロー互換のために併存する。
+- `.github/*` 配下の互換資産は `.apm` を正本として `apm compile -t copilot` で生成し、生成物だが commit 管理する。
 
 ## モデル割り当て方針
 

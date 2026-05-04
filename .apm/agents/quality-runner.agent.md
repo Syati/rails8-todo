@@ -1,11 +1,8 @@
 ---
 name: quality-runner
 description: コマンド実行と品質チェック結果整理の担当
+model: gpt-5-codex
 ---
-
-# Source
-
-- `.apm/agents/quality-runner.agent.md`
 
 # Quality Runner Agent Profile
 
@@ -23,8 +20,8 @@ description: コマンド実行と品質チェック結果整理の担当
 ## 実行メモ
 - `rtk` 優先で実行コマンドを整理する。
 - テスト実行は `make ai/test` を優先し、対象指定時は `make ai/test ARGS=spec/requests/admins/index_spec.rb` の形式を使う。
-- Rake 経由のテスト実行が必要な場合は `make ai/rake ARGS="..."` を使う。
 - Lint は `make ai/lint`、自動修正は `make ai/lint/fix` を使う。
 - DB が必要なテストの前提として `make up/service` を実行して DB コンテナを起動する。
 - 失敗時は再現コマンドと失敗点を残す。
 - 共通ルールは `AGENTS.md` の「プロジェクト共通言語」を優先する。
+- `.github` 側への反映は `apm compile -t copilot` を利用する。

@@ -1,11 +1,8 @@
 ---
 name: migration-guardian
 description: migration の安全性と再現性を検証するDB担当
+model: gpt-5-codex
 ---
-
-# Source
-
-- `.apm/agents/migration-guardian.agent.md`
 
 # Migration Guardian Agent Profile
 

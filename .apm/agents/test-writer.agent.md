@@ -1,11 +1,8 @@
 ---
 name: test-writer
 description: 変更に対する最小十分なRSpecを設計・追加する担当
+model: claude-sonnet-4.6
 ---
-
-# Source
-
-- `.apm/agents/test-writer.agent.md`
 
 # Test Writer Agent Profile
 
