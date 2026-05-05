@@ -1,0 +1,38 @@
+lockfile_version: '1'
+generated_at: '2026-05-04T06:25:19.426040+00:00'
+dependencies: []
+mcp_servers:
+- github-mcp-server
+mcp_configs:
+  github-mcp-server:
+    name: github-mcp-server
+    transport: stdio
+    args:
+    - run
+    - -i
+    - --rm
+    - -e
+    - GITHUB_PERSONAL_ACCESS_TOKEN
+    - ghcr.io/github/github-mcp-server
+    registry: false
+    command: docker
+local_deployed_files:
+- .github/agents/implementer.agent.md
+- .github/agents/migration-guardian.agent.md
+- .github/agents/planner.agent.md
+- .github/agents/quality-runner.agent.md
+- .github/agents/security-reviewer.agent.md
+- .github/agents/test-writer.agent.md
+- .github/prompts/create-issue-from-scope.prompt.md
+- .github/prompts/implement.prompt.md
+- .github/prompts/merge-dependabot-prs.prompt.md
+local_deployed_file_hashes:
+  .github/agents/implementer.agent.md: sha256:11e74af72d0a2dc44134dba7b6c4cf3c7384f991757390151d6e8aaae36ed6cf
+  .github/agents/migration-guardian.agent.md: sha256:f174567c2867cc57c85bdeb1de74ebaf82d3c522d3f0c871a5fa93b64faad477
+  .github/agents/planner.agent.md: sha256:a0fe49a431a27361a8aa1ff2f9eac5620e5e539695bf2842c85981f49a91f521
+  .github/agents/quality-runner.agent.md: sha256:5ba8af99462c3af8c414257230c45165fe4f92d477d6e1551ca10a3da6fbadf0
+  .github/agents/security-reviewer.agent.md: sha256:9d1ab1212310a6b191bc977d33e93124f127762d945df20fa37d8483084028c9
+  .github/agents/test-writer.agent.md: sha256:c7fb200eee5f377289d4813917644ef6fa4b7cce349d4a1c64955bfb44f6d2c3
+  .github/prompts/create-issue-from-scope.prompt.md: sha256:896fb3c5b2205021d7f0d45c192adf2ade591cd126b471c591ac5b1e9e7e400c
+  .github/prompts/implement.prompt.md: sha256:f7a7e60080ec567e291543732c3a43eeccc1263b27192193ce107f7009e5b946
+  .github/prompts/merge-dependabot-prs.prompt.md: sha256:69de00decb9d3048adb172b52242f8e5ec50451e391b38ab0c5fb5f7d5063e3c
