@@ -17,6 +17,12 @@ mcp_configs:
     registry: false
     command: docker
 local_deployed_files:
+- .codex/agents/implementer.toml
+- .codex/agents/migration-guardian.toml
+- .codex/agents/planner.toml
+- .codex/agents/quality-runner.toml
+- .codex/agents/security-reviewer.toml
+- .codex/agents/test-writer.toml
 - .github/agents/implementer.agent.md
 - .github/agents/migration-guardian.agent.md
 - .github/agents/planner.agent.md
@@ -27,6 +33,12 @@ local_deployed_files:
 - .github/prompts/implement.prompt.md
 - .github/prompts/merge-dependabot-prs.prompt.md
 local_deployed_file_hashes:
+  .codex/agents/implementer.toml: sha256:0e1237fd58dfd89a2ce20abb8ec1e2f4bf68163ae4057864d44551c9d2b94409
+  .codex/agents/migration-guardian.toml: sha256:37487c1c34c39c6da6570d0626731ed51f322deb74f9ff990459971ddc7ac146
+  .codex/agents/planner.toml: sha256:4dc6756f972c9575aa8ba33388e0bc516b84a72bd79aa88067ea44e7744ccec7
+  .codex/agents/quality-runner.toml: sha256:7c9fbbbc318ad70242c4f7be919b433406b31abb1a9c370e0dc9000c0e2f691d
+  .codex/agents/security-reviewer.toml: sha256:58b604f4a3eaff719fedb0abde4a4503d8d0b1df8c730ae3886c24ac41a7eb60
+  .codex/agents/test-writer.toml: sha256:7cac3b0f0349ea880199b205647abe99ff2bd297f17d8ab67643cf3135eda36b
   .github/agents/implementer.agent.md: sha256:11e74af72d0a2dc44134dba7b6c4cf3c7384f991757390151d6e8aaae36ed6cf
   .github/agents/migration-guardian.agent.md: sha256:f174567c2867cc57c85bdeb1de74ebaf82d3c522d3f0c871a5fa93b64faad477
   .github/agents/planner.agent.md: sha256:a0fe49a431a27361a8aa1ff2f9eac5620e5e539695bf2842c85981f49a91f521
