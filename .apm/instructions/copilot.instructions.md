@@ -5,7 +5,7 @@
 
 ## 0. 正本と生成物
 
-- 正本は `.apm/instructions/copilot.instructions.md` を参照する。
+- このファイル（`.apm/instructions/copilot.instructions.md`）を正本とする。
 - `.github/*` 配下の互換資産は `apm compile -t copilot` で生成し、生成物だが commit 管理する。
 
 ## 1. 基本方針
@@ -21,8 +21,10 @@
 
 - `rtk git status`
 - `rtk ls`
+- `rtk find`
 - `rtk grep "keyword" .`
-- `rtk test bundle exec rspec`
+- `rtk rspec`
+- `rtk rubocop`
 
 ### 2.1 rtk grep の注意
 

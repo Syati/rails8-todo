@@ -6,6 +6,7 @@
 
 - `AGENTS.md` は、6エージェント定義の単一参照元（Single Source of Truth）とする。
 - `.apm/agents/*.agent.md` は、各エージェントの性格・使用モデル・実行時メモの正本を定義する。
+- `.apm/instructions/*.instructions.md` は、プロジェクト共通 instruction の正本を定義する。
 - `.github/agents/*.md` は互換レイヤーとして残す（必要に応じて同期）。
 - 役割の解釈が衝突した場合は、`AGENTS.md` の定義を優先する。
 
