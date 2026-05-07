@@ -11,6 +11,18 @@
         "GITHUB_PERSONAL_ACCESS_TOKEN",
         "ghcr.io/github/github-mcp-server"
       ]
+    },
+    "context7": {
+      "type": "stdio",
+      "command": "docker",
+      "args": [
+        "run",
+        "-i",
+        "--rm",
+        "-e",
+        "CONTEXT7_API_KEY",
+        "mcp/context7"
+      ]
     }
   },
   "inputs": []

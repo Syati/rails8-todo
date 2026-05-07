@@ -19,5 +19,16 @@ dependencies:
     - -e
     - GITHUB_PERSONAL_ACCESS_TOKEN
     - ghcr.io/github/github-mcp-server
+  - name: context7
+    registry: false
+    transport: stdio
+    command: docker
+    args:
+    - run
+    - -i
+    - --rm
+    - -e
+    - CONTEXT7_API_KEY
+    - mcp/context7
 includes: auto
 scripts: {}
