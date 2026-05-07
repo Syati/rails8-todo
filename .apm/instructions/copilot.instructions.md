@@ -1,3 +1,8 @@
+---
+description: rails8-todo 全体に適用する Copilot 共通指示
+applyTo: "**/*"
+---
+
 # Copilot Instructions (rails8-todo)
 
 このファイルは、本リポジトリで AI コーディング支援を使う際の共通ルールです。
@@ -18,6 +23,9 @@
 ## 2. コマンド実行ルール（rtk優先）
 
 ローカル実行コマンドは可能な限り `rtk` プレフィックスを使う。
+
+- `rtk` のサブコマンドやオプションは推測で使わず、MCP Context7 の RTK ドキュメント（`/rtk-ai/rtk`）を参照して確認する。
+- `rtk` の構文に確信がない場合は断定せず、確認できた範囲を明示する。
 
 - `rtk git status`
 - `rtk ls`

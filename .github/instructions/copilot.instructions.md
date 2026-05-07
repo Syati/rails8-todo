@@ -1,3 +1,8 @@
+---
+description: rails8-todo 全体に適用する Copilot 共通指示
+applyTo: "**/*"
+---
+
 # Copilot Instructions (rails8-todo)
 
 このファイルは、本リポジトリで AI コーディング支援を使う際の共通ルールです。
@@ -5,7 +10,7 @@
 
 ## 0. 正本と生成物
 
-- 正本は `.apm/instructions/copilot.instructions.md` を参照する。
+- このファイル（`.apm/instructions/copilot.instructions.md`）を正本とする。
 - `.github/*` 配下の互換資産は `apm compile -t copilot` で生成し、生成物だが commit 管理する。
 
 ## 1. 基本方針
@@ -19,10 +24,15 @@
 
 ローカル実行コマンドは可能な限り `rtk` プレフィックスを使う。
 
+- `rtk` のサブコマンドやオプションは推測で使わず、MCP Context7 の RTK ドキュメント（`/rtk-ai/rtk`）を参照して確認する。
+- `rtk` の構文に確信がない場合は断定せず、確認できた範囲を明示する。
+
 - `rtk git status`
 - `rtk ls`
+- `rtk find`
 - `rtk grep "keyword" .`
-- `rtk test bundle exec rspec`
+- `rtk rspec`
+- `rtk rubocop`
 
 ### 2.1 rtk grep の注意
 
