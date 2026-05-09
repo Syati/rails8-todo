@@ -6,7 +6,7 @@
 
 ## Files matching `**/*`
 
-<!-- Source: local .apm/instructions/copilot.instructions.md -->
+<!-- Source: local .apm/instructions/project.instructions.md -->
 # Copilot Instructions (rails8-todo)
 
 このファイルは、本リポジトリで AI コーディング支援を使う際の共通ルールです。
@@ -14,7 +14,7 @@
 
 ## 0. 正本と生成物
 
-- このファイル（`.apm/instructions/copilot.instructions.md`）を正本とする。
+- このファイル（`.apm/instructions/project.instructions.md`）を正本とする。
 - `.github/*` 配下の互換資産は `apm compile -t copilot` で生成し、生成物だが commit 管理する。
 
 ## 1. 基本方針

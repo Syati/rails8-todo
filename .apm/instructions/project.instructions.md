@@ -1,16 +1,16 @@
 ---
-description: rails8-todo 全体に適用する Copilot 共通指示
+description: rails8-todo 全体に適用するプロジェクト共通指示
 applyTo: "**/*"
 ---
 
-# Copilot Instructions (rails8-todo)
+# Project Instructions (rails8-todo)
 
-このファイルは、本リポジトリで AI コーディング支援を使う際の共通ルールです。
+このファイルは、本リポジトリで利用する AI エージェント全般に適用する共通ルールです。
 対象: Ruby / Rails 8 / PostgreSQL / RSpec / Devise / OmniAuth
 
 ## 0. 正本と生成物
 
-- このファイル（`.apm/instructions/copilot.instructions.md`）を正本とする。
+- このファイル（`.apm/instructions/project.instructions.md`）を正本とする。
 - `.github/*` 配下の互換資産は `apm compile -t copilot` で生成し、生成物だが commit 管理する。
 
 ## 1. 基本方針

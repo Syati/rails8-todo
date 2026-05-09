@@ -10,7 +10,7 @@ applyTo: "**/*"
 
 ## 0. 正本と生成物
 
-- このファイル（`.apm/instructions/copilot.instructions.md`）を正本とする。
+- このファイル（`.apm/instructions/project.instructions.md`）を正本とする。
 - `.github/*` 配下の互換資産は `apm compile -t copilot` で生成し、生成物だが commit 管理する。
 
 ## 1. 基本方針
