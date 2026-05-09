@@ -1,34 +1,6 @@
 lockfile_version: '1'
 generated_at: '2026-05-04T06:25:19.426040+00:00'
 dependencies: []
-mcp_servers:
-- context7
-- github-mcp-server
-mcp_configs:
-  context7:
-    name: context7
-    transport: stdio
-    args:
-    - run
-    - -i
-    - --rm
-    - -e
-    - CONTEXT7_API_KEY
-    - mcp/context7
-    registry: false
-    command: docker
-  github-mcp-server:
-    name: github-mcp-server
-    transport: stdio
-    args:
-    - run
-    - -i
-    - --rm
-    - -e
-    - GITHUB_PERSONAL_ACCESS_TOKEN
-    - ghcr.io/github/github-mcp-server
-    registry: false
-    command: docker
 local_deployed_files:
 - .codex/agents/implementer.toml
 - .codex/agents/migration-guardian.toml

@@ -225,3 +225,6 @@ build-iPhoneSimulator/
 
 # APM dependencies
 apm_modules/
+
+# Codex local config
+.codex/config.toml

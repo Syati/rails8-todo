@@ -2,33 +2,11 @@ name: rails8-todo
 version: 1.0.0
 description: APM project for rails8-todo
 author: mizuki-y
-target:
-- codex
-- copilot
+targets:
+  - copilot
+  - codex
 dependencies:
   apm: []
   mcp:
-  - name: github-mcp-server
-    registry: false
-    transport: stdio
-    command: docker
-    args:
-    - run
-    - -i
-    - --rm
-    - -e
-    - GITHUB_PERSONAL_ACCESS_TOKEN
-    - ghcr.io/github/github-mcp-server
-  - name: context7
-    registry: false
-    transport: stdio
-    command: docker
-    args:
-    - run
-    - -i
-    - --rm
-    - -e
-    - CONTEXT7_API_KEY
-    - mcp/context7
 includes: auto
 scripts: {}
