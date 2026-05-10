@@ -33,5 +33,40 @@
 require 'rails_helper'
 
 RSpec.describe Admin, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe ".from_omniauth" do
+    let(:provider) { "developer" }
+    let(:uid) { "dev-uid-001" }
+    let(:email) { "oauth-admin@example.com" }
+    let(:auth) { OpenStruct.new(provider:, uid:, info: OpenStruct.new(email:)) }
+
+    it "provider と uid が一致する既存管理者を返す" do
+      admin = create(:admin, provider:, uid:, email: "existing@example.com")
+
+      expect(described_class.from_omniauth(auth)).to eq(admin)
+      expect(admin.reload.email).to eq("existing@example.com")
+    end
+
+    it "一致する管理者がなければ新規作成する" do
+      expect do
+        @created = described_class.from_omniauth(auth)
+      end.to change(described_class, :count).by(1)
+
+      expect(@created.provider).to eq(provider)
+      expect(@created.uid).to eq(uid)
+      expect(@created.email).to eq(email)
+      expect(@created.encrypted_password).to be_present
+    end
+  end
+
+  describe ".ransackable_attributes" do
+    it "id と email のみ検索許可する" do
+      expect(described_class.ransackable_attributes).to eq(%w[id email])
+    end
+  end
+
+  describe ".ransackable_associations" do
+    it "関連検索を許可しない" do
+      expect(described_class.ransackable_associations).to eq([])
+    end
+  end
 end

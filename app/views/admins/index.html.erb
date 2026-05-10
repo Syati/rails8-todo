@@ -3,6 +3,23 @@
     <h1 class="card-title mb-0">管理者一覧</h1>
   </div>
 
+  <div class="card-body border-bottom">
+    <%= search_form_for @q, url: admins_path, method: :get, html: { class: "row g-2 align-items-end" } do |f| %>
+      <div class="col-md-2">
+        <%= f.label :id_eq, "ID", class: "form-label" %>
+        <%= f.search_field :id_eq, class: "form-control", placeholder: "例: 123" %>
+      </div>
+      <div class="col-md-4">
+        <%= f.label :email_cont, "Email", class: "form-label" %>
+        <%= f.search_field :email_cont, class: "form-control", placeholder: "部分一致検索" %>
+      </div>
+      <div class="col-md-6 d-flex gap-2">
+        <%= f.submit "検索", class: "btn btn-primary" %>
+        <%= link_to "クリア", admins_path, class: "btn btn-outline-secondary" %>
+      </div>
+    <% end %>
+  </div>
+
   <div class="card-body p-0">
     <div class="table-responsive">
       <table class="table table-striped mb-0">
@@ -35,12 +52,12 @@
   <div class="card-footer d-flex justify-content-between">
     <div>
       <% if @page > 1 %>
-        <%= link_to "前へ", admins_path(page: @page - 1), class: "btn btn-outline-secondary btn-sm" %>
+        <%= link_to "前へ", admins_path(page: @page - 1, q: params[:q]), class: "btn btn-outline-secondary btn-sm" %>
       <% end %>
     </div>
     <div>
       <% if @has_next_page %>
-        <%= link_to "次へ", admins_path(page: @page + 1), class: "btn btn-outline-secondary btn-sm" %>
+        <%= link_to "次へ", admins_path(page: @page + 1, q: params[:q]), class: "btn btn-outline-secondary btn-sm" %>
       <% end %>
     </div>
   </div>

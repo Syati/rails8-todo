@@ -42,4 +42,12 @@ class Admin < ApplicationRecord
       admin.password = Devise.friendly_token[0, 20]
     end
   end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[id email]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    []
+  end
 end

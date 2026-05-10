@@ -5,6 +5,8 @@ RSpec.describe "Admins::Index", type: :request do
 
   describe "GET /admins" do
     let!(:viewer) { create(:admin) }
+    let!(:target_admin) { create(:admin, email: "target-admin@example.com") }
+    let!(:other_admin) { create(:admin, email: "other-admin@example.com") }
 
     before do
       create_list(:admin, 34)
@@ -27,6 +29,22 @@ RSpec.describe "Admins::Index", type: :request do
       hidden_ids.each do |id|
         expect(response.body).not_to include("<td>#{id}</td>")
       end
+    end
+
+    it "idで検索できる" do
+      get admins_path, params: { q: { id_eq: target_admin.id } }
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include("<td>#{target_admin.id}</td>")
+      expect(response.body).not_to include("<td>#{other_admin.id}</td>")
+    end
+
+    it "emailで部分一致検索できる" do
+      get admins_path, params: { q: { email_cont: "target-admin" } }
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include(target_admin.email)
+      expect(response.body).not_to include(other_admin.email)
     end
   end
 end
