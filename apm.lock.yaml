@@ -2,6 +2,5 @@ lockfile_version: '1'
 generated_at: '2026-05-04T06:25:19.426040+00:00'
 dependencies: []
 local_deployed_files:
-- .github/instructions/rspec.instructions.md
-local_deployed_file_hashes:
-  .github/instructions/rspec.instructions.md: sha256:68637e28b001da403e682b55e98fff76aaa6b044719960ca33ce32e3ccfab475
+- .agents/skills/github-issue-implement
+- .agents/skills/github-issue-select
