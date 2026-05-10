@@ -47,14 +47,16 @@ RSpec.describe Admin, type: :model do
     end
 
     it "一致する管理者がなければ新規作成する" do
+      created = nil
+
       expect do
-        @created = described_class.from_omniauth(auth)
+        created = described_class.from_omniauth(auth)
       end.to change(described_class, :count).by(1)
 
-      expect(@created.provider).to eq(provider)
-      expect(@created.uid).to eq(uid)
-      expect(@created.email).to eq(email)
-      expect(@created.encrypted_password).to be_present
+      expect(created.provider).to eq(provider)
+      expect(created.uid).to eq(uid)
+      expect(created.email).to eq(email)
+      expect(created.encrypted_password).to be_present
     end
   end
 

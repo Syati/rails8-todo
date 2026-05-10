@@ -34,7 +34,7 @@ class AddDeviseToAdmins < ActiveRecord::Migration[8.1]
 
 
       # Uncomment below if timestamps were not included in your original model.
-      # t.timestamps null: false
+      t.timestamps null: false
 
       ## Omniauthable
       t.string :provider
