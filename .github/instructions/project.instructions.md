@@ -1,16 +1,16 @@
 ---
-description: rails8-todo 全体に適用する Copilot 共通指示
+description: rails8-todo 全体に適用するプロジェクト共通指示
 applyTo: "**/*"
 ---
 
-# Copilot Instructions (rails8-todo)
+# Project Instructions (rails8-todo)
 
-このファイルは、本リポジトリで AI コーディング支援を使う際の共通ルールです。
+このファイルは、本リポジトリで利用する AI エージェント全般に適用する共通ルールです。
 対象: Ruby / Rails 8 / PostgreSQL / RSpec / Devise / OmniAuth
 
 ## 0. 正本と生成物
 
-- このファイル（`.apm/instructions/project.instructions.md`）を正本とする。
+- `.apm/instructions/*.instructions.md` を正本とする。
 - `.github/*` 配下の互換資産は `apm compile -t copilot` で生成し、生成物だが commit 管理する。
 
 ## 1. 基本方針
@@ -20,74 +20,40 @@ applyTo: "**/*"
 - 不明点は推測で実装せず、前提を明示して提案する。
 - 破壊的変更（DB削除、API仕様変更、認証フロー変更）は理由と影響範囲を書く。
 
-## 2. コマンド実行ルール（rtk優先）
+## 2. Rails 実装規約
 
-ローカル実行コマンドは可能な限り `rtk` プレフィックスを使う。
-
-- `rtk` のサブコマンドやオプションは推測で使わず、MCP Context7 の RTK ドキュメント（`/rtk-ai/rtk`）を参照して確認する。
-- `rtk` の構文に確信がない場合は断定せず、確認できた範囲を明示する。
-
-- `rtk git status`
-- `rtk ls`
-- `rtk find`
-- `rtk grep "keyword" .`
-- `rtk rspec`
-- `rtk rubocop`
-
-### 2.1 rtk grep の注意
-
-`rtk grep` の基本構造:
-
-`rtk grep [OPTIONS] <PATTERN> [PATH] [EXTRA_ARGS]...`
-
-- 行番号はデフォルトで有効（`-n` 不要）
-- `rg` 由来オプションは `--` の後ろに置く
-  - 例: `rtk grep "admin" . -- -i -A 3`
-
-## 3. Rails 実装規約
-
-### 3.1 変更方針
+### 2.1 変更方針
 
 - 先に既存コード（モデル、ルーティング、初期化設定、テスト）を確認する。
 - Rails の慣習（命名、責務分離、コールバック最小化）に従う。
 - Fat Controller を避け、業務ロジックはモデルまたはサービスに寄せる。
 
-### 3.2 マイグレーション
+### 2.2 マイグレーション
 
 - 既存テーブル前提の `change_table` を使う前に、テーブル存在前提を確認する。
 - 新規環境で落ちる migration を避ける。
 - 破壊的操作（`drop_table`, `remove_column`）はロールバック可否を明示する。
 
-### 3.3 認証（Devise / OmniAuth）
+### 2.3 認証（Devise / OmniAuth）
 
 - `Admin` 認証の変更時は `app/models/admin.rb` と `config/routes.rb` の整合を確認する。
 - セキュリティ関連設定の変更時は、影響（ログイン・登録・ロック・確認メール）を明記する。
 - CSRF、callback URL、provider 設定の取り扱いを明示する。
 
-## 4. テスト規約（RSpec）
+## 3. テスト規約（RSpec）
 
 - 仕様追加・不具合修正時は、原則テストを追加または更新する。
 - `describe` / `context` / `it` など RSpec の記述ラベルは英語で記述してよい。
 - `FactoryBot` を使い、重複したデータ構築を避ける。
 - 境界値・バリデーション・認証系の失敗ケースを優先してテストする。
 
-実行例:
+## 4. 品質チェック
 
-- `rtk test bundle exec rspec`
-- `rtk test bundle exec rspec spec/models/admin_spec.rb`
-
-## 5. 品質チェック
-
-変更後は可能な範囲で次を実行する。
-
-- `rtk test bundle exec rspec`
-- `bundle exec rubocop`
-- `bundle exec brakeman`
-- `bin/rails db:migrate`
+変更後は可能な範囲で `cmd.instructions.md` に示す品質チェックを実行する。
 
 実行できない場合は、未実施項目と理由を明記する。
 
-## 6. RuboCop 方針
+## 5. RuboCop 方針
 
 `.rubocop.yml` に従う。
 
@@ -98,19 +64,19 @@ applyTo: "**/*"
   - `RSpec/MultipleExpectations: Max 5`
   - `RSpec/ExampleLength: Max 10`
 
-## 7. Annotate 運用
+## 6. Annotate 運用
 
 - `.annotaterb.yml` の設定に従い、必要に応じて注釈を更新する。
 - 注釈のみの差分コミットは避け、関連機能変更とセットで扱う。
 
-## 8. 出力フォーマット（AIへの期待）
+## 7. 出力フォーマット（AIへの期待）
 
 - 先に「何を変更するか」を短く示す。
 - 変更ファイルごとに理由を明記する。
 - 最後に次アクション候補を 1〜3 個提示する。
 - 長いコード全文は避け、要点を示す。
 
-## 9. 禁止事項
+## 8. 禁止事項
 
 - 秘密情報（鍵、トークン、資格情報）を生成・コミットしない。
 - 根拠のない断定をしない。
