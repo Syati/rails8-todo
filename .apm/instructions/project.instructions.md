@@ -10,7 +10,7 @@ applyTo: "**/*"
 
 ## 0. 正本と生成物
 
-- このファイル（`.apm/instructions/project.instructions.md`）を正本とする。
+- `.apm/instructions/*.instructions.md` を正本とする。
 - `.github/*` 配下の互換資産は `apm compile -t copilot` で生成し、生成物だが commit 管理する。
 
 ## 1. 基本方針
@@ -71,7 +71,7 @@ applyTo: "**/*"
 - `FactoryBot` を使い、重複したデータ構築を避ける。
 - 境界値・バリデーション・認証系の失敗ケースを優先してテストする。
 
-実行例:
+実行例:s
 
 - `rtk test bundle exec rspec`
 - `rtk test bundle exec rspec spec/models/admin_spec.rb`
