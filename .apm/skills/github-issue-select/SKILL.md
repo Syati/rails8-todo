@@ -1,3 +1,8 @@
+---
+name: github-issue-select
+description: 対象リポジトリの open issues を取得して、実装対象をユーザーが選べる一覧として提示する。着手Issueが未確定のときに使う。
+---
+
 # GitHub Issue Select Skill
 
 ## Purpose

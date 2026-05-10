@@ -1,3 +1,8 @@
+---
+name: github-issue-implement
+description: 選択済みの GitHub Issue を実装し、関連テストと品質チェックを行って変更結果を報告する。Issue 番号が確定している実装フェーズで使う。
+---
+
 # GitHub Issue Implement Skill
 
 ## Purpose
