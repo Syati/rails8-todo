@@ -45,6 +45,9 @@ app/lint: ## Run RuboCop
 app/lint/fix: ## Run RuboCop with auto-correct offenses
 	bundle exec rubocop -A
 
+#### APM
+apm/all:
+	apm install --no-policy && apm compile
 #### AI
 ai/test: ## Run RSpec via rtk (use ARGS="spec/path")
 	mise exec -C $(PROJECT_DIR) -- rtk rspec $(ARGS)
