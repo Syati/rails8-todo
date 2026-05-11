@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "~> 8.1.0"
+gem "rails", "~> 8.1.3"
 
 # Backend assets
 gem "puma", ">= 5.0"
@@ -78,7 +78,7 @@ group :development, :test do
   # Testing
   gem "factory_bot_rails"
   gem "faker"
-  gem "rspec-rails", "~> 8.0.2"
+  gem "rspec-rails", "~> 8.0.4"
 end
 
 group :development do
