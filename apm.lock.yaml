@@ -2,42 +2,5 @@ lockfile_version: '1'
 generated_at: '2026-05-04T06:25:19.426040+00:00'
 dependencies: []
 local_deployed_files:
-- .codex/agents/implementer.toml
-- .codex/agents/migration-guardian.toml
-- .codex/agents/planner.toml
-- .codex/agents/quality-runner.toml
-- .codex/agents/security-reviewer.toml
-- .codex/agents/test-writer.toml
-- .github/agents/implementer.agent.md
-- .github/agents/migration-guardian.agent.md
-- .github/agents/planner.agent.md
-- .github/agents/quality-runner.agent.md
-- .github/agents/security-reviewer.agent.md
-- .github/agents/test-writer.agent.md
-- .github/instructions/apm.instructions.md
-- .github/instructions/cmd.instructions.md
-- .github/instructions/controllers.instructions.md
-- .github/instructions/project.instructions.md
-- .github/prompts/create-issue-from-scope.prompt.md
-- .github/prompts/implement.prompt.md
-- .github/prompts/merge-dependabot-prs.prompt.md
-local_deployed_file_hashes:
-  .codex/agents/implementer.toml: sha256:0e1237fd58dfd89a2ce20abb8ec1e2f4bf68163ae4057864d44551c9d2b94409
-  .codex/agents/migration-guardian.toml: sha256:37487c1c34c39c6da6570d0626731ed51f322deb74f9ff990459971ddc7ac146
-  .codex/agents/planner.toml: sha256:4dc6756f972c9575aa8ba33388e0bc516b84a72bd79aa88067ea44e7744ccec7
-  .codex/agents/quality-runner.toml: sha256:7c9fbbbc318ad70242c4f7be919b433406b31abb1a9c370e0dc9000c0e2f691d
-  .codex/agents/security-reviewer.toml: sha256:58b604f4a3eaff719fedb0abde4a4503d8d0b1df8c730ae3886c24ac41a7eb60
-  .codex/agents/test-writer.toml: sha256:7cac3b0f0349ea880199b205647abe99ff2bd297f17d8ab67643cf3135eda36b
-  .github/agents/implementer.agent.md: sha256:11e74af72d0a2dc44134dba7b6c4cf3c7384f991757390151d6e8aaae36ed6cf
-  .github/agents/migration-guardian.agent.md: sha256:f174567c2867cc57c85bdeb1de74ebaf82d3c522d3f0c871a5fa93b64faad477
-  .github/agents/planner.agent.md: sha256:a0fe49a431a27361a8aa1ff2f9eac5620e5e539695bf2842c85981f49a91f521
-  .github/agents/quality-runner.agent.md: sha256:5ba8af99462c3af8c414257230c45165fe4f92d477d6e1551ca10a3da6fbadf0
-  .github/agents/security-reviewer.agent.md: sha256:9d1ab1212310a6b191bc977d33e93124f127762d945df20fa37d8483084028c9
-  .github/agents/test-writer.agent.md: sha256:c7fb200eee5f377289d4813917644ef6fa4b7cce349d4a1c64955bfb44f6d2c3
-  .github/instructions/apm.instructions.md: sha256:ff3d63fd6136f23ba296c1cfd5ac60c42ca61f14b1f271fd34de002ce1817ae4
-  .github/instructions/cmd.instructions.md: sha256:ac1d938502577e224fb165228131516aa85bf284b96e08a0e4459aa46b4099e9
-  .github/instructions/controllers.instructions.md: sha256:8a4fcb8aeb3b56b4ae1d321bfa8cdad30f32efec7ed88217d279ae93f60936d3
-  .github/instructions/project.instructions.md: sha256:f0a2ca9d6aad3932fbb77597137ac123ad764ec16f69537154ac912cc179234b
-  .github/prompts/create-issue-from-scope.prompt.md: sha256:896fb3c5b2205021d7f0d45c192adf2ade591cd126b471c591ac5b1e9e7e400c
-  .github/prompts/implement.prompt.md: sha256:f7a7e60080ec567e291543732c3a43eeccc1263b27192193ce107f7009e5b946
-  .github/prompts/merge-dependabot-prs.prompt.md: sha256:69de00decb9d3048adb172b52242f8e5ec50451e391b38ab0c5fb5f7d5063e3c
+- .agents/skills/github-issue-implement
+- .agents/skills/github-issue-select

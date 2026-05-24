@@ -34,12 +34,20 @@ class Admin < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :trackable, :omniauthable,
-         omniauth_providers: [:developer]
+         omniauth_providers: [ :developer ]
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |admin|
       admin.email = auth.info.email
       admin.password = Devise.friendly_token[0, 20]
     end
+  end
+
+  def self.ransackable_attributes(_auth_object = nil)
+    %w[id email]
+  end
+
+  def self.ransackable_associations(_auth_object = nil)
+    []
   end
 end

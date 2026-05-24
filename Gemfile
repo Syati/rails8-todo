@@ -12,7 +12,7 @@ gem "thruster", require: false
 gem "bootsnap", require: false
 
 # config
-gem 'config'
+gem "config"
 ## Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
@@ -25,11 +25,12 @@ gem "solid_queue"
 
 # Authentication
 gem "devise"
-gem 'devise-i18n'
+gem "devise-i18n"
 gem "omniauth"
-gem 'omniauth-rails_csrf_protection'
+gem "omniauth-rails_csrf_protection"
 
 # Form
+gem "ransack"
 gem "simple_form"
 
 # Frontend assets
@@ -65,7 +66,7 @@ group :development, :test do
   gem "brakeman", require: false
 
   gem "annotaterb", require: false
-  gem 'letter_opener_web'
+  gem "letter_opener_web"
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop", require: false
