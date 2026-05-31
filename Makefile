@@ -30,10 +30,19 @@ help: ## Print help
 
 #### General
 up: ## Start all services
-	docker compose up
+	docker compose up -d
 
 up/service: ## Start service only db
 	docker compose up -d db
+
+ps:: ## Show running containers
+	docker compose ps
+
+stop: ## Stop all services
+	docker compose stop
+
+logf: ## Show logs
+	docker compose logs -f $(ARGS)
 
 #### App
 app/test: ## Run RSpec
