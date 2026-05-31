@@ -24,15 +24,27 @@ services:
     command: ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]
     depends_on:
       - db
-    ports:
-      - "3000:3000"
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:3000/up || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 5
-
+    environment:
+      SETTINGS__DATABASE__HOST: db
+      SETTINGS__DATABASE__PORT: 5432
+    networks:
+      - default
+      - dev-proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.rails8todo.rule=Host(`todo.localhost`)"
+      - "traefik.docker.network=dev-proxy"
+      - "traefik.http.services.rails8todo.loadbalancer.server.port=3000"
 
 volumes:
   db_data:
     driver: local
+
+networks:
+  dev-proxy:
+    external: true
