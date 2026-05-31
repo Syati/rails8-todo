@@ -42,10 +42,9 @@ gem "importmap-rails"
 gem "turbo-rails"
 # Hotwire's modest JavaScript framework [https://stimulus.hotwired.dev]
 gem "stimulus-rails"
-# scss
-gem "dartsass-rails", "~> 0.5.1"
-# Bootstrap
-gem "bootstrap", "~> 5.3"
+# Tailwind CSS
+gem "tailwindcss-rails"
+gem "tailwindcss-ruby"
 
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]

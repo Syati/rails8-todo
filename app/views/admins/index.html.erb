@@ -1,63 +1,61 @@
-<div class="card">
-  <div class="card-header">
-    <h1 class="card-title mb-0">管理者一覧</h1>
+<div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+  <div class="border-b border-gray-200 px-6 py-4">
+    <h1 class="text-xl font-semibold text-gray-900">管理者一覧</h1>
   </div>
 
-  <div class="card-body border-bottom">
-    <%= search_form_for @q, url: admins_path, method: :get, html: { class: "row g-2 align-items-end" } do |f| %>
-      <div class="col-md-2">
-        <%= f.label :id_eq, "ID", class: "form-label" %>
-        <%= f.search_field :id_eq, class: "form-control", placeholder: "例: 123" %>
+  <div class="border-b border-gray-200 px-6 py-4">
+    <%= search_form_for @q, url: admins_path, method: :get, html: { class: "grid gap-4 md:grid-cols-12 md:items-end" } do |f| %>
+      <div class="md:col-span-2">
+        <%= f.label :id_eq, "ID", class: "mb-2 block text-sm font-medium text-gray-900" %>
+        <%= f.search_field :id_eq, class: "block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500", placeholder: "例: 123" %>
       </div>
-      <div class="col-md-4">
-        <%= f.label :email_cont, "Email", class: "form-label" %>
-        <%= f.search_field :email_cont, class: "form-control", placeholder: "部分一致検索" %>
+      <div class="md:col-span-4">
+        <%= f.label :email_cont, "Email", class: "mb-2 block text-sm font-medium text-gray-900" %>
+        <%= f.search_field :email_cont, class: "block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500", placeholder: "部分一致検索" %>
       </div>
-      <div class="col-md-6 d-flex gap-2">
-        <%= f.submit "検索", class: "btn btn-primary" %>
-        <%= link_to "クリア", admins_path, class: "btn btn-outline-secondary" %>
+      <div class="flex gap-2 md:col-span-6">
+        <%= f.submit "検索", class: "rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300" %>
+        <%= link_to "クリア", admins_path, class: "rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
       </div>
     <% end %>
   </div>
 
-  <div class="card-body p-0">
-    <div class="table-responsive">
-      <table class="table table-striped mb-0">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Email</th>
-            <th>状態</th>
+  <div class="overflow-x-auto">
+    <table class="w-full text-left text-sm text-gray-500">
+      <thead class="bg-gray-50 text-xs uppercase text-gray-700">
+        <tr>
+          <th scope="col" class="px-6 py-3">ID</th>
+          <th scope="col" class="px-6 py-3">Email</th>
+          <th scope="col" class="px-6 py-3">状態</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @admins.each do |admin| %>
+          <tr class="border-b border-gray-200 bg-white hover:bg-gray-50">
+            <td class="px-6 py-4 font-medium text-gray-900"><%= admin.id %></td>
+            <td class="px-6 py-4"><%= admin.email %></td>
+            <td class="px-6 py-4">
+              <% if admin.locked_at.present? %>
+                <span class="rounded-sm bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800">ロック中</span>
+              <% else %>
+                <span class="rounded-sm bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">有効</span>
+              <% end %>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          <% @admins.each do |admin| %>
-            <tr>
-              <td><%= admin.id %></td>
-              <td><%= admin.email %></td>
-              <td>
-                <% if admin.locked_at.present? %>
-                  <span class="badge text-bg-danger">ロック中</span>
-                <% else %>
-                  <span class="badge text-bg-success">有効</span>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 
-  <div class="card-footer d-flex justify-content-between">
+  <div class="flex justify-between px-6 py-4">
     <div>
       <% if @page > 1 %>
-        <%= link_to "前へ", admins_path(page: @page - 1, q: params[:q]), class: "btn btn-outline-secondary btn-sm" %>
+        <%= link_to "前へ", admins_path(page: @page - 1, q: params[:q]), class: "rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
       <% end %>
     </div>
     <div>
       <% if @has_next_page %>
-        <%= link_to "次へ", admins_path(page: @page + 1, q: params[:q]), class: "btn btn-outline-secondary btn-sm" %>
+        <%= link_to "次へ", admins_path(page: @page + 1, q: params[:q]), class: "rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
       <% end %>
     </div>
   </div>

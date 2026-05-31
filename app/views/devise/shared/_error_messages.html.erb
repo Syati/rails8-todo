@@ -1,17 +1,15 @@
 <% if resource.errors.any? %>
-  <div class="alert alert-danger alert-dismissible fade show" role="alert" data-turbo-temporary>
-    <h5 class="alert-heading">
-      <i class="bi bi-exclamation-triangle-fill"></i>
+  <div id="devise-error-messages" class="mb-4 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800" role="alert" data-turbo-temporary>
+    <h5 class="mb-2 font-semibold">
       <%= I18n.t("errors.messages.not_saved",
                  count: resource.errors.count,
                  resource: devise_i18n_fix_model_name_case(resource.model_name.human, i18n_key: 'errors.messages.not_saved'))
        %>
     </h5>
-    <ul class="mb-0">
+    <ul class="list-inside list-disc">
       <% resource.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
 <% end %>

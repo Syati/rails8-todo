@@ -1,17 +1,26 @@
-<aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
-  <div class="sidebar-brand">
-    <a href="<%= root_path %>" class="brand-link text-decoration-none">
-      <span class="brand-text fw-light">Rails8 Todo</span>
+<aside id="application-sidebar" class="fixed left-0 top-0 z-40 h-screen w-64 -translate-x-full border-r border-gray-200 bg-white transition-transform lg:translate-x-0" aria-label="Sidebar">
+  <div class="flex h-full flex-col overflow-y-auto px-3 py-4">
+    <a href="<%= root_path %>" class="mb-6 flex items-center rounded-lg px-3 py-2 text-xl font-semibold text-gray-900">
+      Rails8 Todo
     </a>
-  </div>
 
-  <div class="sidebar-wrapper">
-    <nav class="mt-2">
-      <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu">
-        <li class="nav-item">
-          <a href="<%= root_path %>" class="nav-link">
-            <i class="nav-icon bi bi-speedometer2"></i>
-            <p>Dashboard</p>
+    <nav class="flex-1">
+      <ul class="space-y-2">
+        <li>
+          <a href="<%= root_path %>" class="flex items-center rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
+            <svg class="mr-3 h-5 w-5 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
+              <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 10 10 0 1 0 9.039 9.039.999.999 0 0 0-.998-1.066Z"/>
+              <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 .993-.935c.017-.254.027-.408.027-.565A8.5 8.5 0 0 0 12.5 0Z"/>
+            </svg>
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="<%= admins_path %>" class="flex items-center rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
+            <svg class="mr-3 h-5 w-5 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
+              <path d="M14 2a3.963 3.963 0 0 0-1.4.267 5.02 5.02 0 0 1 0 7.466A4 4 0 1 0 14 2ZM6 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm8 2h-.35a5.96 5.96 0 0 1-7.3 0H6a6 6 0 0 0-6 6h20a6 6 0 0 0-6-6Z"/>
+            </svg>
+            管理者一覧
           </a>
         </li>
       </ul>
