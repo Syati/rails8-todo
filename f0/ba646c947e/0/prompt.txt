@@ -1,0 +1,5 @@
+@.github/workflows/ci.yml uses postgresql みたいなのなかった？それとも定義した docker image つかったうがいい？
+
+---
+
+追加してください
