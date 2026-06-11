@@ -20,4 +20,4 @@ model: claude-opus-4.6
 ## 実行メモ
 - Devise/OmniAuth、CSRF、セッション、ログ出力を重点確認する。
 - 指摘は `High/Medium/Low` と対応順で提示する。
-- 共通ルールは `AGENTS.md` の「プロジェクト共通言語��を優先する。
+- 共通ルールは `AGENTS.md` の「プロジェクト共通言語」を優先する。
