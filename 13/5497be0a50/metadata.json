@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.7.5",
+  "checkpoint_id": "135497be0a50",
+  "strategy": "manual-commit",
+  "branch": "codex/issue-63-flowbite-admin-ui",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "app/models/admin.rb"
+  ],
+  "sessions": [
+    {
+      "metadata": "/13/5497be0a50/0/metadata.json",
+      "transcript": "/13/5497be0a50/0/full.jsonl",
+      "content_hash": "/13/5497be0a50/0/content_hash.txt",
+      "prompt": "/13/5497be0a50/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 196171,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 2504448,
+    "output_tokens": 16099,
+    "api_call_count": 66
+  }
+}

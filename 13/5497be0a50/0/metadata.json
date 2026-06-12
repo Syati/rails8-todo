@@ -1,0 +1,46 @@
+{
+  "cli_version": "0.7.5",
+  "checkpoint_id": "135497be0a50",
+  "session_id": "019eb9c7-d5d4-7b81-aa9d-54307016b5a9",
+  "strategy": "manual-commit",
+  "created_at": "2026-06-12T04:04:56.220613Z",
+  "branch": "codex/issue-63-flowbite-admin-ui",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "app/models/admin.rb"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.5",
+  "turn_id": "9551d32f55b3",
+  "token_usage": {
+    "input_tokens": 196171,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 2504448,
+    "output_tokens": 16099,
+    "api_call_count": 66
+  },
+  "session_metrics": {
+    "turn_count": 13
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-06-12T04:04:56.211133Z",
+    "agent_lines": 1,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 1,
+    "total_lines_changed": 1,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    }
+  ]
+}

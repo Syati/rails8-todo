@@ -1,0 +1,61 @@
+docker-compose.yml ローカルの反映が app docker に伝播するように volume を sync したほうがいいね
+
+---
+
+.:/rails はわかるんだけど、不要な物が多いよね
+
+---
+
+importmap 使うこと考えたら、vendor もしたほうがいいじゃない？
+
+---
+
+bin は？
+
+---
+
+gem をvolume にしたほうがいいよね
+
+---
+
+make に app/bundle と app/bundle/install をくわえましょう。
+
+---
+
+app/test などは、bundle exe にしているけど、docker 経由で揃えますか
+
+---
+
+docker compose run --rm が重複しているから、const にして参照するようにしましょうか
+
+---
+
+今回のスコープを commit してください
+
+---
+
+docker compose の app command って ./bin/dev つかう必要あるよね？
+
+---
+
+commit して
+
+---
+
+app-1  | 03:50:56 css.1  | ≈ tailwindcss v4.3.0
+app-1  | 03:50:56 css.1  |
+app-1  | 03:50:56 css.1  | ≈ tailwindcss v4.3.0
+app-1  | 03:50:56 css.1  |
+app-1  | 03:50:58 css.1  | exited with code 0
+app-1  | 03:50:58 system | sending SIGTERM to all processes
+app-1  | 03:50:58        | exited with code 127
+app-1  | 03:50:58 web.1  | - Gracefully stopping, waiting for requests to finish
+app-1  | 03:50:58 web.1  | Exiting
+app-1  | 03:50:58 web.1  | Exiting
+app-1  | 03:50:58 web.1  | terminated by SIGTERM
+app-1  | 03:50:58 web.1  | terminated by SIGTERM
+app-1 exited with code 0
+
+---
+
+commit push
