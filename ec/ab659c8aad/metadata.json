@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.7.5",
+  "checkpoint_id": "ecab659c8aad",
+  "strategy": "manual-commit",
+  "branch": "codex/issue-63-flowbite-admin-ui",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "Procfile.dev"
+  ],
+  "sessions": [
+    {
+      "metadata": "/ec/ab659c8aad/0/metadata.json",
+      "transcript": "/ec/ab659c8aad/0/full.jsonl",
+      "content_hash": "/ec/ab659c8aad/0/content_hash.txt",
+      "prompt": "/ec/ab659c8aad/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 185840,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 2211712,
+    "output_tokens": 15525,
+    "api_call_count": 61
+  }
+}
