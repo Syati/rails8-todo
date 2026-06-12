@@ -41,8 +41,14 @@ ps:: ## Show running containers
 stop: ## Stop all services
 	docker compose stop
 
+down: ## Stop and remove all services and volumes
+	docker compose down --volumes
+
 logf: ## Show logs
 	docker compose logs -f $(ARGS)
+
+logs: ## Show logs
+	docker compose logs $(ARGS)
 
 #### App
 app/test: ## Run RSpec
