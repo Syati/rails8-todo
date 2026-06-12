@@ -5,6 +5,7 @@ author: mizuki-y
 targets:
   - copilot
   - codex
+  - claude
 dependencies:
   apm: []
   mcp:

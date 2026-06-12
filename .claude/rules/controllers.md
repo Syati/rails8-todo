@@ -1,0 +1,46 @@
+---
+paths:
+  - "app/controllers/**/*"
+---
+
+# Controllers Instructions
+
+`app/controllers` 配下の変更では、次の方針を優先する。
+
+## 1. 基本方針
+
+- 変更は最小差分で行い、既存の画面遷移・レスポンス形式を壊さない。
+- Controller は入出力とフロー制御に集中し、業務ロジックはモデルまたはサービスへ移す。
+- 複数 action で再利用する処理は private メソッドか concern へ抽出する。
+
+## 2. 認証・認可
+
+- `ApplicationController` の認証方針（`authenticate_admin!` など）に整合させる。
+- 認証のスキップ（`skip_before_action`）は必要最小限にし、理由を明記する。
+- 権限差がある処理では、対象 action ごとに許可条件を明示する。
+
+## 3. Params と入力検証
+
+- Mass assignment を避け、必ず strong params（`require` / `permit`）を使う。
+- `permit!` は原則使わない。使う場合は理由と影響範囲を明記する。
+- 正規化や複雑な入力変換は model/service 側へ寄せる。
+
+## 4. 例外処理とレスポンス
+
+- 例外は握りつぶさず、既存の `rescue_from` / エラーページ方針に従う。
+- 成功/失敗時の `status`・`flash`・`redirect_to` / `render` を明示する。
+- API 形式を追加する場合は、HTML 既存挙動を維持した上で `respond_to` を使う。
+
+## 5. テスト観点
+
+- Controller 変更時は request spec を優先して追加・更新する。
+- 少なくとも以下を確認する:
+  - 認証あり/なしでのアクセス制御
+  - 不正 params・境界値での失敗ケース
+  - 成功時の遷移先、HTTP status、表示メッセージ
+
+## 6. 禁止事項
+
+- Fat Controller を助長する大規模ロジック追加。
+- 未関連 action のリファクタリング混在。
+- セキュリティ影響のある変更（認証・CSRF・callback）を説明なしで行う。

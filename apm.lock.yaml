@@ -4,3 +4,56 @@ dependencies: []
 local_deployed_files:
 - .agents/skills/github-issue-implement
 - .agents/skills/github-issue-select
+- .claude/agents/implementer.md
+- .claude/agents/migration-guardian.md
+- .claude/agents/planner.md
+- .claude/agents/quality-runner.md
+- .claude/agents/security-reviewer.md
+- .claude/agents/test-writer.md
+- .claude/commands/create-issue-from-scope.md
+- .claude/commands/implement.md
+- .claude/commands/merge-dependabot-prs.md
+- .claude/rules/apm.md
+- .claude/rules/cmd.md
+- .claude/rules/controllers.md
+- .claude/rules/project.md
+- .claude/rules/rspec.md
+- .claude/skills/github-issue-implement
+- .claude/skills/github-issue-select
+- .github/agents/implementer.agent.md
+- .github/agents/migration-guardian.agent.md
+- .github/agents/planner.agent.md
+- .github/agents/quality-runner.agent.md
+- .github/agents/security-reviewer.agent.md
+- .github/agents/test-writer.agent.md
+- .github/instructions/controllers.instructions.md
+- .github/instructions/rspec.instructions.md
+- .github/prompts/create-issue-from-scope.prompt.md
+- .github/prompts/implement.prompt.md
+- .github/prompts/merge-dependabot-prs.prompt.md
+local_deployed_file_hashes:
+  .claude/agents/implementer.md: sha256:11e74af72d0a2dc44134dba7b6c4cf3c7384f991757390151d6e8aaae36ed6cf
+  .claude/agents/migration-guardian.md: sha256:f174567c2867cc57c85bdeb1de74ebaf82d3c522d3f0c871a5fa93b64faad477
+  .claude/agents/planner.md: sha256:a0fe49a431a27361a8aa1ff2f9eac5620e5e539695bf2842c85981f49a91f521
+  .claude/agents/quality-runner.md: sha256:5ba8af99462c3af8c414257230c45165fe4f92d477d6e1551ca10a3da6fbadf0
+  .claude/agents/security-reviewer.md: sha256:9d1ab1212310a6b191bc977d33e93124f127762d945df20fa37d8483084028c9
+  .claude/agents/test-writer.md: sha256:c7fb200eee5f377289d4813917644ef6fa4b7cce349d4a1c64955bfb44f6d2c3
+  .claude/commands/create-issue-from-scope.md: sha256:e3c4226b16104e834ac2a1fe678b6acb728bf55e35dd6b8649aa1c92f39e273c
+  .claude/commands/implement.md: sha256:5bd4de9606602e22590bd89a8a2653692ab28c8bda6dd09b09a0685f87b2ed14
+  .claude/commands/merge-dependabot-prs.md: sha256:4e2a64a5c0e2c929ce75d5a65afa44989bd81ed86ffb41e96a2924da8edf4917
+  .claude/rules/apm.md: sha256:eb8c3baa81343a9517a702276ecc42cd4b5521fa799ae81e5ae7aed9cdb812e1
+  .claude/rules/cmd.md: sha256:e54596e805c1f81a5afcada2c3d145d0b47d5baad8ef35e95870ad9630c78903
+  .claude/rules/controllers.md: sha256:44e9b4326d2d8cf83c932160bb3f1e9f7b138c299808c52d1632896e2e0f78f9
+  .claude/rules/project.md: sha256:a78e2dc1cf936c816d7e39a9fc417881c0ac741c161110b6f609b3b76cad8d97
+  .claude/rules/rspec.md: sha256:235748b3f5f7d7da53e210c9dc38e66392227c43a6b61dbb77ca091c01420017
+  .github/agents/implementer.agent.md: sha256:11e74af72d0a2dc44134dba7b6c4cf3c7384f991757390151d6e8aaae36ed6cf
+  .github/agents/migration-guardian.agent.md: sha256:f174567c2867cc57c85bdeb1de74ebaf82d3c522d3f0c871a5fa93b64faad477
+  .github/agents/planner.agent.md: sha256:a0fe49a431a27361a8aa1ff2f9eac5620e5e539695bf2842c85981f49a91f521
+  .github/agents/quality-runner.agent.md: sha256:5ba8af99462c3af8c414257230c45165fe4f92d477d6e1551ca10a3da6fbadf0
+  .github/agents/security-reviewer.agent.md: sha256:9d1ab1212310a6b191bc977d33e93124f127762d945df20fa37d8483084028c9
+  .github/agents/test-writer.agent.md: sha256:c7fb200eee5f377289d4813917644ef6fa4b7cce349d4a1c64955bfb44f6d2c3
+  .github/instructions/controllers.instructions.md: sha256:8a4fcb8aeb3b56b4ae1d321bfa8cdad30f32efec7ed88217d279ae93f60936d3
+  .github/instructions/rspec.instructions.md: sha256:68637e28b001da403e682b55e98fff76aaa6b044719960ca33ce32e3ccfab475
+  .github/prompts/create-issue-from-scope.prompt.md: sha256:896fb3c5b2205021d7f0d45c192adf2ade591cd126b471c591ac5b1e9e7e400c
+  .github/prompts/implement.prompt.md: sha256:f7a7e60080ec567e291543732c3a43eeccc1263b27192193ce107f7009e5b946
+  .github/prompts/merge-dependabot-prs.prompt.md: sha256:69de00decb9d3048adb172b52242f8e5ec50451e391b38ab0c5fb5f7d5063e3c

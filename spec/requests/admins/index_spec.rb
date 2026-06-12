@@ -32,8 +32,8 @@ RSpec.describe "Admins::Index", type: :request do
       get admins_path, params: { q: { id_eq: target_admin.id } }
 
       expect(response).to have_http_status(:ok)
-      expect(response.body).to include("<td>#{target_admin.id}</td>")
-      expect(response.body).not_to include("<td>#{other_admin.id}</td>")
+      expect(response.body).to include(">#{target_admin.id}</td>")
+      expect(response.body).not_to include(">#{other_admin.id}</td>")
     end
 
     it "emailで部分一致検索できる" do
@@ -47,13 +47,13 @@ RSpec.describe "Admins::Index", type: :request do
 
   def expect_ids_rendered_in_table(body, ids)
     ids.each do |id|
-      expect(body).to include("<td>#{id}</td>")
+      expect(body).to include(">#{id}</td>")
     end
   end
 
   def expect_ids_hidden_from_table(body, ids)
     ids.each do |id|
-      expect(body).not_to include("<td>#{id}</td>")
+      expect(body).not_to include(">#{id}</td>")
     end
   end
 end

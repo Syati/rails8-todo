@@ -1,35 +1,28 @@
-<div class="login-box">
-  <div class="login-logo">
-    <b>Rails8</b> Todo
+<div class="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center px-4 py-8">
+  <div class="mb-6 text-center text-2xl font-semibold text-gray-900">
+    <span class="font-bold">Rails8</span> Todo
   </div>
 
-  <div class="card card-outline card-primary">
-    <div class="card-header text-center">
-      <h2 class="mb-0"><%= t(".forgot_your_password") %></h2>
+  <div class="rounded-lg border border-gray-200 bg-white shadow-sm">
+    <div class="border-b border-gray-200 px-6 py-4 text-center">
+      <h2 class="text-xl font-semibold text-gray-900"><%= t(".forgot_your_password") %></h2>
     </div>
-    <div class="card-body login-card-body">
+    <div class="p-6">
       <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
         <%= f.error_notification %>
 
-        <div class="input-group mb-3">
+        <div class="mb-4">
           <%= f.input_field :email,
                            autofocus: true,
                            autocomplete: "email",
-                           class: "form-control",
+                           class: "block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500",
                            placeholder: "Email" %>
-          <div class="input-group-text">
-            <i class="bi bi-envelope"></i>
-          </div>
         </div>
 
-        <div class="row">
-          <div class="col-12">
-            <%= f.button :submit, t(".send_me_reset_password_instructions"), class: "btn btn-primary w-100" %>
-          </div>
-        </div>
+        <%= f.button :submit, t(".send_me_reset_password_instructions"), class: "w-full rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300" %>
       <% end %>
 
-      <div class="mt-3 text-center">
+      <div class="mt-6 text-center">
         <%= render "devise/shared/links" %>
       </div>
     </div>

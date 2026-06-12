@@ -4,12 +4,13 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
+      POSTGRES_DB: rails8_todo_development
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --locale=C"
       TZ: "Asia/Tokyo"
     ports:
       - "15432:5432"
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - db_data:/var/lib/postgresql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
@@ -21,7 +22,7 @@ services:
       dockerfile: ./docker/app/Dockerfile
       args:
         RAILS_ENV: development
-    command: ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+    command: ["./bin/dev"]
     depends_on:
       - db
     healthcheck:
@@ -35,13 +36,26 @@ services:
     networks:
       - default
       - dev-proxy
+    volumes:
+      - ./app:/rails/app
+      - ./bin:/rails/bin
+      - ./config:/rails/config
+      - ./db:/rails/db
+      - ./lib:/rails/lib
+      - ./Procfile.dev:/rails/Procfile.dev
+      - ./public:/rails/public
+      - ./vendor:/rails/vendor
+      - bundle_data:/usr/local/bundle
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.rails8todo.rule=Host(`todo.localhost`)"
-      - "traefik.docker.network=dev-proxy"
       - "traefik.http.services.rails8todo.loadbalancer.server.port=3000"
+      - "traefik.http.routers.rails8todo.entrypoints=web"
+      - "traefik.docker.network=dev-proxy"
 
 volumes:
+  bundle_data:
+    driver: local
   db_data:
     driver: local
 

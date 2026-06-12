@@ -1,17 +1,11 @@
-<main class="app-main">
-  <div class="app-content-header">
-    <div class="container-fluid">
-      <% flash.each do |key, message| %>
-        <div class="alert alert-<%= key == "notice" ? "success" : "danger" %> mb-2" role="alert">
-          <%= message %>
-        </div>
-      <% end %>
-    </div>
-  </div>
+<main class="flex-1 px-4 py-6 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-7xl">
+    <% flash.each do |key, message| %>
+      <div class="mb-4 rounded-lg border p-4 text-sm <%= key == "notice" ? "border-green-200 bg-green-50 text-green-800" : "border-red-200 bg-red-50 text-red-800" %>" role="alert">
+        <%= message %>
+      </div>
+    <% end %>
 
-  <div class="app-content">
-    <div class="container-fluid py-2">
-      <%= yield %>
-    </div>
+    <%= yield %>
   </div>
 </main>
