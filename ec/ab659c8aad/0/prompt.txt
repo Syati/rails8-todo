@@ -55,3 +55,7 @@ app-1  | 03:50:58 web.1  | Exiting
 app-1  | 03:50:58 web.1  | terminated by SIGTERM
 app-1  | 03:50:58 web.1  | terminated by SIGTERM
 app-1 exited with code 0
+
+---
+
+commit push
