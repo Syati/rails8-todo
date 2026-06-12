@@ -42,6 +42,7 @@ class Admin < ApplicationRecord
     where(provider: auth.provider, uid: auth.uid).first_or_create do |admin|
       admin.email = auth.info.email
       admin.password = Devise.friendly_token[0, 20]
+      admin.skip_confirmation!
     end
   end
 
