@@ -1,8 +1,8 @@
 <header class="sticky top-0 z-30 border-b border-gray-200 bg-white">
   <div class="flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center gap-3 lg:hidden">
-      <button data-drawer-target="application-sidebar" data-drawer-toggle="application-sidebar" aria-controls="application-sidebar" type="button" class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
-        <span class="sr-only">Open sidebar</span>
+    <div class="flex items-center gap-3">
+      <button data-drawer-target="application-sidebar" data-drawer-toggle="application-sidebar" data-drawer-backdrop="false" data-drawer-body-scrolling="true" data-action="sidebar#sync" aria-controls="application-sidebar" type="button" class="inline-flex h-10 w-10 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+        <span class="sr-only">Toggle sidebar</span>
         <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
         </svg>
@@ -10,7 +10,7 @@
       <span class="text-sm font-semibold text-gray-900">Rails8 Todo</span>
     </div>
 
-    <div class="hidden text-sm font-medium text-gray-500 lg:block">Dashboard</div>
+    <div class="hidden text-sm font-medium text-gray-500 md:block">Dashboard</div>
 
     <div class="flex items-center gap-3">
       <span class="hidden max-w-56 truncate text-sm text-gray-600 sm:block"><%= current_admin&.email %></span>

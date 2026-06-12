@@ -28,6 +28,19 @@ RSpec.describe "Admins::Index", type: :request do
       expect_ids_hidden_from_table(response.body, hidden_ids)
     end
 
+    it "Flowbite drawer の sidebar を表示する", :aggregate_failures do
+      get admins_path
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to include('data-controller="sidebar"')
+      expect(response.body).to include('id="application-sidebar"')
+      expect(response.body).to include('data-drawer-toggle="application-sidebar"')
+      expect(response.body).to include('data-drawer-backdrop="false"')
+      expect(response.body).to include('data-drawer-body-scrolling="true"')
+      expect(response.body).to include('data-sidebar-target="content"')
+      expect(response.body).to include('data-sidebar-target="drawer"')
+    end
+
     it "idで検索できる" do
       get admins_path, params: { q: { id_eq: target_admin.id } }
 
