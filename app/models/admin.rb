@@ -22,6 +22,8 @@
 #  uid                    :string
 #  unconfirmed_email      :string
 #  unlock_token           :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
 #
 # Indexes
 #
@@ -40,6 +42,7 @@ class Admin < ApplicationRecord
     where(provider: auth.provider, uid: auth.uid).first_or_create do |admin|
       admin.email = auth.info.email
       admin.password = Devise.friendly_token[0, 20]
+      admin.skip_confirmation!
     end
   end
 

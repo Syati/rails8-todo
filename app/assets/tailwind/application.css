@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@source "../../../app/views/**/*.erb";
+@source "../../../app/helpers/**/*.rb";
+@source "../../../app/javascript/**/*.js";
+
+@theme {
+  --font-sans: "Noto Sans JP", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+  }
+}

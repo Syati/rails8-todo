@@ -1,76 +1,84 @@
-<div class="login-box" style="width: 600px;">
-  <div class="login-logo">
-    <b>Rails8</b> Todo
+<div class="mx-auto flex min-h-screen w-full max-w-2xl flex-col justify-center px-4 py-8">
+  <div class="mb-6 text-center text-2xl font-semibold text-gray-900">
+    <span class="font-bold">Rails8</span> Todo
   </div>
 
-  <div class="card card-outline card-primary">
-    <div class="card-header text-center">
-      <h2 class="mb-0"><%= t('.title') %></h2>
+  <div class="rounded-lg border border-gray-200 bg-white shadow-sm">
+    <div class="border-b border-gray-200 px-6 py-4 text-center">
+      <h2 class="text-xl font-semibold text-gray-900"><%= t('.title') %></h2>
     </div>
-    <div class="card-body">
-      <div class="accordion" id="faqAccordion">
-        <!-- Confirmation Email -->
-        <div class="accordion-item">
-          <h3 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConfirmation" aria-expanded="false" aria-controls="collapseConfirmation">
+    <div class="p-6">
+      <div id="faqAccordion" data-accordion="collapse">
+        <h3 id="headingConfirmation">
+          <button type="button" class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 text-left font-medium text-gray-500 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200" data-accordion-target="#collapseConfirmation" aria-expanded="false" aria-controls="collapseConfirmation">
+            <span>
               <%= t('.confirmation.question') %>
-            </button>
-          </h3>
-          <div id="collapseConfirmation" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              <p><%= t('.confirmation.answer') %></p>
-              <%= link_to t('.confirmation.resend_link'), new_admin_confirmation_path, class: "btn btn-sm btn-primary" %>
-            </div>
+            </span>
+            <svg data-accordion-icon class="h-3 w-3 shrink-0 rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+            </svg>
+          </button>
+        </h3>
+        <div id="collapseConfirmation" class="hidden" aria-labelledby="headingConfirmation">
+          <div class="border border-b-0 border-gray-200 p-5">
+            <p class="mb-3 text-gray-600"><%= t('.confirmation.answer') %></p>
+            <%= link_to t('.confirmation.resend_link'), new_admin_confirmation_path, class: "inline-flex rounded-lg bg-blue-700 px-3 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300" %>
           </div>
         </div>
 
-        <!-- Account Unlock -->
-        <div class="accordion-item">
-          <h3 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUnlock" aria-expanded="false" aria-controls="collapseUnlock">
+        <h3 id="headingUnlock">
+          <button type="button" class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 text-left font-medium text-gray-500 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200" data-accordion-target="#collapseUnlock" aria-expanded="false" aria-controls="collapseUnlock">
+            <span>
               <%= t('.unlock.question') %>
-            </button>
-          </h3>
-          <div id="collapseUnlock" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              <p><%= t('.unlock.answer') %></p>
-              <%= link_to t('.unlock.unlock_link'), new_admin_unlock_path, class: "btn btn-sm btn-primary" %>
-            </div>
+            </span>
+            <svg data-accordion-icon class="h-3 w-3 shrink-0 rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+            </svg>
+          </button>
+        </h3>
+        <div id="collapseUnlock" class="hidden" aria-labelledby="headingUnlock">
+          <div class="border border-b-0 border-gray-200 p-5">
+            <p class="mb-3 text-gray-600"><%= t('.unlock.answer') %></p>
+            <%= link_to t('.unlock.unlock_link'), new_admin_unlock_path, class: "inline-flex rounded-lg bg-blue-700 px-3 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300" %>
           </div>
         </div>
 
-        <!-- Password Reset -->
-        <div class="accordion-item">
-          <h3 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePassword" aria-expanded="false" aria-controls="collapsePassword">
+        <h3 id="headingPassword">
+          <button type="button" class="flex w-full items-center justify-between gap-3 border border-b-0 border-gray-200 p-5 text-left font-medium text-gray-500 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200" data-accordion-target="#collapsePassword" aria-expanded="false" aria-controls="collapsePassword">
+            <span>
               <%= t('.password.question') %>
-            </button>
-          </h3>
-          <div id="collapsePassword" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              <p><%= t('.password.answer') %></p>
-              <%= link_to t('.password.reset_link'), new_admin_password_path, class: "btn btn-sm btn-primary" %>
-            </div>
+            </span>
+            <svg data-accordion-icon class="h-3 w-3 shrink-0 rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+            </svg>
+          </button>
+        </h3>
+        <div id="collapsePassword" class="hidden" aria-labelledby="headingPassword">
+          <div class="border border-b-0 border-gray-200 p-5">
+            <p class="mb-3 text-gray-600"><%= t('.password.answer') %></p>
+            <%= link_to t('.password.reset_link'), new_admin_password_path, class: "inline-flex rounded-lg bg-blue-700 px-3 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300" %>
           </div>
         </div>
 
-        <!-- Contact Support -->
-        <div class="accordion-item">
-          <h3 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSupport" aria-expanded="false" aria-controls="collapseSupport">
+        <h3 id="headingSupport">
+          <button type="button" class="flex w-full items-center justify-between gap-3 border border-gray-200 p-5 text-left font-medium text-gray-500 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200" data-accordion-target="#collapseSupport" aria-expanded="false" aria-controls="collapseSupport">
+            <span>
               <%= t('.support.question') %>
-            </button>
-          </h3>
-          <div id="collapseSupport" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-            <div class="accordion-body">
-              <%= t('.support.answer_html') %>
-            </div>
+            </span>
+            <svg data-accordion-icon class="h-3 w-3 shrink-0 rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+            </svg>
+          </button>
+        </h3>
+        <div id="collapseSupport" class="hidden" aria-labelledby="headingSupport">
+          <div class="border border-t-0 border-gray-200 p-5 text-gray-600">
+            <%= t('.support.answer_html') %>
           </div>
         </div>
       </div>
 
-      <div class="mt-4 text-center">
-        <%= link_to t('.back_to_login'), new_admin_session_path, class: "btn btn-link" %>
+      <div class="mt-6 text-center">
+        <%= link_to t('.back_to_login'), new_admin_session_path, class: "inline-flex rounded-lg px-4 py-2 text-sm font-medium text-blue-700 hover:bg-blue-50" %>
       </div>
     </div>
   </div>
