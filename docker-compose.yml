@@ -22,7 +22,7 @@ services:
       dockerfile: ./docker/app/Dockerfile
       args:
         RAILS_ENV: development
-    command: ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]
+    command: ["./bin/dev"]
     depends_on:
       - db
     healthcheck:
@@ -42,6 +42,7 @@ services:
       - ./config:/rails/config
       - ./db:/rails/db
       - ./lib:/rails/lib
+      - ./Procfile.dev:/rails/Procfile.dev
       - ./public:/rails/public
       - ./vendor:/rails/vendor
       - bundle_data:/usr/local/bundle
