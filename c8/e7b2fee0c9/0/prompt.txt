@@ -1,0 +1,37 @@
+docker-compose.yml ローカルの反映が app docker に伝播するように volume を sync したほうがいいね
+
+---
+
+.:/rails はわかるんだけど、不要な物が多いよね
+
+---
+
+importmap 使うこと考えたら、vendor もしたほうがいいじゃない？
+
+---
+
+bin は？
+
+---
+
+gem をvolume にしたほうがいいよね
+
+---
+
+make に app/bundle と app/bundle/install をくわえましょう。
+
+---
+
+app/test などは、bundle exe にしているけど、docker 経由で揃えますか
+
+---
+
+docker compose run --rm が重複しているから、const にして参照するようにしましょうか
+
+---
+
+今回のスコープを commit してください
+
+---
+
+docker compose の app command って ./bin/dev つかう必要あるよね？
