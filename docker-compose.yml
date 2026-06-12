@@ -36,6 +36,15 @@ services:
     networks:
       - default
       - dev-proxy
+    volumes:
+      - ./app:/rails/app
+      - ./bin:/rails/bin
+      - ./config:/rails/config
+      - ./db:/rails/db
+      - ./lib:/rails/lib
+      - ./public:/rails/public
+      - ./vendor:/rails/vendor
+      - bundle_data:/usr/local/bundle
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.rails8todo.rule=Host(`todo.localhost`)"
@@ -44,6 +53,8 @@ services:
       - "traefik.docker.network=dev-proxy"
 
 volumes:
+  bundle_data:
+    driver: local
   db_data:
     driver: local
 

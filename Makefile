@@ -1,5 +1,6 @@
 .DEFAULT_GOAL := help
 PROJECT_DIR := $(CURDIR)
+APP_RUN := docker compose run --rm app
 
 # pass arguments to the target
 ARGS = $(shell echo $(MAKECMDGOALS) | sed -e 's/^[^ ]*$$//' | sed -e 's/^[^ ]* //g')
@@ -51,14 +52,20 @@ logs: ## Show logs
 	docker compose logs $(ARGS)
 
 #### App
+app/bundle: ## Run bundle in app container
+	$(APP_RUN) bundle $(ARGS)
+
+app/bundle/install: ## Run bundle install in app container
+	$(APP_RUN) bundle install
+
 app/test: ## Run RSpec
-	bundle exec rspec $(ARGS)
+	$(APP_RUN) bundle exec rspec $(ARGS)
 
 app/lint: ## Run RuboCop
-	bundle exec rubocop
+	$(APP_RUN) bundle exec rubocop
 
 app/lint/fix: ## Run RuboCop with auto-correct offenses
-	bundle exec rubocop -A
+	$(APP_RUN) bundle exec rubocop -A
 
 #### APM
 apm/all:
