@@ -1,0 +1,1 @@
+docker-compose.yml ローカルの反映が app docker に伝播するように volume を sync したほうがいいね
