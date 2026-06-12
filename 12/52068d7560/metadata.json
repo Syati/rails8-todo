@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.7.5",
+  "checkpoint_id": "1252068d7560",
+  "strategy": "manual-commit",
+  "branch": "codex/issue-63-flowbite-admin-ui",
+  "checkpoints_count": 8,
+  "files_touched": [
+    "Makefile",
+    "docker-compose.yml"
+  ],
+  "sessions": [
+    {
+      "metadata": "/12/52068d7560/0/metadata.json",
+      "transcript": "/12/52068d7560/0/full.jsonl",
+      "content_hash": "/12/52068d7560/0/content_hash.txt",
+      "prompt": "/12/52068d7560/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 111822,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 1183744,
+    "output_tokens": 10100,
+    "api_call_count": 40
+  }
+}
