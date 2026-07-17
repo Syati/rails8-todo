@@ -1,0 +1,45 @@
+{
+  "cli_version": "0.7.5",
+  "checkpoint_id": "457ff8a53fa0",
+  "strategy": "manual-commit",
+  "branch": "main",
+  "checkpoints_count": 34,
+  "files_touched": [
+    ".github/workflows/deploy-production.yml",
+    ".github/workflows/deploy.yml",
+    ".gitignore",
+    "config/database.yml",
+    "config/routes.rb",
+    "config/settings.yml",
+    "deployments/README.ja.md",
+    "deployments/README.md",
+    "deployments/terraform/.terraform.lock.hcl",
+    "deployments/terraform/main.tf",
+    "deployments/terraform/modules/application/cloud_run.tf",
+    "deployments/terraform/modules/application/cloud_sql.tf",
+    "deployments/terraform/modules/application/main.tf",
+    "deployments/terraform/modules/application/outputs.tf",
+    "deployments/terraform/modules/application/secrets.tf",
+    "deployments/terraform/modules/application/service_accounts.tf",
+    "deployments/terraform/modules/application/variables.tf",
+    "deployments/terraform/outputs.tf",
+    "deployments/terraform/terraform.tfvars.example",
+    "deployments/terraform/variables.tf",
+    "deployments/terraform/versions.tf"
+  ],
+  "sessions": [
+    {
+      "metadata": "/45/7ff8a53fa0/0/metadata.json",
+      "transcript": "/45/7ff8a53fa0/0/full.jsonl",
+      "content_hash": "/45/7ff8a53fa0/0/content_hash.txt",
+      "prompt": "/45/7ff8a53fa0/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 910530,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 19889664,
+    "output_tokens": 99164,
+    "api_call_count": 209
+  }
+}
