@@ -1,8 +1,8 @@
 database:
+  url: # override on each env
   rails_max_threads: 5
   name: rails8_todo
   username: # override on each env
   password: # override on each env
   host: # override on each env
   port: # override on each env
-

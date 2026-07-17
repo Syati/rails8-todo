@@ -1,0 +1,64 @@
+name: Deploy production
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Commit SHA or branch to deploy
+        required: true
+        default: main
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      CLOUD_RUN_REGION: asia-northeast1
+      CLOUD_RUN_SERVICE: rails8-todo
+      GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+      IMAGE_URL: asia-northeast1-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/rails8-todo/app
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.ref }}
+
+      - run: echo "IMAGE_TAG=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_DEPLOY_SERVICE_ACCOUNT }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - run: gcloud auth configure-docker "$CLOUD_RUN_REGION-docker.pkg.dev" --quiet
+
+      - run: |
+          docker build --file=docker/app/Dockerfile --tag="$IMAGE_URL:$IMAGE_TAG" .
+          docker push "$IMAGE_URL:$IMAGE_TAG"
+
+      - run: |
+          gcloud run jobs update "$CLOUD_RUN_SERVICE-migrate" \
+            --image="$IMAGE_URL:$IMAGE_TAG" \
+            --project="$GCP_PROJECT_ID" \
+            --region="$CLOUD_RUN_REGION" \
+            --wait \
+            --quiet
+
+      - run: |
+          gcloud run deploy "$CLOUD_RUN_SERVICE" \
+            --image="$IMAGE_URL:$IMAGE_TAG" \
+            --project="$GCP_PROJECT_ID" \
+            --region="$CLOUD_RUN_REGION" \
+            --allow-unauthenticated \
+            --quiet
