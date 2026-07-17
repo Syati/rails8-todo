@@ -360,3 +360,7 @@ terraform apply -target=google_secret_manager_secret.rails_master_key -target=go
 ---
 
 変更しましょう
+
+---
+
+commit push
