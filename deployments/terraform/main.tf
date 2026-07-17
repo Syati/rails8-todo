@@ -8,6 +8,7 @@ module "application" {
 
   project_id               = var.project_id
   region                   = var.region
+  rails_env                = var.rails_env
   github_repository        = var.github_repository
   bootstrap_image          = var.bootstrap_image
   database_name            = var.database_name

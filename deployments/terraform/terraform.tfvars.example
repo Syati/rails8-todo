@@ -1,4 +1,5 @@
 # Set these as Terraform Cloud variables per workspace.
 # Do not put DATABASE_URL or Rails master key in Terraform variables.
 project_id        = "YOUR_ENVIRONMENT_PROJECT_ID"
+rails_env         = "staging"
 github_repository = "OWNER/REPOSITORY"

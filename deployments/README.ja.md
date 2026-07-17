@@ -23,6 +23,8 @@ Registry、Secret Manager を使って Rails アプリケーションを Cloud R
    `DATABASE_URL` を Terraform 変数には
    設定しません。Terraform state に DB 認証情報を保持しないためです。
    ローカルで値の形を確認する場合は、`terraform.tfvars.example` を参照してください。
+   `rails_env` は staging workspace では `staging`、production workspace では
+   `production` に設定します。
 
 2. Terraform Cloud workspace で targeted plan/apply を実行し、Secret
    Manager の Secret コンテナ、Cloud SQL instance、database、Artifact

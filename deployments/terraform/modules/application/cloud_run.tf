@@ -1,6 +1,6 @@
 locals {
   cloud_run_environment = {
-    RAILS_ENV         = "production"
+    RAILS_ENV         = var.rails_env
     RAILS_MAX_THREADS = tostring(var.rails_max_threads)
   }
 }

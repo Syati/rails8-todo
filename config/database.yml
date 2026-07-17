@@ -5,6 +5,7 @@ default: &default
   password: <%= Settings.database.password %>
   database: <%= Settings.database.name %>
   host: <%= Settings.database.host %>
+  url: <%= Settings.database.url %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
 
@@ -23,4 +24,3 @@ staging:
 
 production:
   <<: *default
-  url: <%= Settings.database.url %>

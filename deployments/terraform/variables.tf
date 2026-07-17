@@ -9,6 +9,17 @@ variable "region" {
   default     = "asia-northeast1"
 }
 
+variable "rails_env" {
+  type        = string
+  description = "Rails environment for this deployment."
+  default     = "staging"
+
+  validation {
+    condition     = contains(["staging", "production"], var.rails_env)
+    error_message = "rails_env must be staging or production."
+  }
+}
+
 variable "github_repository" {
   type        = string
   description = "GitHub repository allowed to deploy, in OWNER/REPOSITORY form."

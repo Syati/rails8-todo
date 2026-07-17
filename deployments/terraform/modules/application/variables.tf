@@ -9,6 +9,11 @@ variable "region" {
   default     = "asia-northeast1"
 }
 
+variable "rails_env" {
+  type        = string
+  description = "Rails environment for this deployment."
+}
+
 variable "github_repository" {
   type        = string
   description = "GitHub repository allowed to deploy, in OWNER/REPOSITORY form."

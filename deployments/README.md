@@ -23,6 +23,8 @@ and a GitHub Actions OIDC deployer service account.
    not add `DATABASE_URL` as a Terraform variable:
    Terraform state must not hold the database credential.
    For local value examples, see `terraform.tfvars.example`.
+   Set `rails_env` to `staging` in the staging workspace and `production` in
+   the production workspace.
 
 2. Create the Secret Manager containers, Cloud SQL instance, database, and
    Artifact Registry repository with a targeted plan and apply in the

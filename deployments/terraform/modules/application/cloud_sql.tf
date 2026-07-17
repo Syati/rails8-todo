@@ -1,5 +1,5 @@
 resource "google_sql_database_instance" "primary" {
-  name                = "rails8-todo-postgres"
+  name                = "rails8-todo"
   database_version    = "POSTGRES_16"
   region              = var.region
   deletion_protection = true
