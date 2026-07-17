@@ -1,0 +1,76 @@
+{
+  "cli_version": "0.7.5",
+  "checkpoint_id": "60525b447675",
+  "session_id": "019f6826-2c8c-74b0-a7c4-70b0fce014f0",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-17T06:04:38.084677Z",
+  "branch": "main",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "config/database.yml",
+    "deployments/README.ja.md",
+    "deployments/README.md",
+    "deployments/terraform/main.tf",
+    "deployments/terraform/modules/application/cloud_run.tf",
+    "deployments/terraform/modules/application/variables.tf",
+    "deployments/terraform/terraform.tfvars.example",
+    "deployments/terraform/variables.tf"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.6-terra",
+  "turn_id": "be6a63e72a38",
+  "token_usage": {
+    "input_tokens": 919191,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 21333760,
+    "output_tokens": 102812,
+    "api_call_count": 220
+  },
+  "session_metrics": {
+    "turn_count": 37
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-07-17T06:04:38.037632Z",
+    "agent_lines": 24,
+    "agent_removed": 2,
+    "human_added": 1,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 25,
+    "total_lines_changed": 28,
+    "agent_percentage": 92.85714285714286,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 1,
+      "agent_lines_removed": 1,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 24,
+      "agent_lines_removed": 2,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    }
+  ]
+}
