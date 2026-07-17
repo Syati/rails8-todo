@@ -1,0 +1,5 @@
+commit push
+
+---
+
+registry ですが 30d も不要だと思うので 7d に変えます
