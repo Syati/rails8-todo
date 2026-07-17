@@ -29,7 +29,7 @@ resource "google_artifact_registry_repository" "application" {
 
     condition {
       tag_state  = "ANY"
-      older_than = "30d"
+      older_than = "7d"
     }
   }
 
