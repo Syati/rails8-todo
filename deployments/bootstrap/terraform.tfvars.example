@@ -1,0 +1,2 @@
+project_id     = "YOUR_ENVIRONMENT_PROJECT_ID"
+tfc_workspaces = ["rails8-todo-stg", "rails8-todo-bootstrap-stg"]
