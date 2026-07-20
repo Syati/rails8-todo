@@ -1,0 +1,61 @@
+commit push
+
+---
+
+secret manager で database_url も管理してるけど、rails の secret つかえばいいじゃない？
+
+---
+
+cloud run であっても migration job であっても、rails アプリだよね？
+
+---
+
+そっちにしましょう。なぜなら開発で secret を追加する際は、app エンジニアが自由に入れれたほうが楽だから。 secret は、1password にでも管理すれば良いし
+
+---
+
+credencial から 他の変数って参照できた？
+
+---
+
+url: REDACTED というより PROJECT_IDって結構つかいそうだなとおもって
+
+---
+
+url をつかわないってはなしね。 host で可能なの？
+
+---
+
+host の PROJECT_ID は環境変数が使われるの？
+
+---
+
+そうしましょうか
+
+---
+
+deployments/terraform/app/modules/application/cloud_sql.tf username と password って何になるの？
+
+---
+
+アクセス権限とかは？
+
+---
+
+postgres の default password って？
+
+---
+
+create database もマニュアルでやるってことだよね？
+
+---
+
+create user と gcloud users create は何が違う？
+
+---
+
+user の権限ってどうやってみるんだっけ？
+
+---
+
+話はもどるけど、credentials の password って urlencoded?
