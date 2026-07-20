@@ -1,3 +1,4 @@
 project_id        = "YOUR_ENVIRONMENT_PROJECT_ID"
 state_bucket_name = "YOUR_STAGING_PROJECT_ID-rails8-todo-bootstrap-tfstate"
 tfc_workspaces    = ["rails8-todo-stg"]
+tfc_organization  = "YOUR_TFC_ORGANIZATION"
