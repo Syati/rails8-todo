@@ -11,10 +11,27 @@ locals {
   ]
 }
 
+resource "google_storage_bucket" "bootstrap_state" {
+  name                        = var.state_bucket_name
+  location                    = "ASIA-NORTHEAST1"
+  force_destroy               = false
+  uniform_bucket_level_access = true
+  public_access_prevention    = "enforced"
+
+  versioning {
+    enabled = true
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
 resource "google_project_service" "required" {
   for_each = toset([
     "iam.googleapis.com",
     "iamcredentials.googleapis.com",
+    "storage.googleapis.com",
     "sts.googleapis.com"
   ])
 

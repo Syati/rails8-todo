@@ -3,6 +3,11 @@ variable "project_id" {
   description = "Google Cloud project ID for one deployment environment."
 }
 
+variable "state_bucket_name" {
+  type        = string
+  description = "Existing GCS bucket name used for this environment's bootstrap state."
+}
+
 variable "tfc_organization" {
   type        = string
   description = "Terraform Cloud organization allowed to authenticate."
