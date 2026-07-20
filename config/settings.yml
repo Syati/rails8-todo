@@ -1,8 +1,8 @@
 database:
-  url: # override on each env
+  url: # URL is intentionally unset; use discrete connection settings instead.
   rails_max_threads: 5
   name: rails8_todo
-  username: # override on each env
-  password: # override on each env
+  username: rails8_todo
+  password: <%= Rails.application.credentials.dig(:database, :password) %>
   host: # override on each env
   port: # override on each env

@@ -13,7 +13,6 @@ module "application" {
   bootstrap_image          = var.bootstrap_image
   database_name            = var.database_name
   rails_master_key_version = var.rails_master_key_version
-  database_url_version     = var.database_url_version
   cloud_run_max_instances  = var.cloud_run_max_instances
   cloud_run_concurrency    = var.cloud_run_concurrency
   rails_max_threads        = var.rails_max_threads

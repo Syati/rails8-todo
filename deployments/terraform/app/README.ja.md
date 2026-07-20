@@ -22,9 +22,28 @@ github_repository=mizuki-y/rails8-todo
 rails_env=staging または production
 ```
 
-`DATABASE_URL` と Rails master key は Terraform Cloud に設定しません。Secret Manager の
-`database-url` と `rails-master-key` を Cloud Run に紐付けます。変数の形は
-`terraform.tfvars.example` を参照してください。
+`DATABASE_URL` と Rails master key は Terraform Cloud に設定しません。アプリケーションの
+秘密情報は環境別 Rails credentials で管理します。`rails-master-key` だけを各 GCP project の
+Secret Manager に登録し、Cloud Run Service と migration Job に渡します。
+
+環境別 credentials は次のように作成します。生成される `.yml.enc` は commit し、対応する
+`.key` は 1Password と各環境の `rails-master-key` Secret Manager secret のみに保管します。
+
+```sh
+bin/rails credentials:edit --environment staging
+bin/rails credentials:edit --environment production
+```
+
+各 credentials には、少なくとも次を設定します。
+
+```yml
+database:
+  password: DATABASE_PASSWORD
+```
+
+Cloud SQL の Unix socket host は Terraform が
+`SETTINGS__DATABASE__HOST` として Service と migration Job の両方に渡します。project ID を
+credentials に重複して設定する必要はありません。
 
 bootstrap で作成した output を Environment Variables として設定します。
 

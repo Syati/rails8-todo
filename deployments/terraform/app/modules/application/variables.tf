@@ -36,12 +36,6 @@ variable "rails_master_key_version" {
   default     = "1"
 }
 
-variable "database_url_version" {
-  type        = string
-  description = "Pinned Secret Manager version for database-url."
-  default     = "1"
-}
-
 variable "cloud_run_max_instances" {
   type        = number
   description = "Maximum Cloud Run instances. Keep this aligned with Cloud SQL capacity."

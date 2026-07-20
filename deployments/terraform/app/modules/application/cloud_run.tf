@@ -1,7 +1,8 @@
 locals {
   cloud_run_environment = {
-    RAILS_ENV         = var.rails_env
-    RAILS_MAX_THREADS = tostring(var.rails_max_threads)
+    RAILS_ENV                = var.rails_env
+    RAILS_MAX_THREADS        = tostring(var.rails_max_threads)
+    SETTINGS__DATABASE__HOST = "/cloudsql/${google_sql_database_instance.primary.connection_name}"
   }
 }
 
@@ -45,17 +46,6 @@ resource "google_cloud_run_v2_service" "application" {
         }
       }
 
-      env {
-        name = "SETTINGS__DATABASE__URL"
-
-        value_source {
-          secret_key_ref {
-            secret  = google_secret_manager_secret.database_url.secret_id
-            version = var.database_url_version
-          }
-        }
-      }
-
       volume_mounts {
         name       = "cloudsql"
         mount_path = "/cloudsql"
@@ -77,8 +67,7 @@ resource "google_cloud_run_v2_service" "application" {
 
   depends_on = [
     google_project_iam_member.cloud_run_runtime_roles,
-    google_secret_manager_secret.rails_master_key,
-    google_secret_manager_secret.database_url
+    google_secret_manager_secret.rails_master_key
   ]
 }
 
@@ -117,17 +106,6 @@ resource "google_cloud_run_v2_job" "migrate" {
           }
         }
 
-        env {
-          name = "SETTINGS__DATABASE__URL"
-
-          value_source {
-            secret_key_ref {
-              secret  = google_secret_manager_secret.database_url.secret_id
-              version = var.database_url_version
-            }
-          }
-        }
-
         volume_mounts {
           name       = "cloudsql"
           mount_path = "/cloudsql"
@@ -150,7 +128,6 @@ resource "google_cloud_run_v2_job" "migrate" {
 
   depends_on = [
     google_project_iam_member.cloud_run_runtime_roles,
-    google_secret_manager_secret.rails_master_key,
-    google_secret_manager_secret.database_url
+    google_secret_manager_secret.rails_master_key
   ]
 }
