@@ -78,3 +78,9 @@ variable "cloud_sql_tier" {
   description = "Cloud SQL machine tier."
   default     = "db-f1-micro"
 }
+
+variable "cloud_sql_edition" {
+  type        = string
+  description = "Cloud SQL edition. Enterprise supports the db-f1-micro tier."
+  default     = "ENTERPRISE"
+}

@@ -18,5 +18,6 @@ module "application" {
   cloud_run_concurrency    = var.cloud_run_concurrency
   rails_max_threads        = var.rails_max_threads
   migration_task_timeout   = var.migration_task_timeout
+  cloud_sql_edition        = var.cloud_sql_edition
   cloud_sql_tier           = var.cloud_sql_tier
 }

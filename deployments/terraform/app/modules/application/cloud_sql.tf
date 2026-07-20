@@ -1,10 +1,11 @@
 resource "google_sql_database_instance" "primary" {
   name                = "rails8-todo"
-  database_version    = "POSTGRES_16"
+  database_version    = "POSTGRES_18"
   region              = var.region
   deletion_protection = true
 
   settings {
+    edition           = var.cloud_sql_edition
     tier              = var.cloud_sql_tier
     availability_type = "ZONAL"
     disk_type         = "PD_SSD"
