@@ -1,0 +1,94 @@
+apply できました　bootstrap だけ先に一旦commit しますか
+
+---
+
+bootstrap も tfc 管理のほうがいいよね
+
+---
+
+cloud のところを環境変数で 切り替えれないの？
+
+---
+
+２つに分けるってめんどくさくない？
+
+---
+
+bootstrap を update することってある？
+
+---
+
+ローカルステートでいいですね。
+
+---
+
+この場合 どこに state を保管するのが良い？
+
+---
+
+1password とか？
+
+---
+
+.tfstate.backup って？何？
+
+---
+
+readme にでも書いといて
+
+---
+
+bootstrap は gcloud で 専用の bucket 作成して、import して、 gcs にいれるのがいいじゃない？
+
+---
+
+readme.ja.md が分かりにくいから、 numbered list にしたらいいじゃない？ gcloud auth ~~~ , then gcloud storage bucket
+
+---
+
+>GCS Console で public access prevention を有効にし、必要な管理者だけに bucket IAM を付与します。 
+これは、uniform-bucket-level-access オプションってこと？
+
+---
+
+readme にかいてある？
+
+---
+
+これはオプションがないってこと？ import したら gcs のstate も取り込めて terraform 側で設定すればいいじゃない？
+
+---
+
+dir 構成だけど、terraform の中に bootstrap と app ってつくる？
+
+---
+
+リファクタしてください
+
+---
+
+terraform/.terraform ってあるけど
+
+---
+
+readme も更新してください
+
+---
+
+外側の.terraform は削除しました。 app/readme を加えることと terraform/readme に包括した内容を書いてください
+
+---
+
+commit してください
+
+---
+
+gcs の bucket って project 単位だよね
+
+---
+
+rails8-todo-stg-rails8-todo-bootstrap-tfstate 接頭辞は、グローバルで一意だから付与するってことね
+
+---
+
+ローカルの.tfstate .tfstate.backup は migration したら削除だよね？
