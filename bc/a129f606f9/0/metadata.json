@@ -1,0 +1,274 @@
+{
+  "cli_version": "0.7.5",
+  "checkpoint_id": "bca129f606f9",
+  "session_id": "019f6826-2c8c-74b0-a7c4-70b0fce014f0",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-20T03:53:20.372248Z",
+  "branch": "main",
+  "checkpoints_count": 17,
+  "files_touched": [
+    ".gitignore",
+    "deployments/README.ja.md",
+    "deployments/README.md",
+    "deployments/bootstrap/.terraform.lock.hcl",
+    "deployments/bootstrap/README.ja.md",
+    "deployments/bootstrap/main.tf",
+    "deployments/bootstrap/outputs.tf",
+    "deployments/bootstrap/terraform.tfvars.example",
+    "deployments/bootstrap/variables.tf",
+    "deployments/bootstrap/versions.tf",
+    "deployments/terraform/.terraform.lock.hcl",
+    "deployments/terraform/README.ja.md",
+    "deployments/terraform/app/.terraform.lock.hcl",
+    "deployments/terraform/app/README.ja.md",
+    "deployments/terraform/app/main.tf",
+    "deployments/terraform/app/modules/application/cloud_run.tf",
+    "deployments/terraform/app/modules/application/cloud_sql.tf",
+    "deployments/terraform/app/modules/application/main.tf",
+    "deployments/terraform/app/modules/application/outputs.tf",
+    "deployments/terraform/app/modules/application/secrets.tf",
+    "deployments/terraform/app/modules/application/service_accounts.tf",
+    "deployments/terraform/app/modules/application/variables.tf",
+    "deployments/terraform/app/outputs.tf",
+    "deployments/terraform/app/terraform.tfvars.example",
+    "deployments/terraform/app/variables.tf",
+    "deployments/terraform/app/versions.tf",
+    "deployments/terraform/bootstrap/.terraform.lock.hcl",
+    "deployments/terraform/bootstrap/README.ja.md",
+    "deployments/terraform/bootstrap/backend.prod.hcl.example",
+    "deployments/terraform/bootstrap/backend.stg.hcl.example",
+    "deployments/terraform/bootstrap/main.tf",
+    "deployments/terraform/bootstrap/outputs.tf",
+    "deployments/terraform/bootstrap/terraform.tfvars.example",
+    "deployments/terraform/bootstrap/variables.tf",
+    "deployments/terraform/bootstrap/versions.tf",
+    "deployments/terraform/main.tf",
+    "deployments/terraform/modules/application/cloud_run.tf",
+    "deployments/terraform/modules/application/cloud_sql.tf",
+    "deployments/terraform/modules/application/main.tf",
+    "deployments/terraform/modules/application/outputs.tf",
+    "deployments/terraform/modules/application/secrets.tf",
+    "deployments/terraform/modules/application/service_accounts.tf",
+    "deployments/terraform/modules/application/variables.tf",
+    "deployments/terraform/outputs.tf",
+    "deployments/terraform/terraform.tfvars.example",
+    "deployments/terraform/variables.tf",
+    "deployments/terraform/versions.tf"
+  ],
+  "agent": "Codex",
+  "model": "gpt-5.6-terra",
+  "turn_id": "41e76968304b",
+  "checkpoint_transcript_start": 1603,
+  "transcript_lines_at_start": 1603,
+  "token_usage": {
+    "input_tokens": 109521,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 9337856,
+    "output_tokens": 26645,
+    "api_call_count": 66
+  },
+  "session_metrics": {
+    "turn_count": 66
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-07-20T03:53:20.311623Z",
+    "agent_lines": 891,
+    "agent_removed": 897,
+    "human_added": 0,
+    "human_modified": 2,
+    "human_removed": 26,
+    "total_committed": 892,
+    "total_lines_changed": 1816,
+    "agent_percentage": 98.45814977973568,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 40,
+      "agent_lines_removed": 4,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 40,
+      "agent_lines_removed": 4,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 4,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 40,
+      "agent_lines_removed": 4,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 5,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 40,
+      "agent_lines_removed": 4,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 6,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3,
+      "agent_lines_removed": 3,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 7,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3,
+      "agent_lines_removed": 3,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 8,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 3,
+      "agent_lines_removed": 3,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 9,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 19,
+      "agent_lines_removed": 3,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 10,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 35,
+      "agent_lines_removed": 5,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 11,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 62,
+      "agent_lines_removed": 21,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 12,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 62,
+      "agent_lines_removed": 21,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 13,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 64,
+      "agent_lines_removed": 21,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 14,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 91,
+      "agent_lines_removed": 23,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 15,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 91,
+      "agent_lines_removed": 23,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 16,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 835,
+      "agent_lines_removed": 769,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 17,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 835,
+      "agent_lines_removed": 769,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    },
+    {
+      "checkpoint_number": 18,
+      "user_lines_added": 9,
+      "user_lines_removed": 14,
+      "agent_lines_added": 919,
+      "agent_lines_removed": 911,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8,
+        "deployments/terraform/bootstrap/terraform.tfvars.example": 1
+      },
+      "user_removed_per_file": {
+        "deployments/README.ja.md": 4,
+        "deployments/README.md": 4,
+        "deployments/terraform/README.ja.md": 5,
+        "deployments/terraform/bootstrap/terraform.tfvars.example": 1
+      }
+    }
+  ]
+}
