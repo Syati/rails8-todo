@@ -76,3 +76,7 @@ readme も更新してください
 ---
 
 外側の.terraform は削除しました。 app/readme を加えることと terraform/readme に包括した内容を書いてください
+
+---
+
+commit してください
