@@ -1,6 +1,4 @@
-# Seeds are split per environment under db/seeds/<Rails.env>/.
-# Each file must be idempotent so that bin/rails db:seed can run any number of times.
-Rails.root.glob("db/seeds/#{Rails.env}/*.rb").each do |file|
-  Rails.logger.debug { "Seeding #{Pathname(file).relative_path_from(Rails.root)}" }
-  load file
-end
+# Each environment has an entry file, db/seeds/<Rails.env>.rb, that loads its seeds in order.
+# Seeds must be idempotent so that bin/rails db:seed can run any number of times.
+entry = Rails.root.join("db/seeds/#{Rails.env}.rb")
+load entry if entry.exist?
