@@ -26,7 +26,8 @@ services:
     depends_on:
       - db
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:3000/up || exit 1"]
+      # Only check that Puma responds, so Traefik keeps routing to Rails error pages.
+      test: ["CMD-SHELL", "curl -s -o /dev/null http://localhost:3000/up || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 5
