@@ -24,7 +24,12 @@
     <table class="w-full text-left text-sm text-gray-500">
       <thead class="bg-gray-50 text-xs uppercase text-gray-700">
         <tr>
-          <th scope="col" class="px-6 py-3">ID</th>
+          <th scope="col" class="px-6 py-3">
+            <%= link_to admins_path(q: @search_query, sort: @sort == "desc" ? "asc" : "desc"), class: "inline-flex items-center gap-1 hover:text-gray-900", data: { testid: "sort-id" } do %>
+              ID <span aria-hidden="true"><%= @sort == "desc" ? "▼" : "▲" %></span>
+              <span class="sr-only"><%= @sort == "desc" ? "降順（クリックで昇順）" : "昇順（クリックで降順）" %></span>
+            <% end %>
+          </th>
           <th scope="col" class="px-6 py-3">Email</th>
           <th scope="col" class="px-6 py-3">状態</th>
         </tr>
@@ -50,12 +55,12 @@
   <div class="flex justify-between px-6 py-4">
     <div>
       <% if @page > 1 %>
-        <%= link_to "前へ", admins_path(page: @page - 1, q: params[:q]), class: "rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
+        <%= link_to "前へ", admins_path(page: @page - 1, q: @search_query, sort: @sort), class: "rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
       <% end %>
     </div>
     <div>
       <% if @has_next_page %>
-        <%= link_to "次へ", admins_path(page: @page + 1, q: params[:q]), class: "rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
+        <%= link_to "次へ", admins_path(page: @page + 1, q: @search_query, sort: @sort), class: "rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
       <% end %>
     </div>
   </div>
