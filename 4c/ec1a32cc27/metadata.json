@@ -1,0 +1,24 @@
+{
+  "cli_version": "0.11.4",
+  "checkpoint_id": "4cec1a32cc27",
+  "strategy": "manual-commit",
+  "branch": "feature/admin-crud",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/4c/ec1a32cc27/0/metadata.json",
+      "transcript": "/4c/ec1a32cc27/0/full.jsonl",
+      "compact_transcript": "/4c/ec1a32cc27/0/transcript.jsonl",
+      "content_hash": "/4c/ec1a32cc27/0/content_hash.txt",
+      "prompt": "/4c/ec1a32cc27/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 380,
+    "cache_creation_tokens": 344723,
+    "cache_read_tokens": 23020843,
+    "output_tokens": 99601,
+    "api_call_count": 189
+  }
+}
