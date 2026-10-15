@@ -8,6 +8,7 @@
 #  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :string
+#  deleted_at             :datetime
 #  email                  :string           not null
 #  encrypted_password     :string           not null
 #  failed_attempts        :integer          default(0), not null
@@ -29,6 +30,7 @@
 # Indexes
 #
 #  index_admins_on_confirmation_token    (confirmation_token) UNIQUE
+#  index_admins_on_deleted_at            (deleted_at)
 #  index_admins_on_email                 (email) UNIQUE
 #  index_admins_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_admins_on_unlock_token          (unlock_token) UNIQUE

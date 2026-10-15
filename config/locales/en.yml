@@ -30,6 +30,8 @@
 en:
   hello: "Hello world"
   devise:
+    failure:
+      deleted_account: "This account has been deleted."
     shared:
       links:
         faq: "FAQ"

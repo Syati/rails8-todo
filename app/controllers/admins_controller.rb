@@ -2,12 +2,12 @@ class AdminsController < ApplicationController
   PER_PAGE = 30
   SORT_DIRECTIONS = %w[desc asc].freeze
 
-  before_action :require_super_admin!, only: %i[new create edit update]
-  before_action :set_admin, only: %i[show edit update]
+  before_action :require_super_admin!, only: %i[new create edit update destroy]
+  before_action :set_admin, only: %i[show edit update destroy]
 
   def index
     @search_query = search_params.to_h
-    @q = Admin.ransack(@search_query)
+    @q = Admin.kept.ransack(@search_query)
     @sort = sort_direction
     @pagy, @admins = pagy(@q.result.order(id: @sort), limit: PER_PAGE)
   end
@@ -25,7 +25,7 @@ class AdminsController < ApplicationController
     @admin = Admin.new(create_params)
 
     if @admin.save
-      redirect_to @admin, notice: "管理者を作成しました。確認メールを #{@admin.email} に送信しました。"
+      redirect_to @admin, notice: t(".success", email: @admin.email)
     else
       render :new, status: :unprocessable_content
     end
@@ -40,10 +40,19 @@ class AdminsController < ApplicationController
     end
   end
 
+  def destroy
+    if @admin == current_admin
+      redirect_to @admin, alert: t(".self_destroy")
+    else
+      @admin.discard
+      redirect_to admins_path, notice: t(".success", email: @admin.email)
+    end
+  end
+
   private
 
   def set_admin
-    @admin = Admin.find(params.expect(:id))
+    @admin = Admin.kept.find(params.expect(:id))
   end
 
   def require_super_admin!
@@ -73,9 +82,9 @@ class AdminsController < ApplicationController
   end
 
   def update_notice
-    return "管理者を更新しました。" unless @admin.saved_change_to_unconfirmed_email? && @admin.unconfirmed_email.present?
+    return t(".success") unless @admin.saved_change_to_unconfirmed_email? && @admin.unconfirmed_email.present?
 
-    "管理者を更新しました。新しいメールアドレス #{@admin.unconfirmed_email} に確認メールを送信しました。"
+    t(".success_with_reconfirmation", email: @admin.unconfirmed_email)
   end
 
   def sort_direction
