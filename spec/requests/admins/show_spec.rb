@@ -16,6 +16,7 @@ RSpec.describe "Admins::Show", type: :request do
         expect(response).to have_http_status(:ok)
         expect(response.body).to include("管理者詳細")
         expect(response.body).to include(target_admin.email)
+        expect(response.body).to include("オペレーター")
       end
 
       it "秘匿情報を表示しない", :aggregate_failures do

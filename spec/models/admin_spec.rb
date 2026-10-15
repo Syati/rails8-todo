@@ -18,6 +18,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  role                   :integer          default("operator"), not null
 #  sign_in_count          :integer          default(0), not null
 #  uid                    :string
 #  unconfirmed_email      :string
@@ -59,6 +60,25 @@ RSpec.describe Admin, type: :model do
       expect(created.uid).to eq(uid)
       expect(created.email).to eq(email)
       expect(created.encrypted_password).to be_present
+    end
+  end
+
+  describe "#role" do
+    it "新規作成時のデフォルトは operator" do
+      expect(described_class.new.role).to eq("operator")
+    end
+
+    it "OmniAuth で作成された管理者も operator になる" do
+      auth = OpenStruct.new(provider: "developer", uid: "new-uid", info: OpenStruct.new(email: "new@example.com"))
+
+      expect(described_class.from_omniauth(auth)).to be_operator
+    end
+
+    it "未定義のロールは無効にする" do
+      admin = build(:admin, role: "owner")
+
+      expect(admin).not_to be_valid
+      expect(admin.errors[:role]).to be_present
     end
   end
 

@@ -18,6 +18,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  role                   :integer          default("operator"), not null
 #  sign_in_count          :integer          default(0), not null
 #  uid                    :string
 #  unconfirmed_email      :string
@@ -38,5 +39,9 @@ FactoryBot.define do
     password { "password123" }
     password_confirmation { "password123" }
     confirmed_at { Time.current }
+
+    trait :super_admin do
+      role { :super_admin }
+    end
   end
 end

@@ -16,6 +16,10 @@
       <dd class="text-sm text-gray-900 sm:col-span-2"><%= @admin.email %></dd>
     </div>
     <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+      <dt class="text-sm font-medium text-gray-500"><%= Admin.human_attribute_name(:role) %></dt>
+      <dd class="text-sm text-gray-900 sm:col-span-2"><%= Admin.human_attribute_name("role.#{@admin.role}") %></dd>
+    </div>
+    <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
       <dt class="text-sm font-medium text-gray-500">状態</dt>
       <dd class="text-sm sm:col-span-2">
         <% if @admin.locked_at.present? %>

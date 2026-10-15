@@ -18,6 +18,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  role                   :integer          default("operator"), not null
 #  sign_in_count          :integer          default(0), not null
 #  uid                    :string
 #  unconfirmed_email      :string
@@ -37,6 +38,8 @@ class Admin < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :trackable, :omniauthable,
          omniauth_providers: [ :developer ]
+
+  enum :role, { super_admin: 0, operator: 1 }, default: :operator, validate: true
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |admin|
