@@ -1,0 +1,32 @@
+{
+  "cli_version": "0.11.4",
+  "checkpoint_id": "66da26b8d137",
+  "strategy": "manual-commit",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "deployments/terraform/app/README.ja.md",
+    "deployments/terraform/app/main.tf",
+    "deployments/terraform/app/modules/application/cloud_run.tf",
+    "deployments/terraform/app/modules/application/service_accounts.tf",
+    "deployments/terraform/app/modules/application/variables.tf",
+    "deployments/terraform/app/terraform.tfvars.example",
+    "deployments/terraform/app/variables.tf"
+  ],
+  "sessions": [
+    {
+      "metadata": "/66/da26b8d137/0/metadata.json",
+      "transcript": "/66/da26b8d137/0/full.jsonl",
+      "compact_transcript": "/66/da26b8d137/0/transcript.jsonl",
+      "content_hash": "/66/da26b8d137/0/content_hash.txt",
+      "prompt": "/66/da26b8d137/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 14,
+    "cache_creation_tokens": 31293,
+    "cache_read_tokens": 328380,
+    "output_tokens": 2696,
+    "api_call_count": 7
+  }
+}

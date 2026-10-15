@@ -1,0 +1,78 @@
+{
+  "cli_version": "0.11.4",
+  "checkpoint_id": "66da26b8d137",
+  "session_id": "59fe83ee-d72a-442e-a01e-53773b95a284",
+  "strategy": "manual-commit",
+  "created_at": "2026-10-15T01:08:39.509178Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "save_step_count": 1,
+  "files_touched": [
+    "deployments/terraform/app/README.ja.md",
+    "deployments/terraform/app/main.tf",
+    "deployments/terraform/app/modules/application/cloud_run.tf",
+    "deployments/terraform/app/modules/application/service_accounts.tf",
+    "deployments/terraform/app/modules/application/variables.tf",
+    "deployments/terraform/app/terraform.tfvars.example",
+    "deployments/terraform/app/variables.tf"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-opus-5-5",
+  "turn_id": "230bf8f1cfb0",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 14,
+    "cache_creation_tokens": 31293,
+    "cache_read_tokens": 328380,
+    "output_tokens": 2696,
+    "api_call_count": 7
+  },
+  "session_metrics": {
+    "turn_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-10-15T01:08:39.500018Z",
+    "agent_lines": 0,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 15,
+    "human_removed": 18,
+    "total_committed": 0,
+    "total_lines_changed": 33,
+    "agent_percentage": 0,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 85,
+      "user_lines_removed": 18,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8,
+        "deployments/terraform/app/README.ja.md": 44,
+        "deployments/terraform/app/main.tf": 14,
+        "deployments/terraform/app/modules/application/cloud_run.tf": 2,
+        "deployments/terraform/app/modules/application/service_accounts.tf": 6,
+        "deployments/terraform/app/modules/application/variables.tf": 5,
+        "deployments/terraform/app/terraform.tfvars.example": 1,
+        "deployments/terraform/app/variables.tf": 5
+      },
+      "user_removed_per_file": {
+        "deployments/terraform/app/README.ja.md": 5,
+        "deployments/terraform/app/main.tf": 13
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 8,
+      "user_lines_removed": 0,
+      "agent_lines_added": 77,
+      "agent_lines_removed": 18,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 8
+      }
+    }
+  ]
+}
