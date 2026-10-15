@@ -38,8 +38,11 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   config.action_mailer.delivery_method = :letter_opener_web
-  # Set localhost to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  # Use the local Traefik host for links generated in mailer templates.
+  config.action_mailer.default_url_options = { host: "todo.docker.localhost", protocol: "https" }
+
+  # Allow subdomains of docker.localhost served by the local Traefik proxy.
+  config.hosts << ".docker.localhost"
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

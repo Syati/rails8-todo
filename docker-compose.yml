@@ -48,9 +48,10 @@ services:
       - bundle_data:/usr/local/bundle
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.rails8todo.rule=Host(`todo.localhost`)"
+      - "traefik.http.routers.rails8todo.rule=Host(`todo.docker.localhost`)"
       - "traefik.http.services.rails8todo.loadbalancer.server.port=3000"
-      - "traefik.http.routers.rails8todo.entrypoints=web"
+      - "traefik.http.routers.rails8todo.entrypoints=websecure"
+      - "traefik.http.routers.rails8todo.tls=true"
       - "traefik.docker.network=dev-proxy"
 
 volumes:
