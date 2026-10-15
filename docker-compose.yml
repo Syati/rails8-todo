@@ -42,6 +42,8 @@ services:
       - ./bin:/rails/bin
       - ./config:/rails/config
       - ./db:/rails/db
+      - ./Gemfile:/rails/Gemfile
+      - ./Gemfile.lock:/rails/Gemfile.lock
       - ./lib:/rails/lib
       - ./Procfile.dev:/rails/Procfile.dev
       - ./public:/rails/public
