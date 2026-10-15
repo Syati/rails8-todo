@@ -67,6 +67,7 @@ resource "google_cloud_run_v2_service" "application" {
 
   depends_on = [
     google_project_iam_member.cloud_run_runtime_roles,
+    google_service_account_iam_member.terraform_cloud_uses_runtime_account,
     google_secret_manager_secret.rails_master_key
   ]
 }
@@ -128,6 +129,7 @@ resource "google_cloud_run_v2_job" "migrate" {
 
   depends_on = [
     google_project_iam_member.cloud_run_runtime_roles,
+    google_service_account_iam_member.terraform_cloud_uses_runtime_account,
     google_secret_manager_secret.rails_master_key
   ]
 }

@@ -3,7 +3,7 @@
 この root は Cloud Run Service / migration Job、Cloud SQL、Secret Manager、Artifact
 Registry、GitHub Actions 用 Workload Identity Federation を管理します。
 
-## Terraform Cloud
+## 1. Terraform Cloud
 
 Terraform Cloud の `rails8-todo` Project に environment ごとの VCS-driven workspace を
 作成します。Working Directory は `deployments/terraform/app`、workspace tag は
@@ -20,11 +20,12 @@ Terraform Cloud の `rails8-todo` Project に environment ごとの VCS-driven w
 project_id=<環境ごとの GCP project ID>
 github_repository=mizuki-y/rails8-todo
 rails_env=staging または production
+terraform_cloud_runner_service_account_email=<bootstrap の service_account_email output>
 ```
 
-`DATABASE_URL` と Rails master key は Terraform Cloud に設定しません。アプリケーションの
-秘密情報は環境別 Rails credentials で管理します。`rails-master-key` だけを各 GCP project の
-Secret Manager に登録し、Cloud Run Service と migration Job に渡します。
+Rails master key は Terraform Cloud に設定しません。アプリケーションの秘密情報は環境別 Rails
+credentials で管理します。`rails-master-key` だけを各 GCP project の Secret Manager に登録し、
+Cloud Run Service と migration Job に渡します。
 
 環境別 credentials は次のように作成します。生成される `.yml.enc` は commit し、対応する
 `.key` は 1Password と各環境の `rails-master-key` Secret Manager secret のみに保管します。
@@ -55,7 +56,45 @@ TFC_GCP_WORKLOAD_POOL_ID=<workload_pool_id>
 TFC_GCP_WORKLOAD_PROVIDER_ID=<workload_provider_id>
 ```
 
-## GitHub Actions
+## 2. PostgreSQL アプリユーザー
+
+Terraform は Cloud SQL instance と `rails8_todo` database を作成します。アプリケーション用の
+PostgreSQL user は、database 作成後に `postgres` で接続して作成します。
+
+まず `postgres` の管理用パスワードを設定し、1Password にのみ保管します。
+
+```sh
+gcloud sql users set-password postgres \
+  --instance=rails8-todo \
+  --prompt-for-password
+```
+
+`gcloud sql connect` で `postgres` として `rails8_todo` database に接続します。
+
+```sh
+gcloud sql connect rails8-todo \
+  --project=YOUR_ENVIRONMENT_PROJECT_ID \
+  --user=postgres \
+  --database=rails8_todo
+```
+
+接続後に次を実行します。`\password` は対話入力のため、パスワードを SQL history に残しません。
+入力するパスワードは環境別 Rails credentials の `database.password` と同じ値にします。
+
+```sql
+CREATE ROLE rails8_todo LOGIN;
+\password rails8_todo
+
+GRANT ALL PRIVILEGES ON DATABASE rails8_todo TO rails8_todo;
+GRANT ALL PRIVILEGES ON SCHEMA public TO rails8_todo;
+```
+
+`gcloud sql users create rails8_todo` は、custom database role を明示しない限り
+`cloudsqlsuperuser` を付与します。アプリケーション user には上記の PostgreSQL native role と
+database / schema の権限を使います。新規 table は migration Job が `rails8_todo` 所有者として
+作成するため、追加の table 権限は不要です。
+
+## 3. GitHub Actions
 
 Terraform apply 後、GitHub Environments に Terraform output を設定します。
 

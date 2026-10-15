@@ -19,6 +19,11 @@ variable "github_repository" {
   description = "GitHub repository allowed to deploy, in OWNER/REPOSITORY form."
 }
 
+variable "terraform_cloud_runner_service_account_email" {
+  type        = string
+  description = "Service account used by Terraform Cloud to manage this environment."
+}
+
 variable "bootstrap_image" {
   type        = string
   description = "Image used only for Terraform's first Cloud Run Service and Job revisions. GitHub Actions replaces it on the first deployment."

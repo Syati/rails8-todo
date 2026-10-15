@@ -36,6 +36,12 @@ resource "google_service_account_iam_member" "github_actions_uses_runtime_accoun
   member             = "serviceAccount:${google_service_account.github_actions_deployer.email}"
 }
 
+resource "google_service_account_iam_member" "terraform_cloud_uses_runtime_account" {
+  service_account_id = google_service_account.cloud_run.name
+  role               = "roles/iam.serviceAccountUser"
+  member             = "serviceAccount:${var.terraform_cloud_runner_service_account_email}"
+}
+
 resource "google_iam_workload_identity_pool" "github_actions" {
   workload_identity_pool_id = "github-actions"
   display_name              = "GitHub Actions"
