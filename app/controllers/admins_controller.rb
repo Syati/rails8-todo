@@ -6,10 +6,7 @@ class AdminsController < ApplicationController
     @search_query = search_params.to_h
     @q = Admin.ransack(@search_query)
     @sort = sort_direction
-    admins = @q.result.order(id: @sort)
-    @page = [ params.fetch(:page, 1).to_i, 1 ].max
-    @admins = admins.offset((@page - 1) * PER_PAGE).limit(PER_PAGE)
-    @has_next_page = admins.count > (@page * PER_PAGE)
+    @pagy, @admins = pagy(@q.result.order(id: @sort), limit: PER_PAGE)
   end
 
   private

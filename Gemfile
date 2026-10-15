@@ -30,6 +30,7 @@ gem "omniauth"
 gem "omniauth-rails_csrf_protection"
 
 # Form
+gem "pagy"
 gem "ransack"
 gem "simple_form"
 
