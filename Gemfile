@@ -83,6 +83,9 @@ group :development, :test do
 end
 
 group :development do
+  # bin/dev runs Procfile.dev with foreman
+  gem "foreman", require: false
+
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
