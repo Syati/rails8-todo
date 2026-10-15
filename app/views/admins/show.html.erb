@@ -1,0 +1,44 @@
+<% content_for :title, "#{@admin.email} | 管理者詳細" %>
+
+<div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+  <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 px-6 py-4">
+    <h1 class="text-xl font-semibold text-gray-900">管理者詳細</h1>
+    <%= link_to "一覧へ戻る", admins_path, class: "rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
+  </div>
+
+  <dl class="divide-y divide-gray-200">
+    <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+      <dt class="text-sm font-medium text-gray-500">ID</dt>
+      <dd class="text-sm text-gray-900 sm:col-span-2"><%= @admin.id %></dd>
+    </div>
+    <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+      <dt class="text-sm font-medium text-gray-500"><%= Admin.human_attribute_name(:email) %></dt>
+      <dd class="text-sm text-gray-900 sm:col-span-2"><%= @admin.email %></dd>
+    </div>
+    <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+      <dt class="text-sm font-medium text-gray-500">状態</dt>
+      <dd class="text-sm sm:col-span-2">
+        <% if @admin.locked_at.present? %>
+          <span class="rounded-sm bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800">ロック中</span>
+        <% else %>
+          <span class="rounded-sm bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">有効</span>
+        <% end %>
+        <% unless @admin.confirmed? %>
+          <span class="rounded-sm bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800">メール未確認</span>
+        <% end %>
+      </dd>
+    </div>
+    <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+      <dt class="text-sm font-medium text-gray-500"><%= Admin.human_attribute_name(:sign_in_count) %></dt>
+      <dd class="text-sm text-gray-900 sm:col-span-2"><%= @admin.sign_in_count %></dd>
+    </div>
+    <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+      <dt class="text-sm font-medium text-gray-500"><%= Admin.human_attribute_name(:last_sign_in_at) %></dt>
+      <dd class="text-sm text-gray-900 sm:col-span-2"><%= @admin.last_sign_in_at ? l(@admin.last_sign_in_at, format: :long) : "未ログイン" %></dd>
+    </div>
+    <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+      <dt class="text-sm font-medium text-gray-500"><%= Admin.human_attribute_name(:created_at) %></dt>
+      <dd class="text-sm text-gray-900 sm:col-span-2"><%= l(@admin.created_at, format: :long) %></dd>
+    </div>
+  </dl>
+</div>

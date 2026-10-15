@@ -9,6 +9,10 @@ class AdminsController < ApplicationController
     @pagy, @admins = pagy(@q.result.order(id: @sort), limit: PER_PAGE)
   end
 
+  def show
+    @admin = Admin.find(params.expect(:id))
+  end
+
   private
 
   def search_params

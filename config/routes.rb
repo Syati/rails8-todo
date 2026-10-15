@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   # FAQ
   get "faq", to: "faq#index"
 
-  resources :admins, only: [ :index ]
+  resources :admins, only: [ :index, :show ]
 
   # Defines the root path route ("/")
   root "dashboard#index"

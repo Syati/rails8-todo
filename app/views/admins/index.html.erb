@@ -38,7 +38,7 @@
         <% @admins.each do |admin| %>
           <tr class="border-b border-gray-200 bg-white hover:bg-gray-50">
             <td class="px-6 py-4 font-medium text-gray-900"><%= admin.id %></td>
-            <td class="px-6 py-4"><%= admin.email %></td>
+            <td class="px-6 py-4"><%= link_to admin.email, admin_path(admin), class: "font-medium text-blue-600 hover:underline" %></td>
             <td class="px-6 py-4">
               <% if admin.locked_at.present? %>
                 <span class="rounded-sm bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800">ロック中</span>
