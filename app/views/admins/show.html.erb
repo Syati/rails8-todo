@@ -3,7 +3,12 @@
 <div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
   <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 px-6 py-4">
     <h1 class="text-xl font-semibold text-gray-900">管理者詳細</h1>
-    <%= link_to "一覧へ戻る", admins_path, class: "rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
+    <div class="flex gap-2">
+      <% if current_admin.super_admin? %>
+        <%= link_to "編集", edit_admin_path(@admin), class: "rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300" %>
+      <% end %>
+      <%= link_to "一覧へ戻る", admins_path, class: "rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
+    </div>
   </div>
 
   <dl class="divide-y divide-gray-200">
@@ -13,7 +18,12 @@
     </div>
     <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
       <dt class="text-sm font-medium text-gray-500"><%= Admin.human_attribute_name(:email) %></dt>
-      <dd class="text-sm text-gray-900 sm:col-span-2"><%= @admin.email %></dd>
+      <dd class="text-sm text-gray-900 sm:col-span-2">
+        <%= @admin.email %>
+        <% if @admin.pending_reconfirmation? %>
+          <span class="block text-xs text-gray-500">変更確認待ち: <%= @admin.unconfirmed_email %></span>
+        <% end %>
+      </dd>
     </div>
     <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
       <dt class="text-sm font-medium text-gray-500"><%= Admin.human_attribute_name(:role) %></dt>
