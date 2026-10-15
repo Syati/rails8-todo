@@ -33,7 +33,7 @@ issue_sync_key: document_id + scope_id
   - [ ] 6-2. `super_admin` / `operator` のロール制御が機能する（シナリオ10）
   - [ ] 6-3. 作成・更新・削除は `super_admin` のみ実行可能（シナリオ3/5/7/10）
 - [ ] 7. 監査
-  - [ ] 7-1. 作成・更新・削除の操作ログ方針を定義する
+  - [ ] 7-1. 作成・更新・削除の操作ログ方針を定義する（[admin-audit-log.md](admin-audit-log.md)）
 
 ## シナリオ仕様
 ```gherkin

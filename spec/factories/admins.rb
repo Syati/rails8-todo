@@ -8,6 +8,7 @@
 #  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :string
+#  deleted_at             :datetime
 #  email                  :string           not null
 #  encrypted_password     :string           not null
 #  failed_attempts        :integer          default(0), not null
@@ -18,6 +19,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  role                   :integer          default("operator"), not null
 #  sign_in_count          :integer          default(0), not null
 #  uid                    :string
 #  unconfirmed_email      :string
@@ -28,6 +30,7 @@
 # Indexes
 #
 #  index_admins_on_confirmation_token    (confirmation_token) UNIQUE
+#  index_admins_on_deleted_at            (deleted_at)
 #  index_admins_on_email                 (email) UNIQUE
 #  index_admins_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_admins_on_unlock_token          (unlock_token) UNIQUE
@@ -38,5 +41,9 @@ FactoryBot.define do
     password { "password123" }
     password_confirmation { "password123" }
     confirmed_at { Time.current }
+
+    trait :super_admin do
+      role { :super_admin }
+    end
   end
 end

@@ -1,5 +1,7 @@
 ja:
   devise:
+    failure:
+      deleted_account: "このアカウントは削除されています。"
     shared:
       links:
         faq: "よくある質問"

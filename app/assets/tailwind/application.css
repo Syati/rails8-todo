@@ -13,3 +13,33 @@
     font-family: var(--font-sans);
   }
 }
+
+@layer components {
+  .pagy.series-nav {
+    @apply inline-flex -space-x-px text-sm;
+  }
+
+  .pagy.series-nav a {
+    @apply flex h-9 min-w-9 items-center justify-center border border-gray-300 bg-white px-3 leading-tight text-gray-500;
+  }
+
+  .pagy.series-nav a[href]:hover {
+    @apply bg-gray-100 text-gray-700;
+  }
+
+  .pagy.series-nav a:first-child {
+    @apply rounded-s-lg;
+  }
+
+  .pagy.series-nav a:last-child {
+    @apply rounded-e-lg;
+  }
+
+  .pagy.series-nav a[aria-current="page"] {
+    @apply bg-blue-50 text-blue-600;
+  }
+
+  .pagy.series-nav a[aria-disabled="true"]:not([aria-current]) {
+    @apply cursor-default text-gray-300;
+  }
+}

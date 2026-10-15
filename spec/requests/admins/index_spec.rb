@@ -56,6 +56,44 @@ RSpec.describe "Admins::Index", type: :request do
       expect(response.body).to include(target_admin.email)
       expect(response.body).not_to include(other_admin.email)
     end
+
+    it "sort=asc でid昇順に表示する" do
+      get admins_path, params: { sort: "asc" }
+
+      expect(response).to have_http_status(:ok)
+      expect_ids_rendered_in_table(response.body, Admin.order(id: :asc).limit(30).pluck(:id))
+      expect_ids_hidden_from_table(response.body, Admin.order(id: :asc).offset(30).pluck(:id))
+    end
+
+    it "不正なsort値はid降順にフォールバックする" do
+      get admins_path, params: { sort: "id; DROP TABLE admins" }
+
+      expect(response).to have_http_status(:ok)
+      expect_ids_rendered_in_table(response.body, Admin.order(id: :desc).limit(30).pluck(:id))
+    end
+
+    it "次ページへのリンクがソート順と検索条件を引き継ぐ" do
+      get admins_path, params: { sort: "asc", q: { email_cont: "example" } }
+
+      expect(response.body).to include("sort=asc")
+      expect(response.body).to include("q%5Bemail_cont%5D=example")
+    end
+
+    it "2ページ目に31件目以降を表示する" do
+      get admins_path, params: { page: 2 }
+
+      expect(response).to have_http_status(:ok)
+      expect_ids_rendered_in_table(response.body, Admin.order(id: :desc).offset(30).pluck(:id))
+      expect_ids_hidden_from_table(response.body, Admin.order(id: :desc).limit(30).pluck(:id))
+    end
+
+    it "ページネーションと総件数を表示する" do
+      get admins_path
+
+      expect(response.body).to include('class="pagy series-nav"')
+      expect(response.body).to include('aria-label="次へ"')
+      expect(response.body).to include("全 <span class=\"font-semibold text-gray-900\">#{Admin.count}</span> 件")
+    end
   end
 
   def expect_ids_rendered_in_table(body, ids)

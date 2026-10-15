@@ -1,0 +1,10 @@
+en:
+  admins:
+    create:
+      success: "Admin created. A confirmation email was sent to %{email}."
+    update:
+      success: "Admin updated."
+      success_with_reconfirmation: "Admin updated. A confirmation email was sent to the new address %{email}."
+    destroy:
+      success: "Deleted %{email}."
+      self_destroy: "You cannot delete your own account."

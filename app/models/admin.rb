@@ -8,6 +8,7 @@
 #  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :string
+#  deleted_at             :datetime
 #  email                  :string           not null
 #  encrypted_password     :string           not null
 #  failed_attempts        :integer          default(0), not null
@@ -18,6 +19,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  role                   :integer          default("operator"), not null
 #  sign_in_count          :integer          default(0), not null
 #  uid                    :string
 #  unconfirmed_email      :string
@@ -28,6 +30,7 @@
 # Indexes
 #
 #  index_admins_on_confirmation_token    (confirmation_token) UNIQUE
+#  index_admins_on_deleted_at            (deleted_at)
 #  index_admins_on_email                 (email) UNIQUE
 #  index_admins_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_admins_on_unlock_token          (unlock_token) UNIQUE
@@ -37,6 +40,27 @@ class Admin < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :trackable, :omniauthable,
          omniauth_providers: [ :developer ]
+
+  enum :role, { super_admin: 0, operator: 1 }, default: :operator, validate: true
+
+  scope :kept, -> { where(deleted_at: nil) }
+
+  def discard
+    update!(deleted_at: Time.current)
+  end
+
+  def discarded?
+    deleted_at.present?
+  end
+
+  # Deleted admins keep their row but can no longer sign in.
+  def active_for_authentication?
+    super && !discarded?
+  end
+
+  def inactive_message
+    discarded? ? :deleted_account : super
+  end
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |admin|

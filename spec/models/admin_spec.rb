@@ -8,6 +8,7 @@
 #  confirmed_at           :datetime
 #  current_sign_in_at     :datetime
 #  current_sign_in_ip     :string
+#  deleted_at             :datetime
 #  email                  :string           not null
 #  encrypted_password     :string           not null
 #  failed_attempts        :integer          default(0), not null
@@ -18,6 +19,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
+#  role                   :integer          default("operator"), not null
 #  sign_in_count          :integer          default(0), not null
 #  uid                    :string
 #  unconfirmed_email      :string
@@ -28,6 +30,7 @@
 # Indexes
 #
 #  index_admins_on_confirmation_token    (confirmation_token) UNIQUE
+#  index_admins_on_deleted_at            (deleted_at)
 #  index_admins_on_email                 (email) UNIQUE
 #  index_admins_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_admins_on_unlock_token          (unlock_token) UNIQUE
@@ -59,6 +62,43 @@ RSpec.describe Admin, type: :model do
       expect(created.uid).to eq(uid)
       expect(created.email).to eq(email)
       expect(created.encrypted_password).to be_present
+    end
+  end
+
+  describe "#role" do
+    it "新規作成時のデフォルトは operator" do
+      expect(described_class.new.role).to eq("operator")
+    end
+
+    it "OmniAuth で作成された管理者も operator になる" do
+      auth = OpenStruct.new(provider: "developer", uid: "new-uid", info: OpenStruct.new(email: "new@example.com"))
+
+      expect(described_class.from_omniauth(auth)).to be_operator
+    end
+
+    it "未定義のロールは無効にする" do
+      admin = build(:admin, role: "owner")
+
+      expect(admin).not_to be_valid
+      expect(admin.errors[:role]).to be_present
+    end
+  end
+
+  describe "#discard" do
+    let(:admin) { create(:admin) }
+
+    it "deleted_at を記録して kept から外す", :aggregate_failures do
+      admin.discard
+
+      expect(admin.reload.deleted_at).to be_present
+      expect(described_class.kept).not_to include(admin)
+    end
+
+    it "削除後は認証できない状態になる", :aggregate_failures do
+      admin.discard
+
+      expect(admin.active_for_authentication?).to be(false)
+      expect(admin.inactive_message).to eq(:deleted_account)
     end
   end
 

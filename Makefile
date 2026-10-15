@@ -55,8 +55,9 @@ logs: ## Show logs
 app/bundle: ## Run bundle in app container
 	$(APP_RUN) bundle $(ARGS)
 
+# The bundle volume is owned by root, so install as root.
 app/bundle/install: ## Run bundle install in app container
-	$(APP_RUN) bundle install
+	docker compose run --rm --user root app bundle install
 
 app/test: ## Run RSpec
 	$(APP_RUN) bundle exec rspec $(ARGS)

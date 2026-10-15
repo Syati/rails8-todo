@@ -22,8 +22,12 @@ ja:
         remember_created_at: ログイン記憶時刻
         remember_me: ログインを記憶する
         reset_password_sent_at: パスワードリセット送信時刻
+        role: ロール
         reset_password_token: パスワードリセット用トークン
         sign_in_count: ログイン回数
         unconfirmed_email: 未確認Eメール
         unlock_token: ロック解除用トークン
         updated_at: 更新日
+      admin/role:
+        super_admin: スーパー管理者
+        operator: オペレーター
