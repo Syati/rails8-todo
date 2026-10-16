@@ -1,14 +1,18 @@
-# JSON API for the Next.js back office. It shares the Devise session cookie with /console, so
-# both run on the same origin and need no CORS or tokens.
+# JSON API. Two kinds of callers:
+# - the Next.js back office and /api/docs, with the Devise session cookie shared with /console
+#   (same origin, so no CORS);
+# - other systems, with a Bearer token from the client credentials grant (POST /oauth/token).
 class Api::V1::BaseController < ActionController::API
   include Pagy::Method
+  include Doorkeeper::Rails::Helpers
 
   # Parameter classes read the request body as is, so don't copy it under a "product" key.
   wrap_parameters false
 
-  before_action :authenticate_api_admin!
+  before_action :authenticate_api_client!
   # Browsers can't send a cross-site application/json request without a CORS preflight, which
   # this API never allows. Together with the SameSite=Lax session cookie this blocks CSRF.
+  # Bearer tokens are never sent by the browser on its own, so they need no such check.
   before_action :require_json_body, if: -> { request.post? || request.put? || request.patch? }
 
   rescue_from ActiveRecord::RecordNotFound do
@@ -17,8 +21,30 @@ class Api::V1::BaseController < ActionController::API
 
   private
 
-  def authenticate_api_admin!
-    render json: { error: "unauthorized" }, status: :unauthorized unless admin_signed_in?
+  # A request with an Authorization header is judged by its token alone, so a bad token is
+  # rejected even when the same browser also has a session.
+  def authenticate_api_client!
+    if request.authorization.present?
+      authenticate_with_token!
+    elsif !admin_signed_in?
+      render json: { error: "unauthorized" }, status: :unauthorized
+    end
+  end
+
+  def authenticate_with_token!
+    if !doorkeeper_token&.accessible?
+      response.headers["WWW-Authenticate"] = %(Bearer error="invalid_token")
+      render json: { error: "invalid_token" }, status: :unauthorized
+    elsif !doorkeeper_token.includes_scope?(required_scope)
+      response.headers["WWW-Authenticate"] = %(Bearer error="insufficient_scope", scope="#{required_scope}")
+      render json: { error: "insufficient_scope" }, status: :forbidden
+    end
+  end
+
+  # Admins signed in through the session may do everything their role allows; tokens need
+  # the write scope for anything that changes data.
+  def required_scope
+    request.get? || request.head? ? "read" : "write"
   end
 
   def require_json_body

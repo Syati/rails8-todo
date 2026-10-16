@@ -28,6 +28,9 @@ gem "devise"
 gem "devise-i18n"
 gem "omniauth"
 gem "omniauth-rails_csrf_protection"
+# OAuth 2 client credentials for API clients
+gem "doorkeeper", "~> 5.9.9"
+gem "doorkeeper-i18n"
 
 # Form
 gem "pagy"

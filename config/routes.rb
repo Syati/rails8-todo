@@ -26,6 +26,11 @@ Rails.application.routes.draw do
     end
   end
 
+  # POST /oauth/token issues client credentials tokens, and /oauth/applications registers clients.
+  use_doorkeeper do
+    skip_controllers :authorizations, :authorized_applications
+  end
+
   # JSON API for the Next.js back office. The contract is api/openapi.yaml, built from api/*.tsp.
   namespace :api, defaults: { format: :json } do
     namespace :v1 do

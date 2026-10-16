@@ -100,12 +100,12 @@ interface Products {
 
     /** 1 ページの件数。 */
     @query @minValue(1) @maxValue(100) per_page?: int32 = 30,
-  ): ListResponse | UnauthorizedError | ValidationError;
+  ): ListResponse | UnauthorizedError | ForbiddenError | ValidationError;
 
   /** 商品と SKU を返す。 */
   @get
   @summary("商品の詳細")
-  read(@path id: int64): Product | UnauthorizedError | NotFoundError;
+  read(@path id: int64): Product | UnauthorizedError | ForbiddenError | NotFoundError;
 
   /** 商品を登録する。`skus` を送ると SKU も同時に登録し、どれか 1 つでも不正なら何も登録しない。 */
   @post
@@ -116,7 +116,7 @@ interface Products {
   ): {
     @statusCode _: 201;
     @body body: Product;
-  } | UnauthorizedError | UnsupportedMediaTypeError | ValidationError;
+  } | UnauthorizedError | ForbiddenError | UnsupportedMediaTypeError | ValidationError;
 
   /** 商品を更新する。SKU は SKU の API で変える。 */
   @patch(#{ implicitOptionality: false })
@@ -125,10 +125,10 @@ interface Products {
     @path id: int64,
     @header contentType: "application/json",
     @body body: UpdateRequest,
-  ): Product | UnauthorizedError | NotFoundError | UnsupportedMediaTypeError | ValidationError;
+  ): Product | UnauthorizedError | ForbiddenError | NotFoundError | UnsupportedMediaTypeError | ValidationError;
 
   /** 商品を SKU ごと削除する。 */
   @delete
   @summary("商品の削除")
-  delete(@path id: int64): NoContentResponse | UnauthorizedError | NotFoundError;
+  delete(@path id: int64): NoContentResponse | UnauthorizedError | ForbiddenError | NotFoundError;
 }

@@ -19,10 +19,17 @@ model Pagination {
   pages: int32;
 }
 
-/** ログインしていない。 */
+/** ログインしていない、またはトークンが無効か期限切れ。 */
 @error
 model UnauthorizedError {
   @statusCode _: 401;
+  error: string;
+}
+
+/** トークンのスコープが足りない（書き込みに `write` がない）。 */
+@error
+model ForbiddenError {
+  @statusCode _: 403;
   error: string;
 }
 

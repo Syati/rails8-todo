@@ -47,6 +47,16 @@
             API リファレンス
           </a>
         </li>
+        <% if current_admin.super_admin? %>
+          <li>
+            <a href="<%= oauth_applications_path %>" class="flex items-center rounded-lg px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
+              <svg class="mr-3 h-5 w-5 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <circle cx="7.5" cy="15.5" r="4.5"/><path d="m10.7 12.3 9.3-9.3M16 7l3 3M19 4l2 2"/>
+              </svg>
+              API クライアント
+            </a>
+          </li>
+        <% end %>
       </ul>
     </nav>
   </div>

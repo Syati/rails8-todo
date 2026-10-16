@@ -82,7 +82,7 @@ interface Skus {
   ): {
     @statusCode _: 201;
     @body body: Sku;
-  } | UnauthorizedError | NotFoundError | UnsupportedMediaTypeError | ValidationError;
+  } | UnauthorizedError | ForbiddenError | NotFoundError | UnsupportedMediaTypeError | ValidationError;
 
   /** SKU を更新する。 */
   @patch(#{ implicitOptionality: false })
@@ -92,11 +92,11 @@ interface Skus {
     @path id: int64,
     @header contentType: "application/json",
     @body body: UpdateRequest,
-  ): Sku | UnauthorizedError | NotFoundError | UnsupportedMediaTypeError | ValidationError;
+  ): Sku | UnauthorizedError | ForbiddenError | NotFoundError | UnsupportedMediaTypeError | ValidationError;
 
   /** SKU を削除する。 */
   @delete
   @route("/api/v1/skus/{id}")
   @summary("SKU の削除")
-  delete(@path id: int64): NoContentResponse | UnauthorizedError | NotFoundError;
+  delete(@path id: int64): NoContentResponse | UnauthorizedError | ForbiddenError | NotFoundError;
 }
