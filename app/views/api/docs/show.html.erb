@@ -18,11 +18,11 @@
     <%# Set only in config/settings/development.yml; created by bin/rails db:seed. %>
     <% if (dev = Settings.dev_api_client) %>
       <div class="dev-credentials" role="note">
-        開発環境：「Send API Request」の Auth（ClientCredentialsAuth）に <code>Bearer <%= dev.access_token %></code> と入力してください（期限なし）。<code>Bearer </code> も含めて入力します。
+        開発環境：「Send API Request」の Auth（BearerAuth）に <code><%= dev.access_token %></code> を入力すると試せます（期限なし）。
         <code>POST /oauth/token</code> を試すときは client_id <code><%= dev.client_id %></code>、client_secret <code><%= dev.client_secret %></code>。
       </div>
     <% end %>
-    <%# Elements sends the OAuth 2 field as the whole Authorization header, so it must include "Bearer ". %>
+    <%# For "Send API Request", Elements adds "Bearer " to the token entered for BearerAuth. %>
     <elements-api
       apiDescriptionUrl="<%= api_docs_openapi_path %>"
       router="hash"

@@ -6,8 +6,16 @@ info:
     EC 受注管理システムの JSON API。
 
     認証は OAuth 2 の client credentials。super_admin が `/oauth/applications` でクライアントを登録し、
-    `POST /oauth/token` で取ったトークンを `Authorization: Bearer <token>` で送る。
-    GET には `read`、登録・更新・削除には `write` のスコープが要る。トークンの有効期限は 2 時間。
+    `POST /oauth/token` で取ったトークンを `Authorization: Bearer <token>` で送る。トークンの有効期限は 2 時間。
+
+    スコープ（トークンを取るときの `scope`）：
+
+    | スコープ | できること |
+    | --- | --- |
+    | `read` | GET（省略したときはこれだけ） |
+    | `write` | 登録・更新・削除 |
+
+    トークンがなければ 401 `unauthorized`、無効・失効・期限切れは 401 `invalid_token`、スコープ不足は 403 `insufficient_scope`。
 
     書き込み系のリクエストは `Content-Type: application/json` で送る。
 tags:
@@ -451,9 +459,7 @@ paths:
       security:
         - {}
 security:
-  - ClientCredentialsAuth:
-      - read
-      - write
+  - BearerAuth: []
 components:
   schemas:
     OAuth.TokenErrorBody:
@@ -794,14 +800,9 @@ components:
         入力が正しくない。`errors` は項目ごとのエラーメッセージで、ネストした項目と配列の要素は
         object でたどる（例：`{"skus": {"0": {"code": ["を入力してください"]}}}`）。
   securitySchemes:
-    ClientCredentialsAuth:
-      type: oauth2
-      flows:
-        clientCredentials:
-          tokenUrl: https://todo.docker.localhost/oauth/token
-          scopes:
-            read: ''
-            write: ''
+    BearerAuth:
+      type: http
+      scheme: Bearer
 servers:
   - url: /
     description: このサーバー（同一オリジン）

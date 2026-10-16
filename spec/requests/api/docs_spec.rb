@@ -22,7 +22,7 @@ RSpec.describe "Api::Docs", type: :request do
 
       get api_docs_path
 
-      expect(response.body).to include("<code>Bearer dev-token</code>", "<code>dev-client</code>")
+      expect(response.body).to include("<code>dev-token</code>", "<code>dev-client</code>")
     end
 
     it "開発用クライアントの設定がなければ表示しない" do
