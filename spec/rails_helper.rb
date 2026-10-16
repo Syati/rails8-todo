@@ -36,6 +36,12 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
+  # conform_schema(status) checks the request and the response against api/openapi.yaml.
+  # SKOOMA_COVERAGE=1 also lists the operations and statuses no spec has called. It is off by
+  # default because the report is printed after RSpec's output and breaks `--format json`.
+  config.include Skooma::RSpec[
+    Rails.root.join("api/openapi.yaml"), coverage: ENV["SKOOMA_COVERAGE"] ? :report : false
+  ], type: :request
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
