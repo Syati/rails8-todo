@@ -65,7 +65,7 @@ SimpleForm.setup do |config|
   end
 
   # Console forms: label and field side by side from md up, stacked like the wrappers above on
-  # narrower screens. Pair with `console_form_actions_class` so the buttons line up with the fields.
+  # narrower screens. ConsoleFormHelper#console_form_for picks these.
   horizontal_class = "mb-5 md:grid md:grid-cols-[12rem_minmax(0,1fr)] md:items-start md:gap-x-4"
   horizontal_label_class = "#{label_class} md:mb-0 md:pt-2.5"
 

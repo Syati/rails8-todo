@@ -14,8 +14,8 @@ module ConsoleFormHelper
     end
   end
 
-  # Indented by the label column (12rem) and the gap (1rem) so the buttons start under the fields.
+  # Submit and cancel, centered under the whole form.
   def console_form_actions(&)
-    tag.div(class: "flex gap-2 md:pl-52", &)
+    tag.div(class: "flex justify-center gap-2 pt-2", &)
   end
 end
