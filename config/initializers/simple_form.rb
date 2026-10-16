@@ -64,6 +64,38 @@ SimpleForm.setup do |config|
     b.use :hint, wrap_with: { tag: :p, class: hint_class }
   end
 
+  # Console forms: label and field side by side from md up, stacked like the wrappers above on
+  # narrower screens. Pair with `console_form_actions_class` so the buttons line up with the fields.
+  horizontal_class = "mb-5 md:grid md:grid-cols-[12rem_minmax(0,1fr)] md:items-start md:gap-x-4"
+  horizontal_label_class = "#{label_class} md:mb-0 md:pt-2.5"
+
+  config.wrappers :console_horizontal, class: horizontal_class do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :minlength
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
+    b.use :label, class: horizontal_label_class
+    b.wrapper :field, tag: :div do |bb|
+      bb.use :input, class: text_input_class, error_class: config.input_field_error_class, valid_class: config.input_field_valid_class
+      bb.use :full_error, wrap_with: { tag: :p, class: error_class }
+      bb.use :hint, wrap_with: { tag: :p, class: hint_class }
+    end
+  end
+
+  config.wrappers :console_horizontal_select, class: horizontal_class do |b|
+    b.use :html5
+    b.optional :readonly
+    b.use :label, class: horizontal_label_class
+    b.wrapper :field, tag: :div do |bb|
+      bb.use :input, class: text_input_class, error_class: config.input_field_error_class, valid_class: config.input_field_valid_class
+      bb.use :full_error, wrap_with: { tag: :p, class: error_class }
+      bb.use :hint, wrap_with: { tag: :p, class: hint_class }
+    end
+  end
+
   config.default_wrapper = :tailwind_form
   config.wrapper_mappings = {
     boolean: :tailwind_boolean,

@@ -6,7 +6,7 @@
     <p class="mt-1 text-sm text-gray-500">登録するとクライアント ID と secret を発行します。secret は登録直後に一度だけ表示します。</p>
   </div>
 
-  <div class="max-w-2xl px-6 py-6">
+  <div class="max-w-3xl px-6 py-6">
     <%= render "form", application: @application, url: oauth_applications_path, method: :post, submit_label: "登録する", cancel_path: oauth_applications_path %>
   </div>
 </div>

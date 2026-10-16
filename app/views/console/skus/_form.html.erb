@@ -1,4 +1,4 @@
-<%= simple_form_for [ :console, product, sku ], wrapper: :tailwind_form do |f| %>
+<%= console_form_for [ :console, product, sku ] do |f| %>
   <%= f.error_notification %>
   <%= f.input :code, input_html: { autocomplete: "off", class: "font-mono uppercase" }, hint: "英大文字・数字・ハイフン。例: TS-ORG-M-WHT" %>
   <%= f.input :size, hint: "例: S、M、L、28cm。サイズ違いがなければ空欄" %>
@@ -6,8 +6,8 @@
   <%= f.input :price_yen, input_html: { min: 0, step: 1 }, hint: "税込の金額を円で入力（#{Catalog::Product.human_attribute_name("tax_rate.#{product.tax_rate}")}）" %>
   <%= f.input :stock_quantity, input_html: { min: 0, step: 1 } %>
 
-  <div class="flex gap-2">
+  <%= console_form_actions do %>
     <%= f.button :submit, submit_label %>
     <%= link_to "キャンセル", console_product_path(product), class: "rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
-  </div>
+  <% end %>
 <% end %>

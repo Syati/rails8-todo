@@ -6,7 +6,7 @@
     <p class="mt-1 text-sm text-gray-500">スコープを変えても、発行済みのトークンのスコープは変わりません。</p>
   </div>
 
-  <div class="max-w-2xl px-6 py-6">
+  <div class="max-w-3xl px-6 py-6">
     <%= render "form", application: @application, url: oauth_application_path(@application), method: :patch, submit_label: "更新する", cancel_path: oauth_application_path(@application) %>
   </div>
 </div>
