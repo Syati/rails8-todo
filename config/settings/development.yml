@@ -3,3 +3,10 @@ database:
   username: postgres
   password: password
   port: 15432
+
+# Fixed OAuth client and token for calling the API locally (db/seeds/development/oauth_applications.rb).
+# Development only: these values are public, so never copy them to another environment.
+dev_api_client:
+  client_id: dev-client
+  client_secret: dev-secret
+  access_token: dev-token

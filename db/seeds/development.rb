@@ -2,6 +2,7 @@
 %w[
   admins
   products
+  oauth_applications
 ].each do |name|
   load Rails.root.join("db/seeds/development/#{name}.rb")
 end

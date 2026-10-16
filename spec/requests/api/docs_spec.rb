@@ -15,6 +15,24 @@ RSpec.describe "Api::Docs", type: :request do
       expect(response.body).to include(%(<elements-api), %(apiDescriptionUrl="#{api_docs_openapi_path}"))
     end
 
+    it "開発用クライアントの設定があれば、その値を表示する" do
+      sign_in operator
+      allow(Settings).to receive(:dev_api_client)
+        .and_return(Config::Options.new(client_id: "dev-client", client_secret: "dev-secret", access_token: "dev-token"))
+
+      get api_docs_path
+
+      expect(response.body).to include("<code>dev-token</code>", "<code>dev-client</code>")
+    end
+
+    it "開発用クライアントの設定がなければ表示しない" do
+      sign_in operator
+
+      get api_docs_path
+
+      expect(response.body).not_to include("dev-credentials\" role")
+    end
+
     it "未ログインはログイン画面へリダイレクトする" do
       get api_docs_path
 
