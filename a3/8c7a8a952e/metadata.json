@@ -1,0 +1,24 @@
+{
+  "cli_version": "0.11.4",
+  "checkpoint_id": "a38c7a8a952e",
+  "strategy": "manual-commit",
+  "branch": "feature/products-crud",
+  "checkpoints_count": 7,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/a3/8c7a8a952e/0/metadata.json",
+      "transcript": "/a3/8c7a8a952e/0/full.jsonl",
+      "compact_transcript": "/a3/8c7a8a952e/0/transcript.jsonl",
+      "content_hash": "/a3/8c7a8a952e/0/content_hash.txt",
+      "prompt": "/a3/8c7a8a952e/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 524,
+    "cache_creation_tokens": 520142,
+    "cache_read_tokens": 31752689,
+    "output_tokens": 157004,
+    "api_call_count": 260
+  }
+}
