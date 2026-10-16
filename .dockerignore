@@ -49,3 +49,6 @@
 # Ignore Docker-related files
 /.dockerignore
 /Dockerfile*
+
+# TypeSpec dependencies; only api/openapi.yaml is read at runtime.
+/api/node_modules

@@ -34,6 +34,10 @@ gem "pagy"
 gem "ransack"
 gem "simple_form"
 
+# API
+# Typed request parameters for the JSON API
+gem "structured_params", "~> 0.9.5"
+
 # Frontend assets
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
@@ -80,6 +84,9 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "rspec-rails", "~> 8.0.4"
+
+  # Checks app/parameters against the OpenAPI document built from api/
+  gem "structured_params-openapi", "~> 0.1.0"
 end
 
 group :development do
@@ -91,6 +98,9 @@ group :development do
 end
 
 group :test do
+  # Validates request specs against api/openapi.yaml
+  gem "skooma", "~> 0.4.0"
+
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"

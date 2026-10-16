@@ -1,0 +1,648 @@
+openapi: 3.1.0
+info:
+  title: EC 受注管理 API
+  version: 1.0.0
+  description: |-
+    EC 受注管理システムの管理画面（Next.js）が呼ぶ JSON API。
+
+    認証は Rails の管理画面と同じ Devise のセッション cookie を使う。先に `/auth/sign_in` でログインしておくこと。
+    書き込み系のリクエストは `Content-Type: application/json` で送る。
+tags:
+  - name: 商品
+  - name: SKU
+paths:
+  /api/v1/products:
+    get:
+      operationId: Products_list
+      summary: 商品の一覧
+      description: 商品の一覧を id の降順で返す。
+      parameters:
+        - name: q
+          in: query
+          required: false
+          description: 商品名の部分一致。
+          schema:
+            type: string
+          explode: false
+        - name: status[]
+          in: query
+          required: false
+          description: 販売状態（複数指定できる）。
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/V1.Products.Status'
+        - name: page
+          in: query
+          required: false
+          description: ページ（1 始まり）。
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            default: 1
+          explode: false
+        - name: per_page
+          in: query
+          required: false
+          description: 1 ページの件数。
+          schema:
+            type: integer
+            format: int32
+            minimum: 1
+            maximum: 100
+            default: 30
+          explode: false
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.Products.ListResponse'
+        '401':
+          description: ログインしていない。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.UnauthorizedError'
+        '422':
+          description: |-
+            入力が正しくない。`errors` は項目ごとのエラーメッセージで、ネストした項目と配列の要素は
+            object でたどる（例：`{"skus": {"0": {"code": ["を入力してください"]}}}`）。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.ValidationError'
+      tags:
+        - 商品
+    post:
+      operationId: Products_create
+      summary: 商品の登録
+      description: 商品を登録する。`skus` を送ると SKU も同時に登録し、どれか 1 つでも不正なら何も登録しない。
+      parameters: []
+      responses:
+        '201':
+          description: The request has succeeded and a new resource has been created as a result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.Products.Product'
+        '401':
+          description: ログインしていない。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.UnauthorizedError'
+        '415':
+          description: '`Content-Type: application/json` 以外で送った。'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.UnsupportedMediaTypeError'
+        '422':
+          description: |-
+            入力が正しくない。`errors` は項目ごとのエラーメッセージで、ネストした項目と配列の要素は
+            object でたどる（例：`{"skus": {"0": {"code": ["を入力してください"]}}}`）。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.ValidationError'
+      tags:
+        - 商品
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V1.Products.CreateRequest'
+  /api/v1/products/{id}:
+    get:
+      operationId: Products_read
+      summary: 商品の詳細
+      description: 商品と SKU を返す。
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.Products.Product'
+        '401':
+          description: ログインしていない。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.UnauthorizedError'
+        '404':
+          description: 対象のリソースがない。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.NotFoundError'
+      tags:
+        - 商品
+    patch:
+      operationId: Products_update
+      summary: 商品の更新
+      description: 商品を更新する。SKU は SKU の API で変える。
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.Products.Product'
+        '401':
+          description: ログインしていない。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.UnauthorizedError'
+        '404':
+          description: 対象のリソースがない。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.NotFoundError'
+        '415':
+          description: '`Content-Type: application/json` 以外で送った。'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.UnsupportedMediaTypeError'
+        '422':
+          description: |-
+            入力が正しくない。`errors` は項目ごとのエラーメッセージで、ネストした項目と配列の要素は
+            object でたどる（例：`{"skus": {"0": {"code": ["を入力してください"]}}}`）。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.ValidationError'
+      tags:
+        - 商品
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V1.Products.UpdateRequest'
+    delete:
+      operationId: Products_delete
+      summary: 商品の削除
+      description: 商品を SKU ごと削除する。
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: 削除に成功した。
+        '401':
+          description: ログインしていない。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.UnauthorizedError'
+        '404':
+          description: 対象のリソースがない。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.NotFoundError'
+      tags:
+        - 商品
+  /api/v1/products/{product_id}/skus:
+    post:
+      operationId: Skus_create
+      summary: SKU の追加
+      description: 商品に SKU を追加する。
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '201':
+          description: The request has succeeded and a new resource has been created as a result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.Skus.Sku'
+        '401':
+          description: ログインしていない。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.UnauthorizedError'
+        '404':
+          description: 対象のリソースがない。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.NotFoundError'
+        '415':
+          description: '`Content-Type: application/json` 以外で送った。'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.UnsupportedMediaTypeError'
+        '422':
+          description: |-
+            入力が正しくない。`errors` は項目ごとのエラーメッセージで、ネストした項目と配列の要素は
+            object でたどる（例：`{"skus": {"0": {"code": ["を入力してください"]}}}`）。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.ValidationError'
+      tags:
+        - SKU
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V1.Skus.CreateRequest'
+  /api/v1/skus/{id}:
+    patch:
+      operationId: Skus_update
+      summary: SKU の更新
+      description: SKU を更新する。
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.Skus.Sku'
+        '401':
+          description: ログインしていない。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.UnauthorizedError'
+        '404':
+          description: 対象のリソースがない。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.NotFoundError'
+        '415':
+          description: '`Content-Type: application/json` 以外で送った。'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.UnsupportedMediaTypeError'
+        '422':
+          description: |-
+            入力が正しくない。`errors` は項目ごとのエラーメッセージで、ネストした項目と配列の要素は
+            object でたどる（例：`{"skus": {"0": {"code": ["を入力してください"]}}}`）。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.ValidationError'
+      tags:
+        - SKU
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/V1.Skus.UpdateRequest'
+    delete:
+      operationId: Skus_delete
+      summary: SKU の削除
+      description: SKU を削除する。
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: 削除に成功した。
+        '401':
+          description: ログインしていない。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.UnauthorizedError'
+        '404':
+          description: 対象のリソースがない。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/V1.NotFoundError'
+      tags:
+        - SKU
+security:
+  - SessionCookieAuth: []
+components:
+  schemas:
+    V1.NotFoundError:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+      description: 対象のリソースがない。
+    V1.Pagination:
+      type: object
+      required:
+        - page
+        - per_page
+        - count
+        - pages
+      properties:
+        page:
+          type: integer
+          format: int32
+          description: 現在のページ（1 始まり）。
+        per_page:
+          type: integer
+          format: int32
+          description: 1 ページの件数。
+        count:
+          type: integer
+          format: int32
+          description: 全体の件数。
+        pages:
+          type: integer
+          format: int32
+          description: 全体のページ数。
+      description: ページ分割の情報。
+    V1.Products.CreateRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: 商品名。
+        description:
+          anyOf:
+            - type: string
+            - type: 'null'
+          maxLength: 2000
+          description: 商品説明。
+        status:
+          $ref: '#/components/schemas/V1.Products.Status'
+          description: 省略すると `draft`。
+        tax_rate:
+          $ref: '#/components/schemas/V1.Products.TaxRate'
+          description: 省略すると `standard`。
+        skus:
+          type: array
+          items:
+            $ref: '#/components/schemas/V1.Skus.CreateRequest'
+          maxItems: 50
+          description: 同時に登録する SKU。コードと、サイズと色の組み合わせは重複できない。
+      description: 商品の登録。SKU も同時に登録できる。
+    V1.Products.ListResponse:
+      type: object
+      required:
+        - products
+        - pagination
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/V1.Products.Product'
+        pagination:
+          $ref: '#/components/schemas/V1.Pagination'
+      description: 商品の一覧。
+    V1.Products.Product:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - status
+        - tax_rate
+        - skus
+        - created_at
+        - updated_at
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+          description: 商品名。
+        description:
+          anyOf:
+            - type: string
+            - type: 'null'
+          description: 商品説明。
+        status:
+          $ref: '#/components/schemas/V1.Products.Status'
+        tax_rate:
+          $ref: '#/components/schemas/V1.Products.TaxRate'
+        skus:
+          type: array
+          items:
+            $ref: '#/components/schemas/V1.Skus.Sku'
+          description: SKU（id 順）。
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      description: 商品。サイズや色の違いは SKU として持つ。
+    V1.Products.Status:
+      type: string
+      enum:
+        - draft
+        - on_sale
+        - discontinued
+      description: 販売状態。`draft`：下書き、`on_sale`：販売中、`discontinued`：販売終了。
+    V1.Products.TaxRate:
+      type: string
+      enum:
+        - standard
+        - reduced
+      description: 消費税率。`standard`：標準税率 10%、`reduced`：軽減税率 8%（飲食料品）。
+    V1.Products.UpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 100
+          description: 商品名。
+        description:
+          anyOf:
+            - type: string
+            - type: 'null'
+          maxLength: 2000
+          description: 商品説明。`null` で消す。
+        status:
+          $ref: '#/components/schemas/V1.Products.Status'
+        tax_rate:
+          $ref: '#/components/schemas/V1.Products.TaxRate'
+      description: 商品の更新。送った項目だけを変える。
+    V1.Skus.CreateRequest:
+      type: object
+      required:
+        - code
+        - price_yen
+      properties:
+        code:
+          type: string
+          minLength: 1
+          maxLength: 50
+          pattern: ^[A-Za-z0-9][A-Za-z0-9-]*$
+          description: SKU コード。英数字とハイフンで、小文字は大文字に直して保存する。
+        size:
+          anyOf:
+            - type: string
+            - type: 'null'
+          maxLength: 30
+          description: サイズ。サイズがない商品は省略する。
+        color:
+          anyOf:
+            - type: string
+            - type: 'null'
+          maxLength: 30
+          description: 色。色がない商品は省略する。
+        price_yen:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 10000000
+          description: 税込みの販売価格（円）。
+        stock_quantity:
+          type: integer
+          format: int32
+          minimum: 0
+          description: 在庫数。省略すると 0。
+      description: SKU の登録。商品の登録時に `skus` の要素としても使う。
+    V1.Skus.Sku:
+      type: object
+      required:
+        - id
+        - code
+        - size
+        - color
+        - price_yen
+        - stock_quantity
+      properties:
+        id:
+          type: integer
+          format: int64
+        code:
+          type: string
+          description: SKU コード。大文字の英数字とハイフン。
+        size:
+          anyOf:
+            - type: string
+            - type: 'null'
+        color:
+          anyOf:
+            - type: string
+            - type: 'null'
+        price_yen:
+          type: integer
+          format: int32
+          description: 税込みの販売価格（円）。
+        stock_quantity:
+          type: integer
+          format: int32
+          description: 在庫数。
+      description: SKU（在庫を管理する単位）。商品のサイズと色の組み合わせごとに 1 つ。
+    V1.Skus.UpdateRequest:
+      type: object
+      properties:
+        code:
+          type: string
+          minLength: 1
+          maxLength: 50
+          pattern: ^[A-Za-z0-9][A-Za-z0-9-]*$
+        size:
+          anyOf:
+            - type: string
+            - type: 'null'
+          maxLength: 30
+        color:
+          anyOf:
+            - type: string
+            - type: 'null'
+          maxLength: 30
+        price_yen:
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 10000000
+        stock_quantity:
+          type: integer
+          format: int32
+          minimum: 0
+      description: SKU の更新。送った項目だけを変える。
+    V1.UnauthorizedError:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+      description: ログインしていない。
+    V1.UnsupportedMediaTypeError:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+      description: '`Content-Type: application/json` 以外で送った。'
+    V1.ValidationError:
+      type: object
+      required:
+        - errors
+      properties:
+        errors:
+          type: object
+          unevaluatedProperties: {}
+      description: |-
+        入力が正しくない。`errors` は項目ごとのエラーメッセージで、ネストした項目と配列の要素は
+        object でたどる（例：`{"skus": {"0": {"code": ["を入力してください"]}}}`）。
+  securitySchemes:
+    SessionCookieAuth:
+      type: apiKey
+      in: cookie
+      name: _rails8_todo_session
+servers:
+  - url: /
+    description: このサーバー（同一オリジン）
+    variables: {}
