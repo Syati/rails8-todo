@@ -1,0 +1,24 @@
+{
+  "cli_version": "0.11.4",
+  "checkpoint_id": "89c3b2e4e3eb",
+  "strategy": "manual-commit",
+  "branch": "feature/catalog-api",
+  "checkpoints_count": 1,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/89/c3b2e4e3eb/0/metadata.json",
+      "transcript": "/89/c3b2e4e3eb/0/full.jsonl",
+      "compact_transcript": "/89/c3b2e4e3eb/0/transcript.jsonl",
+      "content_hash": "/89/c3b2e4e3eb/0/content_hash.txt",
+      "prompt": "/89/c3b2e4e3eb/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 794,
+    "cache_creation_tokens": 1060300,
+    "cache_read_tokens": 53023684,
+    "output_tokens": 278878,
+    "api_call_count": 395
+  }
+}
