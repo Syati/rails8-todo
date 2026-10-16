@@ -8,20 +8,9 @@
     <link rel="stylesheet" href="https://unpkg.com/@stoplight/elements@9.0.27/styles.min.css" integrity="sha384-iVQBHadsD+eV0M5+ubRCEVXrXEBj+BqcuwjUwPoVJc0Pb1fmrhYSAhL+BFProHdV" crossorigin="anonymous">
     <style>
       html, body { height: 100%; margin: 0; }
-      body { display: flex; flex-direction: column; }
-      elements-api { flex: 1; min-height: 0; }
-      .dev-credentials { padding: 8px 16px; background: #fefce8; border-bottom: 1px solid #fef08a; color: #854d0e; font: 13px/1.5 system-ui, sans-serif; }
-      .dev-credentials code { padding: 1px 4px; background: #fef9c3; border-radius: 4px; font-family: ui-monospace, monospace; }
     </style>
   </head>
   <body>
-    <%# Set only in config/settings/development.yml; created by bin/rails db:seed. %>
-    <% if (dev = Settings.dev_api_client) %>
-      <div class="dev-credentials" role="note">
-        開発環境：「Send API Request」の Auth（BearerAuth）に <code><%= dev.access_token %></code> を入力すると試せます（期限なし）。
-        <code>POST /oauth/token</code> を試すときは client_id <code><%= dev.client_id %></code>、client_secret <code><%= dev.client_secret %></code>。
-      </div>
-    <% end %>
     <%# For "Send API Request", Elements adds "Bearer " to the token entered for BearerAuth. %>
     <elements-api
       apiDescriptionUrl="<%= api_docs_openapi_path %>"
