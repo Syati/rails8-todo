@@ -7,7 +7,7 @@
   </div>
 
   <div class="px-6 py-6">
-    <%= simple_form_for @admin, wrapper: :tailwind_form do |f| %>
+    <%= simple_form_for [ :console, @admin ], wrapper: :tailwind_form do |f| %>
       <%= f.error_notification %>
       <%= f.input :email, input_html: { autocomplete: "off" } %>
       <% if @admin == current_admin %>
@@ -24,7 +24,7 @@
 
       <div class="flex gap-2">
         <%= f.button :submit, "更新する" %>
-        <%= link_to "キャンセル", admin_path(@admin), class: "rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
+        <%= link_to "キャンセル", console_admin_path(@admin), class: "rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
       </div>
     <% end %>
   </div>

@@ -2,12 +2,12 @@
   <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 px-6 py-4">
     <h1 class="text-xl font-semibold text-gray-900">管理者一覧</h1>
     <% if current_admin.super_admin? %>
-      <%= link_to "新規作成", new_admin_path, class: "rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300" %>
+      <%= link_to "新規作成", new_console_admin_path, class: "rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300" %>
     <% end %>
   </div>
 
   <div class="border-b border-gray-200 px-6 py-4">
-    <%= search_form_for @q, url: admins_path, method: :get, html: { class: "grid gap-4 md:grid-cols-12 md:items-end" } do |f| %>
+    <%= search_form_for @q, url: console_admins_path, method: :get, html: { class: "grid gap-4 md:grid-cols-12 md:items-end" } do |f| %>
       <div class="md:col-span-2">
         <%= f.label :id_eq, "ID", class: "mb-2 block text-sm font-medium text-gray-900" %>
         <%= f.search_field :id_eq, class: "block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500", placeholder: "例: 123" %>
@@ -18,7 +18,7 @@
       </div>
       <div class="flex gap-2 md:col-span-6">
         <%= f.submit "検索", class: "rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300" %>
-        <%= link_to "クリア", admins_path, class: "rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
+        <%= link_to "クリア", console_admins_path, class: "rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
       </div>
     <% end %>
   </div>
@@ -28,7 +28,7 @@
       <thead class="bg-gray-50 text-xs uppercase text-gray-700">
         <tr>
           <th scope="col" class="px-6 py-3">
-            <%= link_to admins_path(q: @search_query, sort: @sort == "desc" ? "asc" : "desc"), class: "inline-flex items-center gap-1 hover:text-gray-900", data: { testid: "sort-id" } do %>
+            <%= link_to console_admins_path(q: @search_query, sort: @sort == "desc" ? "asc" : "desc"), class: "inline-flex items-center gap-1 hover:text-gray-900", data: { testid: "sort-id" } do %>
               ID <span aria-hidden="true"><%= @sort == "desc" ? "▼" : "▲" %></span>
               <span class="sr-only"><%= @sort == "desc" ? "降順（クリックで昇順）" : "昇順（クリックで降順）" %></span>
             <% end %>
@@ -42,7 +42,7 @@
         <% @admins.each do |admin| %>
           <tr class="border-b border-gray-200 bg-white hover:bg-gray-50">
             <td class="px-6 py-4 font-medium text-gray-900"><%= admin.id %></td>
-            <td class="px-6 py-4"><%= link_to admin.email, admin_path(admin), class: "font-medium text-blue-600 hover:underline" %></td>
+            <td class="px-6 py-4"><%= link_to admin.email, console_admin_path(admin), class: "font-medium text-blue-600 hover:underline" %></td>
             <td class="px-6 py-4"><%= Admin.human_attribute_name("role.#{admin.role}") %></td>
             <td class="px-6 py-4">
               <% if admin.locked_at.present? %>

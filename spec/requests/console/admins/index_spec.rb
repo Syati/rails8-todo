@@ -1,9 +1,9 @@
 require "rails_helper"
 
-RSpec.describe "Admins::Index", type: :request do
+RSpec.describe "Console::Admins::Index", type: :request do
   include Devise::Test::IntegrationHelpers
 
-  describe "GET /admins" do
+  describe "GET /console/admins" do
     let!(:viewer) { create(:admin) }
     let!(:target_admin) { create(:admin, email: "target-admin@example.com") }
     let!(:other_admin) { create(:admin, email: "other-admin@example.com") }
@@ -16,7 +16,7 @@ RSpec.describe "Admins::Index", type: :request do
     end
 
     it "管理者一覧を30件かつid降順で表示する" do
-      get admins_path
+      get console_admins_path
 
       expect(response).to have_http_status(:ok)
       expect(response.body).to include("管理者一覧")
@@ -29,7 +29,7 @@ RSpec.describe "Admins::Index", type: :request do
     end
 
     it "Flowbite drawer の sidebar を表示する", :aggregate_failures do
-      get admins_path
+      get console_admins_path
 
       expect(response).to have_http_status(:ok)
       expect(response.body).to include('data-controller="sidebar"')
@@ -42,7 +42,7 @@ RSpec.describe "Admins::Index", type: :request do
     end
 
     it "idで検索できる" do
-      get admins_path, params: { q: { id_eq: target_admin.id } }
+      get console_admins_path, params: { q: { id_eq: target_admin.id } }
 
       expect(response).to have_http_status(:ok)
       expect(response.body).to include(">#{target_admin.id}</td>")
@@ -50,7 +50,7 @@ RSpec.describe "Admins::Index", type: :request do
     end
 
     it "emailで部分一致検索できる" do
-      get admins_path, params: { q: { email_cont: "target-admin" } }
+      get console_admins_path, params: { q: { email_cont: "target-admin" } }
 
       expect(response).to have_http_status(:ok)
       expect(response.body).to include(target_admin.email)
@@ -58,7 +58,7 @@ RSpec.describe "Admins::Index", type: :request do
     end
 
     it "sort=asc でid昇順に表示する" do
-      get admins_path, params: { sort: "asc" }
+      get console_admins_path, params: { sort: "asc" }
 
       expect(response).to have_http_status(:ok)
       expect_ids_rendered_in_table(response.body, Admin.order(id: :asc).limit(30).pluck(:id))
@@ -66,21 +66,21 @@ RSpec.describe "Admins::Index", type: :request do
     end
 
     it "不正なsort値はid降順にフォールバックする" do
-      get admins_path, params: { sort: "id; DROP TABLE admins" }
+      get console_admins_path, params: { sort: "id; DROP TABLE admins" }
 
       expect(response).to have_http_status(:ok)
       expect_ids_rendered_in_table(response.body, Admin.order(id: :desc).limit(30).pluck(:id))
     end
 
     it "次ページへのリンクがソート順と検索条件を引き継ぐ" do
-      get admins_path, params: { sort: "asc", q: { email_cont: "example" } }
+      get console_admins_path, params: { sort: "asc", q: { email_cont: "example" } }
 
       expect(response.body).to include("sort=asc")
       expect(response.body).to include("q%5Bemail_cont%5D=example")
     end
 
     it "2ページ目に31件目以降を表示する" do
-      get admins_path, params: { page: 2 }
+      get console_admins_path, params: { page: 2 }
 
       expect(response).to have_http_status(:ok)
       expect_ids_rendered_in_table(response.body, Admin.order(id: :desc).offset(30).pluck(:id))
@@ -88,7 +88,7 @@ RSpec.describe "Admins::Index", type: :request do
     end
 
     it "ページネーションと総件数を表示する" do
-      get admins_path
+      get console_admins_path
 
       expect(response.body).to include('class="pagy series-nav"')
       expect(response.body).to include('aria-label="次へ"')

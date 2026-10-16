@@ -18,7 +18,13 @@ Rails.application.routes.draw do
   # FAQ
   get "faq", to: "faq#index"
 
-  resources :admins
+  # Back-office screens rendered by Rails. The JSON API for Next.js will live under /api.
+  namespace :console do
+    resources :admins
+    resources :products do
+      resources :skus, only: %i[new create edit update destroy]
+    end
+  end
 
   # Defines the root path route ("/")
   root "dashboard#index"

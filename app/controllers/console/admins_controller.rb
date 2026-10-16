@@ -1,4 +1,4 @@
-class AdminsController < ApplicationController
+class Console::AdminsController < ApplicationController
   PER_PAGE = 30
   SORT_DIRECTIONS = %w[desc asc].freeze
 
@@ -25,7 +25,7 @@ class AdminsController < ApplicationController
     @admin = Admin.new(create_params)
 
     if @admin.save
-      redirect_to @admin, notice: t(".success", email: @admin.email)
+      redirect_to [ :console, @admin ], notice: t(".success", email: @admin.email)
     else
       render :new, status: :unprocessable_content
     end
@@ -34,7 +34,7 @@ class AdminsController < ApplicationController
 
   def update
     if @admin.update(update_params)
-      redirect_to @admin, notice: update_notice
+      redirect_to [ :console, @admin ], notice: update_notice
     else
       render :edit, status: :unprocessable_content
     end
@@ -42,10 +42,10 @@ class AdminsController < ApplicationController
 
   def destroy
     if @admin == current_admin
-      redirect_to @admin, alert: t(".self_destroy")
+      redirect_to [ :console, @admin ], alert: t(".self_destroy")
     else
       @admin.discard
-      redirect_to admins_path, notice: t(".success", email: @admin.email)
+      redirect_to console_admins_path, notice: t(".success", email: @admin.email)
     end
   end
 

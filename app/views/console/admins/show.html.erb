@@ -5,12 +5,12 @@
     <h1 class="text-xl font-semibold text-gray-900">管理者詳細</h1>
     <div class="flex gap-2">
       <% if current_admin.super_admin? %>
-        <%= link_to "編集", edit_admin_path(@admin), class: "rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300" %>
+        <%= link_to "編集", edit_console_admin_path(@admin), class: "rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300" %>
         <% unless @admin == current_admin %>
-          <%= button_to "削除", admin_path(@admin), method: :delete, form: { data: { turbo_confirm: "#{@admin.email} を削除します。削除した管理者はログインできなくなります。よろしいですか？" } }, class: "rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300" %>
+          <%= button_to "削除", console_admin_path(@admin), method: :delete, form: { data: { turbo_confirm: "#{@admin.email} を削除します。削除した管理者はログインできなくなります。よろしいですか？" } }, class: "rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300" %>
         <% end %>
       <% end %>
-      <%= link_to "一覧へ戻る", admins_path, class: "rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
+      <%= link_to "一覧へ戻る", console_admins_path, class: "rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
     </div>
   </div>
 
