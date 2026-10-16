@@ -62,8 +62,4 @@ class Api::V1::BaseController < ActionController::API
   def sent_attributes(request_params)
     request_params.attributes.slice(*request.request_parameters.keys)
   end
-
-  def pagination(pagy)
-    { page: pagy.page, per_page: pagy.limit, count: pagy.count, pages: pagy.pages }
-  end
 end
