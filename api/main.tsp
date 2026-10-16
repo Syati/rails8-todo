@@ -1,8 +1,8 @@
 import "@typespec/http";
 import "@typespec/openapi";
-import "./common.tsp";
-import "./products.tsp";
-import "./skus.tsp";
+import "./v1/common.tsp";
+import "./v1/products.tsp";
+import "./v1/skus.tsp";
 
 using Http;
 
