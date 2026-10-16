@@ -1,0 +1,27 @@
+en:
+  activerecord:
+    models:
+      product: Product
+      sku: SKU
+    attributes:
+      product:
+        name: Name
+        description: Description
+        status: Status
+        tax_rate: Tax rate
+        skus: SKUs
+        created_at: Created at
+        updated_at: Updated at
+      product/status:
+        draft: Draft
+        on_sale: On sale
+        discontinued: Discontinued
+      product/tax_rate:
+        standard: Standard 10%
+        reduced: Reduced 8%
+      sku:
+        code: SKU code
+        size: Size
+        color: Color
+        price_yen: Price incl. tax (JPY)
+        stock_quantity: Stock
