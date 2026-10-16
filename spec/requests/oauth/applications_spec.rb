@@ -15,7 +15,7 @@ RSpec.describe "OAuth applications", type: :request do
       follow_redirect!
 
       expect(response.body).to include(application.uid, "secret はこの画面でしか表示しません")
-      expect(response.body.scan(%r{<span class="break-all font-mono text-gray-900">\w+</span>}).size).to eq(1)
+      expect(response.body.scan(%r{<span class="break-all font-mono text-gray-900">[^<]+</span>}).size).to eq(1)
       expect(response.body).not_to include("border-red-200")
     end
 

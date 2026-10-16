@@ -1,12 +1,12 @@
 <% content_for :title, "商品の新規登録" %>
 
-<div class="max-w-2xl overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+<div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
   <div class="border-b border-gray-200 px-6 py-4">
     <h1 class="text-xl font-semibold text-gray-900">商品の新規登録</h1>
     <p class="mt-1 text-sm text-gray-500">サイズや色、価格、在庫は SKU ごとに持ちます。商品を登録したあと、詳細画面で SKU を追加してください。</p>
   </div>
 
-  <div class="px-6 py-6">
+  <div class="max-w-2xl px-6 py-6">
     <%= render "form", product: @product, submit_label: "登録する", cancel_path: console_products_path %>
   </div>
 </div>

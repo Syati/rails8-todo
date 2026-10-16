@@ -1,12 +1,12 @@
 <% content_for :title, "API クライアントの新規登録" %>
 
-<div class="max-w-2xl overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+<div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
   <div class="border-b border-gray-200 px-6 py-4">
     <h1 class="text-xl font-semibold text-gray-900">API クライアントの新規登録</h1>
     <p class="mt-1 text-sm text-gray-500">登録するとクライアント ID と secret を発行します。secret は登録直後に一度だけ表示します。</p>
   </div>
 
-  <div class="px-6 py-6">
+  <div class="max-w-2xl px-6 py-6">
     <%= render "form", application: @application, url: oauth_applications_path, method: :post, submit_label: "登録する", cancel_path: oauth_applications_path %>
   </div>
 </div>
