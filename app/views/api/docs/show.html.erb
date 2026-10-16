@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>API リファレンス | EC 受注管理</title>
+    <script src="https://unpkg.com/@stoplight/elements@9.0.27/web-components.min.js" integrity="sha384-enyjBaVmV00WFIo0D7AIVgtZ/4x0idVNWHotG8WUpvQo9HXgMSGAAW2YEOpiJTpP" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@stoplight/elements@9.0.27/styles.min.css" integrity="sha384-iVQBHadsD+eV0M5+ubRCEVXrXEBj+BqcuwjUwPoVJc0Pb1fmrhYSAhL+BFProHdV" crossorigin="anonymous">
+    <style>
+      html, body { height: 100%; margin: 0; }
+    </style>
+  </head>
+  <body>
+    <%# "Send API Request" runs in this page, so it carries the same session cookie as /console. %>
+    <elements-api
+      apiDescriptionUrl="<%= api_docs_openapi_path %>"
+      router="hash"
+      layout="sidebar"
+      tryItCredentialsPolicy="same-origin"
+    ></elements-api>
+  </body>
+</html>
