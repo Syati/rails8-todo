@@ -27,3 +27,9 @@ Doorkeeper.configure do
     render "shared/forbidden", layout: "application", status: :forbidden unless current_admin.super_admin?
   end
 end
+
+# Render /oauth/applications inside the console layout instead of Doorkeeper's Bootstrap one.
+# The views are in app/views/doorkeeper/applications.
+Rails.application.config.to_prepare do
+  Doorkeeper::ApplicationsController.layout "application"
+end

@@ -1,0 +1,12 @@
+<% content_for :title, "#{@application.name} | API クライアントの編集" %>
+
+<div class="max-w-2xl overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+  <div class="border-b border-gray-200 px-6 py-4">
+    <h1 class="text-xl font-semibold text-gray-900">API クライアントの編集</h1>
+    <p class="mt-1 text-sm text-gray-500">スコープを変えても、発行済みのトークンのスコープは変わりません。</p>
+  </div>
+
+  <div class="px-6 py-6">
+    <%= render "form", application: @application, url: oauth_application_path(@application), method: :patch, submit_label: "更新する", cancel_path: oauth_application_path(@application) %>
+  </div>
+</div>

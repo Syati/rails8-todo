@@ -1,0 +1,15 @@
+<%# Doorkeeper re-renders a failed form with status 200, which Turbo won't display, so submit without Turbo. %>
+<%= simple_form_for application, url: url, method: method, wrapper: :tailwind_form, html: { data: { turbo: false } } do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :name, label: "名前", hint: "呼び出し元のシステム名。例：倉庫システム" %>
+  <%= f.input :scopes, label: "スコープ", collection: [ [ "参照のみ（read）", "read" ], [ "参照と登録・更新・削除（read write）", "read write" ] ],
+                       selected: application.scopes.to_s.presence || "read", include_blank: false,
+                       hint: "トークンを取るときに scope を指定しなければ read だけになります。" %>
+  <%# Client credentials always uses a secret, so the client is always confidential. %>
+  <%= f.hidden_field :confidential, value: "1" %>
+
+  <div class="flex gap-2">
+    <%= f.button :submit, submit_label %>
+    <%= link_to "キャンセル", cancel_path, class: "rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
+  </div>
+<% end %>
