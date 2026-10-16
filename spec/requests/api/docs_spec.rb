@@ -22,6 +22,16 @@ RSpec.describe "Api::Docs", type: :request do
     end
   end
 
+  describe "サイドバー" do
+    it "開発者向けに API リファレンスへのリンクを出す" do
+      sign_in operator
+
+      get console_products_path
+
+      expect(response.body).to include(%(href="#{api_docs_path}" target="_blank"))
+    end
+  end
+
   describe "GET /api/docs/openapi.yaml" do
     it "api/openapi.yaml を返す", :aggregate_failures do
       sign_in operator
