@@ -1,7 +1,5 @@
-# JSON API. Two kinds of callers:
-# - the Next.js back office and /api/docs, with the Devise session cookie shared with /console
-#   (same origin, so no CORS);
-# - other systems, with a Bearer token from the client credentials grant (POST /oauth/token).
+# JSON API. Callers get a token with the OAuth 2 client credentials grant (POST /oauth/token,
+# see config/initializers/doorkeeper.rb) and send it as "Authorization: Bearer <token>".
 class Api::V1::BaseController < ActionController::API
   include Pagy::Method
   include Doorkeeper::Rails::Helpers
@@ -10,9 +8,6 @@ class Api::V1::BaseController < ActionController::API
   wrap_parameters false
 
   before_action :authenticate_api_client!
-  # Browsers can't send a cross-site application/json request without a CORS preflight, which
-  # this API never allows. Together with the SameSite=Lax session cookie this blocks CSRF.
-  # Bearer tokens are never sent by the browser on its own, so they need no such check.
   before_action :require_json_body, if: -> { request.post? || request.put? || request.patch? }
 
   rescue_from ActiveRecord::RecordNotFound do
@@ -21,18 +16,14 @@ class Api::V1::BaseController < ActionController::API
 
   private
 
-  # A request with an Authorization header is judged by its token alone, so a bad token is
-  # rejected even when the same browser also has a session.
+  # Answers with the error codes of RFC 6750 so OAuth clients can tell a missing or expired
+  # token (get a new one) from a missing scope (register the client with write).
   def authenticate_api_client!
-    if request.authorization.present?
-      authenticate_with_token!
-    elsif !admin_signed_in?
+    if request.authorization.blank?
+      response.headers["WWW-Authenticate"] = "Bearer"
       render json: { error: "unauthorized" }, status: :unauthorized
-    end
-  end
-
-  def authenticate_with_token!
-    if !doorkeeper_token&.accessible?
+    # doorkeeper_token is nil for a token that was never issued.
+    elsif !doorkeeper_token&.accessible?
       response.headers["WWW-Authenticate"] = %(Bearer error="invalid_token")
       render json: { error: "invalid_token" }, status: :unauthorized
     elsif !doorkeeper_token.includes_scope?(required_scope)
@@ -41,8 +32,7 @@ class Api::V1::BaseController < ActionController::API
     end
   end
 
-  # Admins signed in through the session may do everything their role allows; tokens need
-  # the write scope for anything that changes data.
+  # GET needs read; anything that changes data needs write.
   def required_scope
     request.get? || request.head? ? "read" : "write"
   end

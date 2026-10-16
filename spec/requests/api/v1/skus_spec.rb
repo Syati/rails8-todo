@@ -1,14 +1,9 @@
 require "rails_helper"
 
 RSpec.describe "Api::V1::Skus", type: :request do
-  include Devise::Test::IntegrationHelpers
-
-  let(:operator) { create(:admin) }
   let(:product) { create(:product) }
-  let(:headers) { { "Content-Type" => "application/json" } }
+  let(:headers) { api_headers(json: true) }
   let(:json) { response.parsed_body }
-
-  before { sign_in operator }
 
   describe "POST /api/v1/products/:product_id/skus" do
     it "SKU を追加して 201 で返す", :aggregate_failures do
@@ -61,7 +56,7 @@ RSpec.describe "Api::V1::Skus", type: :request do
     it "SKU を削除して 204 を返す", :aggregate_failures do
       sku = create(:sku, product: product)
 
-      expect { delete api_v1_sku_path(sku) }.to change(Catalog::Sku, :count).by(-1)
+      expect { delete api_v1_sku_path(sku), headers: headers }.to change(Catalog::Sku, :count).by(-1)
 
       expect(response).to conform_schema(204)
     end

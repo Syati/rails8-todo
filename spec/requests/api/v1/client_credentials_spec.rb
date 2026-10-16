@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Api::V1 client credentials", type: :request do
-  include Devise::Test::IntegrationHelpers
   include ActiveSupport::Testing::TimeHelpers
 
   let(:application) { create(:oauth_application) }
@@ -23,14 +22,20 @@ RSpec.describe "Api::V1 client credentials", type: :request do
     it "client credentials で read スコープのトークンを発行する", :aggregate_failures do
       issue_token
 
-      expect(response).to have_http_status(:ok)
+      expect(response).to conform_schema(200)
       expect(json).to include("token_type" => "Bearer", "scope" => "read", "expires_in" => 7200)
     end
 
     it "secret が違うと発行しない" do
       post oauth_token_path, params: { grant_type: "client_credentials", client_id: application.uid, client_secret: "wrong" }
 
-      expect(response).to have_http_status(:unauthorized)
+      expect(response).to conform_schema(401)
+    end
+
+    it "登録していないスコープは 400 を返す" do
+      issue_token(scope: "admin")
+
+      expect(response).to conform_schema(400)
     end
   end
 
@@ -41,15 +46,20 @@ RSpec.describe "Api::V1 client credentials", type: :request do
       expect(response).to conform_schema(200)
     end
 
-    it "失効したトークンは、セッションがあっても 401 を返す", :aggregate_failures do
+    it "失効したトークンは 401 を返す", :aggregate_failures do
       token = issue_token
       Doorkeeper::AccessToken.last.revoke
-      sign_in create(:admin)
 
       get api_v1_products_path, headers: bearer(token)
 
       expect(response).to conform_schema(401)
       expect(response.headers["WWW-Authenticate"]).to eq(%(Bearer error="invalid_token"))
+    end
+
+    it "発行していないトークンは 401 を返す" do
+      get api_v1_products_path, headers: bearer("unknown")
+
+      expect(json).to eq("error" => "invalid_token")
     end
 
     it "期限切れのトークンは 401 を返す" do

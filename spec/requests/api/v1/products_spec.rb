@@ -1,19 +1,15 @@
 require "rails_helper"
 
 RSpec.describe "Api::V1::Products", type: :request do
-  include Devise::Test::IntegrationHelpers
-
-  let(:operator) { create(:admin) }
+  let(:headers) { api_headers }
   let(:json) { response.parsed_body }
 
-  before { sign_in operator }
-
   def post_json(path, body)
-    post path, params: body.to_json, headers: { "Content-Type" => "application/json" }
+    post path, params: body.to_json, headers: headers.merge("Content-Type" => "application/json")
   end
 
   def patch_json(path, body)
-    patch path, params: body.to_json, headers: { "Content-Type" => "application/json" }
+    patch path, params: body.to_json, headers: headers.merge("Content-Type" => "application/json")
   end
 
   describe "GET /api/v1/products" do
@@ -22,7 +18,7 @@ RSpec.describe "Api::V1::Products", type: :request do
       newer = create(:product)
       sku = create(:sku, product: newer, code: "TS-0001")
 
-      get api_v1_products_path
+      get api_v1_products_path, headers: headers
 
       expect(response).to conform_schema(200)
       expect(json["products"].pluck("id")).to eq([ newer.id, older.id ])
@@ -38,7 +34,7 @@ RSpec.describe "Api::V1::Products", type: :request do
       create(:product, name: "有機麦茶", status: :discontinued)
       create(:product, name: "コーヒー豆", status: :on_sale)
 
-      get api_v1_products_path, params: { q: "有機", status: %w[on_sale draft] }
+      get api_v1_products_path, params: { q: "有機", status: %w[on_sale draft] }, headers: headers
 
       expect(response).to conform_schema(200)
       expect(json["products"].pluck("id")).to contain_exactly(tea.id, draft_tea.id)
@@ -47,7 +43,7 @@ RSpec.describe "Api::V1::Products", type: :request do
     it "per_page と page でページを分ける" do
       products = create_list(:product, 3)
 
-      get api_v1_products_path, params: { page: 2, per_page: 2 }
+      get api_v1_products_path, params: { page: 2, per_page: 2 }, headers: headers
 
       expect(json).to include(
         "products" => [ a_hash_including("id" => products.first.id) ],
@@ -56,15 +52,13 @@ RSpec.describe "Api::V1::Products", type: :request do
     end
 
     it "不正なクエリは 422 を返す", :aggregate_failures do
-      get api_v1_products_path, params: { per_page: 101, status: %w[unknown] }
+      get api_v1_products_path, params: { per_page: 101, status: %w[unknown] }, headers: headers
 
       expect(response).to conform_response_schema(422)
       expect(json["errors"].keys).to contain_exactly("per_page", "status")
     end
 
-    it "未ログインは 401 を返す", :aggregate_failures do
-      sign_out operator
-
+    it "トークンがなければ 401 を返す", :aggregate_failures do
       get api_v1_products_path
 
       expect(response).to conform_schema(401)
@@ -76,14 +70,14 @@ RSpec.describe "Api::V1::Products", type: :request do
     it "商品を返す" do
       product = create(:product, description: nil, tax_rate: :reduced)
 
-      get api_v1_product_path(product)
+      get api_v1_product_path(product), headers: headers
 
       expect(response).to conform_schema(200)
       expect(json).to include("id" => product.id, "description" => nil, "tax_rate" => "reduced", "skus" => [])
     end
 
     it "ない商品は 404 を返す", :aggregate_failures do
-      get api_v1_product_path(0)
+      get api_v1_product_path(0), headers: headers
 
       expect(response).to conform_schema(404)
       expect(json).to eq("error" => "not_found")
@@ -150,7 +144,7 @@ RSpec.describe "Api::V1::Products", type: :request do
     end
 
     it "JSON 以外は 415 を返す", :aggregate_failures do
-      expect { post api_v1_products_path, params: body }.not_to change(Catalog::Product, :count)
+      expect { post api_v1_products_path, params: body, headers: headers }.not_to change(Catalog::Product, :count)
 
       expect(response).to conform_response_schema(415)
     end
@@ -178,7 +172,7 @@ RSpec.describe "Api::V1::Products", type: :request do
     it "商品を SKU ごと削除して 204 を返す", :aggregate_failures do
       product = create(:sku).product
 
-      expect { delete api_v1_product_path(product) }
+      expect { delete api_v1_product_path(product), headers: headers }
         .to change(Catalog::Product, :count).by(-1).and change(Catalog::Sku, :count).by(-1)
 
       expect(response).to conform_schema(204)

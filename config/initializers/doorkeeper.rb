@@ -1,6 +1,5 @@
 # OAuth 2 for API clients such as other in-house systems. They get a token with the client
 # credentials grant (POST /oauth/token) and call /api/v1 with "Authorization: Bearer <token>".
-# The back office itself keeps using the Devise session; see Api::V1::BaseController.
 Doorkeeper.configure do
   orm :active_record
 

@@ -3,17 +3,15 @@ info:
   title: EC 受注管理 API
   version: 1.0.0
   description: |-
-    EC 受注管理システムの管理画面（Next.js）が呼ぶ JSON API。
+    EC 受注管理システムの JSON API。
 
-    認証は次のどちらか。
-
-    - **セッション cookie**：管理画面（Next.js）とこのリファレンスの試し実行。`/auth/sign_in` でログインしておく。
-    - **OAuth 2 client credentials**：ほかのシステムから呼ぶとき。super_admin が `/oauth/applications` でクライアントを登録し、
-    `POST /oauth/token`（`grant_type=client_credentials`）で取ったトークンを `Authorization: Bearer <token>` で送る。
+    認証は OAuth 2 の client credentials。super_admin が `/oauth/applications` でクライアントを登録し、
+    `POST /oauth/token` で取ったトークンを `Authorization: Bearer <token>` で送る。
     GET には `read`、登録・更新・削除には `write` のスコープが要る。トークンの有効期限は 2 時間。
 
     書き込み系のリクエストは `Content-Type: application/json` で送る。
 tags:
+  - name: 認証
   - name: 商品
   - name: SKU
 paths:
@@ -417,13 +415,106 @@ paths:
                 $ref: '#/components/schemas/V1.NotFoundError'
       tags:
         - SKU
+  /oauth/token:
+    post:
+      operationId: Tokens_create
+      summary: トークンの発行
+      description: client credentials でアクセストークンを発行する。
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuth.TokenResponse'
+        '400':
+          description: リクエストの形やスコープが正しくない。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuth.TokenErrorBody'
+        '401':
+          description: クライアント ID か secret が正しくない（`invalid_client`）。
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OAuth.TokenErrorBody'
+      tags:
+        - 認証
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OAuth.TokenRequest'
+      security:
+        - {}
 security:
-  - SessionCookieAuth: []
   - ClientCredentialsAuth:
       - read
       - write
 components:
   schemas:
+    OAuth.TokenErrorBody:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
+          description: '`invalid_request`、`unsupported_grant_type`、`invalid_scope` など。'
+        error_description:
+          type: string
+      description: RFC 6749 のエラー。
+    OAuth.TokenRequest:
+      type: object
+      required:
+        - grant_type
+        - client_id
+        - client_secret
+      properties:
+        grant_type:
+          type: string
+          enum:
+            - client_credentials
+        client_id:
+          type: string
+          description: '`/oauth/applications` で発行したクライアント ID。'
+        client_secret:
+          type: string
+          description: 登録直後に一度だけ表示した secret。
+        scope:
+          type: string
+          description: スペース区切りのスコープ。省略すると `read`。クライアントに登録したスコープの範囲で指定する。
+      description: トークンの発行（client credentials）。
+    OAuth.TokenResponse:
+      type: object
+      required:
+        - access_token
+        - token_type
+        - expires_in
+        - scope
+        - created_at
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+          enum:
+            - Bearer
+        expires_in:
+          type: integer
+          format: int32
+          description: 有効期限（秒）。
+        scope:
+          type: string
+          description: スペース区切りのスコープ。
+        created_at:
+          type: integer
+          format: int64
+          description: 発行日時（UNIX 秒）。
+      description: 発行したトークン。
     V1.ForbiddenError:
       type: object
       required:
@@ -703,10 +794,6 @@ components:
         入力が正しくない。`errors` は項目ごとのエラーメッセージで、ネストした項目と配列の要素は
         object でたどる（例：`{"skus": {"0": {"code": ["を入力してください"]}}}`）。
   securitySchemes:
-    SessionCookieAuth:
-      type: apiKey
-      in: cookie
-      name: _rails8_todo_session
     ClientCredentialsAuth:
       type: oauth2
       flows:

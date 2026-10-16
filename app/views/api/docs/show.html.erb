@@ -11,12 +11,11 @@
     </style>
   </head>
   <body>
-    <%# "Send API Request" runs in this page, so it carries the same session cookie as /console. %>
+    <%# For "Send API Request", get a token at POST /oauth/token and paste it as the Bearer token. %>
     <elements-api
       apiDescriptionUrl="<%= api_docs_openapi_path %>"
       router="hash"
       layout="sidebar"
-      tryItCredentialsPolicy="same-origin"
     ></elements-api>
   </body>
 </html>
