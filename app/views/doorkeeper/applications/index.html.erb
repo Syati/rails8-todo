@@ -1,0 +1,37 @@
+<% content_for :title, "API クライアント" %>
+
+<div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+  <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 px-6 py-4">
+    <div>
+      <h1 class="text-xl font-semibold text-gray-900">API クライアント</h1>
+      <p class="mt-1 text-sm text-gray-500">OAuth 2 の client credentials で API を呼ぶシステムを登録します。</p>
+    </div>
+    <%= link_to "新規登録", new_oauth_application_path, class: "rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300" %>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="w-full text-left text-sm text-gray-500">
+      <thead class="bg-gray-50 text-xs uppercase text-gray-700">
+        <tr>
+          <th scope="col" class="px-6 py-3">名前</th>
+          <th scope="col" class="px-6 py-3">クライアント ID</th>
+          <th scope="col" class="px-6 py-3">スコープ</th>
+          <th scope="col" class="px-6 py-3">登録日時</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @applications.each do |application| %>
+          <tr class="border-b border-gray-200 bg-white hover:bg-gray-50">
+            <td class="px-6 py-4"><%= link_to application.name, oauth_application_path(application), class: "font-medium text-blue-600 hover:underline" %></td>
+            <td class="px-6 py-4 font-mono text-xs text-gray-900"><%= application.uid %></td>
+            <td class="px-6 py-4"><%= render "scopes", application: application %></td>
+            <td class="px-6 py-4 tabular-nums"><%= l(application.created_at, format: :long) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% if @applications.empty? %>
+      <p class="px-6 py-8 text-center text-sm text-gray-500">登録されたクライアントはありません。</p>
+    <% end %>
+  </div>
+</div>

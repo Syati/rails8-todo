@@ -6,3 +6,4 @@ database:
   password: <%= Rails.application.credentials.dig(:database, :password) %>
   host: # override on each env
   port: # override on each env
+dev_api_client: # fixed OAuth client for local API calls; set only in settings/development.yml

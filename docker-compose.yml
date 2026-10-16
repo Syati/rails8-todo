@@ -38,6 +38,7 @@ services:
       - default
       - dev-proxy
     volumes:
+      - ./api:/rails/api
       - ./app:/rails/app
       - ./bin:/rails/bin
       - ./config:/rails/config

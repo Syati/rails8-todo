@@ -1,0 +1,62 @@
+<% content_for :title, "#{@application.name} | API クライアント" %>
+<%# Set by Doorkeeper right after create. Only the digest is stored, so this is the one chance to copy it. %>
+<% secret = flash[:application_secret].presence || @application.plaintext_secret %>
+
+<div class="grid gap-6">
+  <div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+    <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 px-6 py-4">
+      <h1 class="text-xl font-semibold text-gray-900"><%= @application.name %></h1>
+      <div class="flex gap-2">
+        <%= link_to "編集", edit_oauth_application_path(@application), class: "rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300" %>
+        <%= button_to "削除", oauth_application_path(@application), method: :delete, form: { data: { turbo_confirm: "#{@application.name} を削除します。発行済みのトークンも使えなくなります。よろしいですか？" } }, class: "rounded-lg bg-red-700 px-4 py-2 text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300" %>
+        <%= link_to "一覧へ戻る", oauth_applications_path, class: "rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
+      </div>
+    </div>
+
+    <% if secret.present? %>
+      <div class="border-b border-yellow-200 bg-yellow-50 px-6 py-4 text-sm text-yellow-800" role="alert">
+        secret はこの画面でしか表示しません。いまコピーして、呼び出し元のシステムに安全に保管してください。
+      </div>
+    <% end %>
+
+    <dl class="divide-y divide-gray-200">
+      <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+        <dt class="text-sm font-medium text-gray-500">クライアント ID</dt>
+        <dd class="break-all font-mono text-sm text-gray-900 sm:col-span-2" id="application_id"><%= @application.uid %></dd>
+      </div>
+      <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+        <dt class="text-sm font-medium text-gray-500">secret</dt>
+        <dd class="text-sm sm:col-span-2" id="secret">
+          <% if secret.present? %>
+            <span class="break-all font-mono text-gray-900"><%= secret %></span>
+          <% else %>
+            <span class="text-gray-500">ハッシュで保存しているため表示できません。分からなくなったら、クライアントを登録し直してください。</span>
+          <% end %>
+        </dd>
+      </div>
+      <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+        <dt class="text-sm font-medium text-gray-500">スコープ</dt>
+        <dd class="text-sm sm:col-span-2"><%= render "scopes", application: @application %></dd>
+      </div>
+      <div class="grid gap-1 px-6 py-4 sm:grid-cols-3 sm:gap-4">
+        <dt class="text-sm font-medium text-gray-500">登録日時</dt>
+        <dd class="text-sm text-gray-900 sm:col-span-2"><%= l(@application.created_at, format: :long) %></dd>
+      </div>
+    </dl>
+  </div>
+
+  <div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+    <div class="border-b border-gray-200 px-6 py-4">
+      <h2 class="text-lg font-semibold text-gray-900">トークンの取り方</h2>
+      <p class="mt-1 text-sm text-gray-500">トークンの有効期限は 2 時間です。期限が切れたら同じ手順で取り直します。詳しくは <%= link_to "API リファレンス", api_docs_path, class: "text-blue-600 hover:underline", target: "_blank", rel: "noopener" %> を見てください。</p>
+    </div>
+    <pre class="overflow-x-auto bg-gray-900 px-6 py-4 text-xs leading-relaxed text-gray-100"><code>curl -X POST <%= oauth_token_url %> \
+  -d grant_type=client_credentials \
+  -d client_id=<%= @application.uid %> \
+  -d client_secret=$CLIENT_SECRET \
+  -d scope="<%= @application.scopes %>"
+
+curl <%= api_v1_products_url %> \
+  -H "Authorization: Bearer $ACCESS_TOKEN"</code></pre>
+  </div>
+</div>

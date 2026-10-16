@@ -3,6 +3,8 @@
 @source "../../../app/views/**/*.erb";
 @source "../../../app/helpers/**/*.rb";
 @source "../../../app/javascript/**/*.js";
+/* Wrapper classes for simple_form */
+@source "../../../config/initializers/simple_form.rb";
 
 @theme {
   --font-sans: "Noto Sans JP", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
