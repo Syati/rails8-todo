@@ -21,7 +21,7 @@ products = [
 ]
 
 products.each do |prefix, name, status, tax_rate, description, skus|
-  product = Product.find_or_create_by!(name: name) do |record|
+  product = Catalog::Product.find_or_create_by!(name: name) do |record|
     record.status = status
     record.tax_rate = tax_rate
     record.description = description

@@ -15,7 +15,7 @@
 #  index_products_on_status  (status)
 #
 FactoryBot.define do
-  factory :product do
+  factory :product, class: "Catalog::Product" do
     sequence(:name) { |n| "オーガニックコットン T シャツ #{n}" }
     description { "厚手の綿 100% の T シャツ。" }
     status { :on_sale }

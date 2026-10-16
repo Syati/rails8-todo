@@ -1,2 +1,0 @@
-<% badge_class = { "on_sale" => "bg-green-100 text-green-800", "draft" => "bg-gray-100 text-gray-800", "discontinued" => "bg-red-100 text-red-800" }.fetch(product.status) %>
-<span class="rounded-sm px-2.5 py-0.5 text-xs font-medium <%= badge_class %>"><%= Product.human_attribute_name("status.#{product.status}") %></span>

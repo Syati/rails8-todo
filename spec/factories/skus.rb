@@ -22,7 +22,7 @@
 #  fk_rails_...  (product_id => products.id)
 #
 FactoryBot.define do
-  factory :sku do
+  factory :sku, class: "Catalog::Sku" do
     product
     sequence(:code) { |n| "TS-#{n.to_s.rjust(4, '0')}" }
     size { "M" }

@@ -1,8 +1,0 @@
-ja:
-  products:
-    create:
-      success: "商品「%{name}」を登録しました。続けて SKU を追加してください。"
-    update:
-      success: "商品を更新しました。"
-    destroy:
-      success: "商品「%{name}」と、その SKU を削除しました。"

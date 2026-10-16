@@ -1,0 +1,27 @@
+ja:
+  activerecord:
+    models:
+      catalog/product: 商品
+      catalog/sku: SKU
+    attributes:
+      catalog/product:
+        name: 商品名
+        description: 説明
+        status: 販売状態
+        tax_rate: 税率
+        skus: SKU
+        created_at: 登録日
+        updated_at: 更新日
+      catalog/product/status:
+        draft: 下書き
+        on_sale: 販売中
+        discontinued: 販売終了
+      catalog/product/tax_rate:
+        standard: 標準税率 10%
+        reduced: 軽減税率 8%
+      catalog/sku:
+        code: SKU コード
+        size: サイズ
+        color: 色
+        price_yen: 税込価格（円）
+        stock_quantity: 在庫数

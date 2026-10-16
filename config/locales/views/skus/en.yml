@@ -1,8 +1,0 @@
-en:
-  skus:
-    create:
-      success: "Added SKU %{code}."
-    update:
-      success: "Updated SKU %{code}."
-    destroy:
-      success: "Deleted SKU %{code}."

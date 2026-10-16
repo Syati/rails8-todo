@@ -45,17 +45,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_16_012703) do
     t.index ["unlock_token"], name: "index_admins_on_unlock_token", unique: true
   end
 
-  create_table "products", force: :cascade do |t|
+  create_table "catalog_products", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.integer "status", default: 0, null: false
     t.integer "tax_rate", default: 10, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["status"], name: "index_products_on_status"
+    t.index ["status"], name: "index_catalog_products_on_status"
   end
 
-  create_table "skus", force: :cascade do |t|
+  create_table "catalog_skus", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.string "code", null: false
     t.string "size"
@@ -64,11 +64,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_16_012703) do
     t.integer "stock_quantity", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["code"], name: "index_skus_on_code", unique: true
-    t.index ["product_id", "size", "color"], name: "index_skus_on_product_id_and_size_and_color", unique: true, nulls_not_distinct: true
-    t.check_constraint "price_yen >= 0", name: "skus_price_yen_non_negative"
-    t.check_constraint "stock_quantity >= 0", name: "skus_stock_quantity_non_negative"
+    t.index ["code"], name: "index_catalog_skus_on_code", unique: true
+    t.index ["product_id", "size", "color"], name: "index_catalog_skus_on_product_id_and_size_and_color", unique: true, nulls_not_distinct: true
+    t.check_constraint "price_yen >= 0", name: "catalog_skus_price_yen_non_negative"
+    t.check_constraint "stock_quantity >= 0", name: "catalog_skus_stock_quantity_non_negative"
   end
 
-  add_foreign_key "skus", "products"
+  add_foreign_key "catalog_skus", "catalog_products", column: "product_id"
 end

@@ -13,9 +13,9 @@ issue_sync_key: document_id + scope_id
 
 | 操作 | エンドポイント | `action` の値 |
 | --- | --- | --- |
-| 作成 | `POST /admins` | `create` |
-| 更新 | `PATCH /admins/:id` | `update` |
-| 論理削除 | `DELETE /admins/:id` | `destroy` |
+| 作成 | `POST /console/admins` | `create` |
+| 更新 | `PATCH /console/admins/:id` | `update` |
+| 論理削除 | `DELETE /console/admins/:id` | `destroy` |
 
 失敗した操作（バリデーションエラー、403）は記録しない。403 はアプリケーションログで追う。
 
