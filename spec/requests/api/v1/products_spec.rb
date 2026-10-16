@@ -51,6 +51,16 @@ RSpec.describe "Api::V1::Products", type: :request do
       )
     end
 
+    # Pagy raises Pagy::RangeError only with raise_range_error, which this app doesn't set.
+    it "最後のページより後ろは、空の一覧を 200 で返す", :aggregate_failures do
+      create(:product)
+
+      get api_v1_products_path, params: { page: 99 }, headers: headers
+
+      expect(response).to conform_schema(200)
+      expect(json).to include("products" => [], "pagination" => a_hash_including("page" => 99, "pages" => 1))
+    end
+
     it "不正なクエリは 422 を返す", :aggregate_failures do
       get api_v1_products_path, params: { per_page: 101, status: %w[unknown] }, headers: headers
 
