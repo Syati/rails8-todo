@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   get "faq", to: "faq#index"
 
   resources :admins
+  resources :products do
+    resources :skus, only: %i[new create edit update destroy]
+  end
 
   # Defines the root path route ("/")
   root "dashboard#index"

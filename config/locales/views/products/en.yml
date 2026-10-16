@@ -1,0 +1,8 @@
+en:
+  products:
+    create:
+      success: "Product \"%{name}\" created. Add its SKUs next."
+    update:
+      success: "Product updated."
+    destroy:
+      success: "Deleted product \"%{name}\" and its SKUs."

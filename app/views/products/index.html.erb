@@ -1,0 +1,71 @@
+<% content_for :title, "商品一覧" %>
+
+<div class="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
+  <div class="flex flex-wrap items-center justify-between gap-4 border-b border-gray-200 px-6 py-4">
+    <h1 class="text-xl font-semibold text-gray-900">商品一覧</h1>
+    <%= link_to "新規登録", new_product_path, class: "rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300" %>
+  </div>
+
+  <div class="border-b border-gray-200 px-6 py-4">
+    <%= search_form_for @q, url: products_path, method: :get, html: { class: "grid gap-4 md:grid-cols-12 md:items-end" } do |f| %>
+      <div class="md:col-span-2">
+        <%= f.label :id_eq, "ID", class: "mb-2 block text-sm font-medium text-gray-900" %>
+        <%= f.search_field :id_eq, class: "block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500", placeholder: "例: 123" %>
+      </div>
+      <div class="md:col-span-4">
+        <%= f.label :name_cont, Product.human_attribute_name(:name), class: "mb-2 block text-sm font-medium text-gray-900" %>
+        <%= f.search_field :name_cont, class: "block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500", placeholder: "部分一致検索" %>
+      </div>
+      <div class="md:col-span-2">
+        <%= f.label :status_eq, Product.human_attribute_name(:status), class: "mb-2 block text-sm font-medium text-gray-900" %>
+        <%= f.select :status_eq, Product.statuses.map { |key, value| [ Product.human_attribute_name("status.#{key}"), value ] }, { include_blank: "すべて" }, class: "block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500" %>
+      </div>
+      <div class="flex gap-2 md:col-span-4">
+        <%= f.submit "検索", class: "rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300" %>
+        <%= link_to "クリア", products_path, class: "rounded-lg border border-gray-300 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-100" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="w-full text-left text-sm text-gray-500">
+      <thead class="bg-gray-50 text-xs uppercase text-gray-700">
+        <tr>
+          <th scope="col" class="px-6 py-3">
+            <%= link_to products_path(q: @search_query, sort: @sort == "desc" ? "asc" : "desc"), class: "inline-flex items-center gap-1 hover:text-gray-900", data: { testid: "sort-id" } do %>
+              ID <span aria-hidden="true"><%= @sort == "desc" ? "▼" : "▲" %></span>
+              <span class="sr-only"><%= @sort == "desc" ? "降順（クリックで昇順）" : "昇順（クリックで降順）" %></span>
+            <% end %>
+          </th>
+          <th scope="col" class="px-6 py-3"><%= Product.human_attribute_name(:name) %></th>
+          <th scope="col" class="px-6 py-3"><%= Product.human_attribute_name(:status) %></th>
+          <th scope="col" class="px-6 py-3 text-right">SKU 数</th>
+          <th scope="col" class="px-6 py-3 text-right">税込価格</th>
+          <th scope="col" class="px-6 py-3 text-right">在庫合計</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @products.each do |product| %>
+          <tr class="border-b border-gray-200 bg-white hover:bg-gray-50">
+            <td class="px-6 py-4 font-medium text-gray-900"><%= product.id %></td>
+            <td class="px-6 py-4"><%= link_to product.name, product_path(product), class: "font-medium text-blue-600 hover:underline" %></td>
+            <td class="px-6 py-4"><%= render "products/status_badge", product: product %></td>
+            <td class="px-6 py-4 text-right tabular-nums"><%= product.skus.size %></td>
+            <td class="px-6 py-4 text-right tabular-nums"><%= price_range(product.skus) %></td>
+            <td class="px-6 py-4 text-right tabular-nums"><%= number_with_delimiter(product.skus.sum(&:stock_quantity)) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <% if @products.empty? %>
+      <p class="px-6 py-8 text-center text-sm text-gray-500">条件に合う商品はありません。</p>
+    <% end %>
+  </div>
+
+  <div class="flex flex-wrap items-center justify-between gap-4 px-6 py-4">
+    <p class="text-sm text-gray-700">
+      全 <span class="font-semibold text-gray-900"><%= @pagy.count %></span> 件
+    </p>
+    <%== @pagy.series_nav(aria_label: "商品一覧のページ") if @pagy.last > 1 %>
+  </div>
+</div>

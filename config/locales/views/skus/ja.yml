@@ -1,0 +1,8 @@
+ja:
+  skus:
+    create:
+      success: "SKU %{code} を追加しました。"
+    update:
+      success: "SKU %{code} を更新しました。"
+    destroy:
+      success: "SKU %{code} を削除しました。"
