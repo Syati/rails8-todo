@@ -18,12 +18,24 @@ Rails.application.routes.draw do
   # FAQ
   get "faq", to: "faq#index"
 
-  # Back-office screens rendered by Rails. The JSON API for Next.js will live under /api.
+  # Back-office screens rendered by Rails.
   namespace :console do
     resources :admins
     resources :products do
       resources :skus, only: %i[new create edit update destroy]
     end
+  end
+
+  # JSON API for the Next.js back office. The contract is api/openapi.yaml, built from api/*.tsp.
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :products, only: %i[index show create update destroy] do
+        resources :skus, only: %i[create update destroy], shallow: true
+      end
+    end
+
+    get "docs", to: "docs#show", defaults: { format: :html }
+    get "docs/openapi.yaml", to: "docs#openapi", as: :docs_openapi, defaults: { format: :yaml }
   end
 
   # Defines the root path route ("/")

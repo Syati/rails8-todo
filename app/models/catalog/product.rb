@@ -15,7 +15,7 @@
 #  index_catalog_products_on_status  (status)
 #
 class Catalog::Product < ApplicationRecord
-  has_many :skus, -> { order(:id) }, dependent: :destroy, inverse_of: :product
+  has_many :skus, -> { order(:id) }, dependent: :destroy, inverse_of: :product, autosave: true, index_errors: true
 
   enum :status, { draft: 0, on_sale: 1, discontinued: 2 }, default: :draft, validate: true
   # Stored as the percentage itself. Food and drink use the 8% reduced rate.
