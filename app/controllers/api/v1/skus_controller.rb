@@ -9,7 +9,7 @@ class Api::V1::SkusController < Api::V1::BaseController
     sku = product.skus.build(request_params.attributes(compact_mode: :nil_only))
 
     if sku.save
-      render json: Api::V1::SkuSerializer.call(sku), status: :created
+      render json: Api::V1::SkuResource.new(sku).to_h, status: :created
     else
       render_validation_errors(sku.errors)
     end
@@ -20,7 +20,7 @@ class Api::V1::SkusController < Api::V1::BaseController
     return render_validation_errors(request_params.errors) if request_params.invalid?
 
     if @sku.update(sent_attributes(request_params))
-      render json: Api::V1::SkuSerializer.call(@sku)
+      render json: Api::V1::SkuResource.new(@sku).to_h
     else
       render_validation_errors(@sku.errors)
     end

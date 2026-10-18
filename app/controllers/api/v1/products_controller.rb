@@ -6,11 +6,11 @@ class Api::V1::ProductsController < Api::V1::BaseController
     return render_validation_errors(query.errors) if query.invalid?
 
     pagy, products = pagy(search(query).includes(:skus).order(id: :desc), limit: query.per_page, page: query.page)
-    render json: { products: products.map { Api::V1::ProductSerializer.call(it) }, pagination: pagination(pagy) }
+    render json: { products: Api::V1::ProductResource.new(products).to_h, pagination: Api::V1::PaginationResource.new(pagy).to_h }
   end
 
   def show
-    render json: Api::V1::ProductSerializer.call(@product)
+    render json: Api::V1::ProductResource.new(@product).to_h
   end
 
   def create
@@ -22,7 +22,7 @@ class Api::V1::ProductsController < Api::V1::BaseController
     Array(request_params.skus).each { |sku| product.skus.build(sku.attributes(compact_mode: :nil_only)) }
 
     if product.save
-      render json: Api::V1::ProductSerializer.call(product), status: :created
+      render json: Api::V1::ProductResource.new(product).to_h, status: :created
     else
       render_validation_errors(product.errors)
     end
@@ -33,7 +33,7 @@ class Api::V1::ProductsController < Api::V1::BaseController
     return render_validation_errors(request_params.errors) if request_params.invalid?
 
     if @product.update(sent_attributes(request_params))
-      render json: Api::V1::ProductSerializer.call(@product)
+      render json: Api::V1::ProductResource.new(@product).to_h
     else
       render_validation_errors(@product.errors)
     end

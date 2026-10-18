@@ -40,6 +40,8 @@ gem "simple_form"
 # API
 # Typed request parameters for the JSON API
 gem "structured_params", "~> 0.9.5"
+# JSON serializers for the API (app/resources)
+gem "alba", "~> 4.0"
 
 # Frontend assets
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
